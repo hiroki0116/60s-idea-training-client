@@ -200,7 +200,7 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
         </Form>
         <Divider />
         <div className="flex items-center justify-center">
-          <div className="mr-2">You don't have an account?</div>
+          <div className="mr-2">You do not have an account yet?</div>
           <Button
             type="link"
             className="p-0 m-0"
