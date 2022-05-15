@@ -53,7 +53,6 @@ export const currAuthUser = () => {
     const cookieChecked = getCookie('token');
     if (cookieChecked) {
       const userString:any = localStorage.getItem('user');
-      const user = JSON.parse(userString);
 
       if (userString && userString !== 'undefined') {
         const userObj = JSON.parse(userString);

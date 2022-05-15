@@ -3,9 +3,8 @@ import { auth } from 'utils/firebase';
 import { AuthContext } from 'context/authContext';
 import { SignUpOrLoginModal } from 'components/auth/SignUpOrLogin';
 import { LoginModal } from 'components/auth/Login';
-// import { RegisterModal } from 'components/auth/Register';
+import { RegisterModal } from 'components/auth/Signup';
 import { logoutToHomePage } from 'utils/auth';
-// import { RegisterModal } from '../auth/Register';
 
 
 const NavBarDesktop = () => {
@@ -26,7 +25,7 @@ const NavBarDesktop = () => {
       </div>
       <SignUpOrLoginModal />
       <LoginModal />
-      {/* <RegisterModal /> */}
+      <RegisterModal />
     </div>
   )
   return (

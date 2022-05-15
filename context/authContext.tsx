@@ -64,7 +64,10 @@ export const AuthProvider = ({ children }) => {
     });
     return () => unsubscribe();
   }, []);
-
+  
+  useEffect(() => {
+    if (showLoginOrRegister && (showLogin || showRegister)) setShowLoginOrRegister(false);
+  }, [showLoginOrRegister, showLogin, showRegister]);
 
   const value = {
     user,

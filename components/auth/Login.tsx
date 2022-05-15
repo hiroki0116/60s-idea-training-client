@@ -89,7 +89,7 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
       saveUserAndToken(userFromDB, idTokenResult.token);
       form.resetFields();
       message.success('Login success.');
-
+      setShowLogin(false)
       Router.push('/dashboard');
     } catch (err: any) {
       console.log(err);
