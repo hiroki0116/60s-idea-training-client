@@ -1,1 +1,1 @@
-export const LOGO_IMAGE = 'https://ik.imagekit.io/8tectxzxl7k/layout/logo.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652516767550';
+export const LOGO_IMAGE = 'https://ik.imagekit.io/8tectxzxl7k/layout/logo_dd1heiFNU.png?ik-sdk-version=javascript-1.4.3&updatedAt=1652525044332';
