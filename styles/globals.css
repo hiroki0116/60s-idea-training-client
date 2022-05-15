@@ -9,7 +9,7 @@ body {
   margin: 0;
   color:#2c4354;
   background-color: #fff;
-  font-family: 'Quicksand', sans-serif;
+  font-family: sans-serif;
 }
 
 a {
@@ -19,4 +19,5 @@ a {
 
 * {
   box-sizing: border-box;
+  font-family: sans-serif;
 }
