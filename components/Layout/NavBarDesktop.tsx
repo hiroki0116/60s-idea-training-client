@@ -4,11 +4,11 @@ import { AuthContext } from 'context/authContext';
 import { SignUpOrLoginModal } from 'components/auth/SignUpOrLogin';
 import { LoginModal } from 'components/auth/Login';
 import { RegisterModal } from 'components/auth/Signup';
-import { logoutToHomePage } from 'utils/auth';
+import { logoutToHomePage,isAuth } from 'utils/auth';
 
 
 const NavBarDesktop = () => {
-  const { user, setUser, setShowLoginOrRegister, setIsApply } = useContext(AuthContext);
+  const { setUser, setShowLoginOrRegister, setShowRegister } = useContext(AuthContext);
 
   const handleLogout = () => {
     auth.signOut();
@@ -16,11 +16,14 @@ const NavBarDesktop = () => {
     logoutToHomePage();
   };
   
-  const renderSignInUpContent = () => (
-    <div className='flex flex-row items-center rounded-lg px-5'>
+  const renderBeforeLogin = () => (
+    <div className='flex flex-row items-center rounded-lg'>
       <div className='flex text-base'>
-        <a className="nav-link mr-4 cursor-pointer" onClick={()=>setShowLoginOrRegister(true)}>
-          SignIn
+        <a className="nav-link mr-8 cursor-pointer font-bold" onClick={()=>setShowRegister(true)}>
+          Register
+        </a>
+        <a className="nav-link cursor-pointer font-bold" onClick={()=>setShowLoginOrRegister(true)}>
+          Login
         </a>
       </div>
       <SignUpOrLoginModal />
@@ -28,11 +31,17 @@ const NavBarDesktop = () => {
       <RegisterModal />
     </div>
   )
-  return (
-    <div className="flex flex-row items-center  translate-x-20 ">
-      {renderSignInUpContent()}
+
+  const renderAfterLogin = () => (
+    <div className='flex text-base'>
+      <a className="nav-link mr-8 cursor-pointer font-bold" onClick={handleLogout}>
+        Logout
+      </a>
     </div>
   )
+
+
+  return isAuth() ? renderAfterLogin() : renderBeforeLogin();
 }
 
 export default NavBarDesktop

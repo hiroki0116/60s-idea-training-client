@@ -75,7 +75,6 @@ export const logoutToHomePage = () => {
 export const logout = () => {
   removeCookie('token');
   removeLocalStorage('user');
-  removeLocalStorage('verifyLater')
 };
 
 export const syncAuthFromDB = async (id: string) => {
