@@ -1,8 +1,10 @@
 import React from 'react'
-
+import DashboardAuthWrapper from 'components/auth/DashboardAuthWrapper'
 const dashboard = () => {
   return (
-    <div>dashboard</div>
+    <DashboardAuthWrapper>
+      <div>dashboard</div>
+    </DashboardAuthWrapper>
   )
 }
 
