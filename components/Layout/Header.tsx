@@ -1,13 +1,11 @@
-import { useEffect, useState } from "react";
-import Link from 'next/link';
-import { Badge,Dropdown, Menu, Divider } from "antd";
+import { useEffect } from "react";
+import { Badge,Dropdown, Menu } from "antd";
 
 import { BellFilled } from "@ant-design/icons";
 
 const Header = ({ name }) => {
 
   useEffect(() => window.scrollTo(0, 0));
-  const [visible, setVisible] = useState<boolean>(false)
 
   const notifications = [
     {

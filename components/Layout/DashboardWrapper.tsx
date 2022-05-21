@@ -3,28 +3,26 @@ import Header from './Header';
 import Footer from './Footer'
 import Sidenav from './Sidenav';
 import { useRouter } from 'next/router';
-import { useState } from "react";
 
 const { Header: AntHeader, Content, Sider } = Layout;
 
 const DashboardWrapper = ({children}) => {
     const router = useRouter();
-    const [isCollapse, setIsCollapse] = useState<boolean>(false);
   
     return (
-      <Layout className={"h-screen"}>
+      <Layout>
         <Sider
           breakpoint="lg"
           trigger={null}
           width={200}
           theme="light"
-          className="fixed left-0 h-full"
+          className="h-screen"
         >
-          <Sidenav color={'#0a2339'} />
+          <Sidenav />
         </Sider>
         <Layout>
           <Header name={router.pathname}/>
-          <Content className="content-ant">{children}</Content>
+          <Content className="px-5 py-10 bg-slate-50">{children}</Content>
           <Footer />
         </Layout>
       </Layout>
