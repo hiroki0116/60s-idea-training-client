@@ -1,14 +1,14 @@
 import React from 'react'
 import DashboardAuthWrapper from 'components/auth/DashboardAuthWrapper'
 import DashboardWrapper from 'components/Layout/DashboardWrapper'
-const dashboard = () => {
+const settings = () => {
   return (
     <DashboardWrapper>
       <DashboardAuthWrapper>
-      <div>Page contents</div>
+      <div>Settings contents</div>
       </DashboardAuthWrapper>
     </DashboardWrapper>
   )
 }
 
-export default dashboard
+export default settings

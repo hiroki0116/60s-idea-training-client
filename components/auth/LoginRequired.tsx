@@ -1,15 +1,7 @@
-import { useEffect, useContext } from 'react';
 import { Result, Button } from 'antd';
 import Link from 'next/link';
 
-import { AuthContext } from 'context/authContext';
-
 const LoginRequired = () => {
-  const { setShowLoginOrRegister } = useContext(AuthContext);
-
-  useEffect(() => {
-    setShowLoginOrRegister(true);
-  }, []);
 
   return (
     <Result

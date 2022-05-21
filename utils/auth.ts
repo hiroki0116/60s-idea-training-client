@@ -111,4 +111,10 @@ export const signInWithCustomToken = async (token:string) => {
   } catch (error: any) {
     console.error('error on signing in with custom token ', error.message);
   }
+}
+
+export const handleLogout = (setUser) => {
+  auth.signOut();
+  setUser(null);
+  logoutToHomePage();
 };
