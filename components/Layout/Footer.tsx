@@ -2,7 +2,7 @@
 const Footer = () => {
 
   return (
-    <footer className='h-12'>
+    <footer className='h-12 bg-slate-50'>
       <div className="flex justify-between px-20">
           <div className="italic">
             © 2021, 60seconds Idea Training.

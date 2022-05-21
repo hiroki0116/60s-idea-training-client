@@ -8,7 +8,7 @@ import { LOGO_IMAGE } from "utils/constants";
 import { AppstoreFilled, LogoutOutlined,FireFilled,SignalFilled,SettingFilled } from "@ant-design/icons";
 import { handleLogout } from "utils/auth";
 
-const Sidenav = ({color}) => {
+const Sidenav = () => {
   const router = useRouter();
   const { setUser } = useContext(AuthContext);
   const selectedStyle = 'font-bold border-r-4 bg-blue-50';
