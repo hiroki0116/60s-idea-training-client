@@ -1,6 +1,6 @@
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
-const CountDownTimer = ({isPlaying}) => {
+const CountDownTimer = ({isPlaying,handleSubmit}) => {
         
   const renderTimeLeft = ({ remainingTime }) => {
     if (remainingTime === 0) {
@@ -21,13 +21,11 @@ const CountDownTimer = ({isPlaying}) => {
     <>
         <CountdownCircleTimer
             isPlaying={isPlaying}
-            duration={60}
+            duration={10}
             colors={['#0a2339', '#F7B801', '#A30000', '#A30000']}
             colorsTime={[7, 5, 2, 0]}
             size={150}
-            onComplete={()=>{
-            // handleSubmit()
-            }}
+            onComplete={handleSubmit}
         >
             {renderTimeLeft}
         </CountdownCircleTimer>
