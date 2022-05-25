@@ -9,9 +9,6 @@ import IdeasInput from './IdeasInput';
 import {handleSubmitIdeas} from 'services/exercise';
 //Icons
 import TagOutlined from '@ant-design/icons/TagOutlined';
-import { withSuccess } from 'antd/lib/modal/confirm';
-
-const { TextArea } = Input;
 
 type FormValues = {
     topicTitle: string;
