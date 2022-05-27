@@ -30,25 +30,25 @@ const Sidenav = () => {
           key="1"
           className = {router.pathname === '/dashboard' && selectedStyle}
         >
-            <Link href={'/dashboard'}><a><AppstoreFilled style={{fontSize:'1.25rem'}}/>Dashboard</a></Link>
+            <Link href={'/dashboard'}><a><AppstoreFilled style={{fontSize:'1.25rem',verticalAlign:'middle'}}/>Dashboard</a></Link>
         </Menu.Item>
         <Menu.Item 
           key="2"
           className = {router.pathname === '/exercise' && selectedStyle}
         >
-            <Link href={'/exercise'}><a><FireFilled style={{fontSize:'1.25rem'}}/>Exercise</a></Link>
+            <Link href={'/exercise'}><a><FireFilled style={{fontSize:'1.25rem',verticalAlign:'middle'}}/>Exercise</a></Link>
         </Menu.Item>
         <Menu.Item 
           key="3"
           className = {router.pathname === '/records' && selectedStyle}
         >
-            <Link href={'/records'}><a><SignalFilled style={{fontSize:'1.25rem'}}/>Records</a></Link>
+            <Link href={'/records'}><a><SignalFilled style={{fontSize:'1.25rem',verticalAlign:'middle'}}/>Records</a></Link>
         </Menu.Item>
         <Menu.Item 
           key="4"
           className = {router.pathname === '/settings' && selectedStyle}
         >
-            <Link href={'/settings'}><a><SettingFilled style={{fontSize:'1.25rem'}}/>Settings</a></Link>
+            <Link href={'/settings'}><a><SettingFilled style={{fontSize:'1.25rem',verticalAlign:'middle'}}/>Settings</a></Link>
         </Menu.Item>
         <Menu.Divider key={Math.random()}/>
         <Menu.Item 
@@ -56,7 +56,7 @@ const Sidenav = () => {
           className='font-bold'
           onClick={()=>handleLogout(setUser)}
         >
-            <span><LogoutOutlined style={{fontSize:'1.25rem'}}/></span>
+            <span><LogoutOutlined style={{fontSize:'1.25rem',verticalAlign:'middle'}}/></span>
             <span>Logout</span>
         </Menu.Item>
       </Menu>

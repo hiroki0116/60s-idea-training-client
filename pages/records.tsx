@@ -1,11 +1,12 @@
-import React from 'react'
+import dynamic from 'next/dynamic'
 import DashboardAuthWrapper from 'components/auth/DashboardAuthWrapper'
 import DashboardWrapper from 'components/Layout/DashboardWrapper'
+
 const records = () => {
   return (
     <DashboardWrapper>
       <DashboardAuthWrapper>
-      <div>Records contents</div>
+        <p>record content</p>
       </DashboardAuthWrapper>
     </DashboardWrapper>
   )

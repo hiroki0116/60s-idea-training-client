@@ -1,11 +1,13 @@
-import React from 'react'
-import DashboardAuthWrapper from 'components/auth/DashboardAuthWrapper'
-import DashboardWrapper from 'components/Layout/DashboardWrapper'
+import dynamic from 'next/dynamic';
+import DashboardAuthWrapper from 'components/auth/DashboardAuthWrapper';
+import DashboardWrapper from 'components/Layout/DashboardWrapper';
+const ExerciseMain = dynamic(() => import('components/exercise/ExerciseMain'), {ssr:false});
+
 const exersize = () => {
   return (
     <DashboardWrapper>
       <DashboardAuthWrapper>
-      <div>Trainings contents</div>
+        <ExerciseMain />
       </DashboardAuthWrapper>
     </DashboardWrapper>
   )

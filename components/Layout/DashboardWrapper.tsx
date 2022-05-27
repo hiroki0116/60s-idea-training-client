@@ -3,12 +3,13 @@ import Header from './Header';
 import Footer from './Footer'
 import Sidenav from './Sidenav';
 import { useRouter } from 'next/router';
+import CenterSpin from "./CenterSpin";
 
 const { Header: AntHeader, Content, Sider } = Layout;
 
 const DashboardWrapper = ({children}) => {
     const router = useRouter();
-  
+    if (!router.isReady) return <CenterSpin />;
     return (
       <Layout>
         <Sider
