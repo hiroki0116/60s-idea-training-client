@@ -9,6 +9,9 @@ import AimOutlined from '@ant-design/icons/AimOutlined';
 import LineChartOutlined from '@ant-design/icons/LineChartOutlined';
 import BulbOutlined from '@ant-design/icons/BulbOutlined';
 import CalendarOutlined from '@ant-design/icons/CalendarOutlined';
+import { motion } from 'framer-motion';
+import { fadeInRight } from 'utils/animations';
+
 
 const { Meta } = Card;
 import { PRIMARY_COLOR } from 'utils/constants';
@@ -35,9 +38,14 @@ const HeadCards = () => {
 
   return (
     <>
-        <div className='flex flex-row justify-between sm:h-24 h-auto mb-5 gap-5'>
-            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4'>
-                <Skeleton loading={loading} active>
+        <motion.div
+            initial='initial'
+            animate='animate'
+            variants={fadeInRight}
+            className='flex flex-row justify-between sm:h-24 h-auto mb-5 gap-5'
+        >
+            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' >
+                <Skeleton loading={loading} active className={loading && '-mt-10'}>
                     <Meta
                         description={
                             <div className='flex flex-row justify-between'>
@@ -57,8 +65,9 @@ const HeadCards = () => {
                     />
                 </Skeleton>
             </Card>
-            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4'>
-                <Skeleton loading={loading} active>
+            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' >
+
+                <Skeleton loading={loading} active className={loading && '-mt-10'}>
                     <Meta
                         description={
                             <div className='flex flex-row justify-between'>
@@ -77,8 +86,8 @@ const HeadCards = () => {
                     />
                 </Skeleton>
             </Card>
-            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4'>
-                <Skeleton loading={loading} active>
+            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' >
+                    <Skeleton loading={loading} active className={loading && '-mt-10'}>
                     <Meta
                         description={
                             <div className='flex flex-row justify-between'>
@@ -98,8 +107,8 @@ const HeadCards = () => {
                     />
                 </Skeleton>
             </Card>
-            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4'>
-                <Skeleton loading={loading} active>
+            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' >
+                <Skeleton loading={loading} active className={loading && '-mt-10'}>
                     <Meta
                         description={
                             <div className='flex flex-row justify-between'>
@@ -118,7 +127,7 @@ const HeadCards = () => {
                     />
                 </Skeleton>
             </Card>
-        </div>
+        </motion.div>
     </>
   )
 }
