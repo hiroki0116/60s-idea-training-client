@@ -38,7 +38,7 @@ const ExerciseMain = () => {
     const handleSubmit = async()=> {
         setLoading(true)
         setIsPlaying(false);
-        const formValues = form.getFieldsValue();
+        const formValues:FormValues = form.getFieldsValue();
         try {
            const ideas = await handleSubmitIdeas(formValues.topicTitle, formValues.ideas);
             setTimeout(() =>handleReset(), 1000)
