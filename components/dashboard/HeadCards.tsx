@@ -71,11 +71,15 @@ const HeadCards = () => {
                                     <div className='text-gray-500 uppercase'>
                                         <span className='bg-blue-50 px-2 py-0.5 rounded'>Today</span>
                                     </div>
-                                    <div className='flex justify-center w-full gap-2'>
-                                        <div className='text-3xl font-bold text-gray-800'>
-                                            {todaySessions || 'X'} <span className='text-xs text-gray-400'>Sessions</span>
-                                            <Divider type='vertical'/>
-                                            {todayIdeas || 'X'} <span className='text-xs text-gray-400'>Ideas</span>
+                                    <div className='flex flex-row w-full gap-4 justify-evenly'>
+                                        <div className='flex flex-col text-center'>
+                                            <div className='text-3xl font-bold text-gray-800'>{todaySessions || 0}</div>
+                                            <span className='text-xs text-gray-400'>Sessions</span>
+                                        </div>
+                                        <div className='border-l-[1.5px] h-1/2 flex self-center text-gray-400'/>
+                                        <div className='flex flex-col text-center'>
+                                            <div className='text-3xl font-bold text-gray-800'>{todayIdeas || 0}</div>
+                                            <span className='text-xs text-gray-400'>Ideas</span>
                                         </div>
                                     </div>
                                 </div>
@@ -96,10 +100,11 @@ const HeadCards = () => {
                             <div className='flex flex-row justify-between'>
                                 <div className='flex flex-col w-full'>
                                     <div className='text-gray-500 uppercase'>
-                                        <span className='bg-blue-50 px-2 py-0.5 rounded'>Total Sessions</span>
+                                        <span className='bg-blue-50 px-2 py-0.5 rounded'>Total</span>
                                     </div>
-                                    <div className='flex justify-center w-full  gap-2'>
-                                        <div className='text-3xl font-bold text-gray-800'>{totalIdeasSessions?.totalSessions}</div>
+                                    <div className='flex flex-col text-center'>
+                                            <div className='text-3xl font-bold text-gray-800'>{totalIdeasSessions?.totalSessions || 0} </div>
+                                            <span className='text-xs text-gray-400'>Sessions</span>
                                     </div>
                                 </div>
                                 <LineChartOutlined 
@@ -118,11 +123,11 @@ const HeadCards = () => {
                             <div className='flex flex-row justify-between'>
                                 <div className='flex flex-col w-full'>
                                     <div className='text-gray-500 uppercase'>
-                                        <span className='bg-blue-50 px-2 py-0.5 rounded'>TOTAL IDEAS</span>
+                                        <span className='bg-blue-50 px-2 py-0.5 rounded'>Total</span>
                                     </div>
-                                    <div className='flex justify-center w-full  gap-2'>
-                                        <div className='text-3xl font-bold text-gray-800'>{totalIdeasSessions?.totalIdeas}</div>
-                                        <div className='text-green-500'>+X%</div>
+                                    <div className='flex flex-col text-center'>
+                                            <div className='text-3xl font-bold text-gray-800'>{totalIdeasSessions?.totalIdeas || 0} <span className='text-green-500 text-base'>+15%</span></div>
+                                            <span className='text-xs text-gray-400'>Ideas</span>
                                     </div>
                                 </div>
                                 <BulbOutlined 
@@ -141,10 +146,11 @@ const HeadCards = () => {
                             <div className='flex flex-row justify-between'>
                                 <div className='flex flex-col w-full'>
                                     <div className='text-gray-500 uppercase'>
-                                        <span className='bg-blue-50 px-2 py-0.5 rounded'>Consecutive days</span>
+                                        <span className='bg-blue-50 px-2 py-0.5 rounded'>Consecutive</span>
                                     </div>
-                                    <div className='flex justify-center w-full  gap-2'>
-                                        <div className='text-3xl font-bold text-gray-800'>X</div>
+                                    <div className='flex flex-col text-center'>
+                                            <div className='text-3xl font-bold text-gray-800'>{consecutiveDays || 0}</div>
+                                            <span className='text-xs text-gray-400'>Days</span>
                                     </div>
                                 </div>
                                 <CalendarOutlined 
