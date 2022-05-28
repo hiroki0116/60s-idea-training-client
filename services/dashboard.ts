@@ -10,3 +10,11 @@ export const getTotalSessionsAndIdeas = async () => {
     }
 }
 
+export const getTodaySessionsIdeas = async () => {
+    try {
+        const {data} = await API.get('/ideas/today-count', {errorHandle: false});
+        return data.todayTotal[0];
+    } catch (error) {
+        return { success: false, message: error.message };      
+    }
+}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Card, Skeleton } from 'antd';
-import { getTotalSessionsAndIdeas } from 'services/dashboard'
+import { Card, Divider, Skeleton } from 'antd';
+import { getTotalSessionsAndIdeas,getTodaySessionsIdeas } from 'services/dashboard'
 //Type
 import { ITotalIdeasSessions } from 'types/Ideas';
 
@@ -20,6 +20,9 @@ import { APIWithoutAuth } from 'utils/api';
 const HeadCards = () => {
     const [loading, setLoading] = useState(false)
     const [totalIdeasSessions,setTotalIdeasSessions] = useState<ITotalIdeasSessions|undefined>(undefined);
+    const [todaySessions, setTodaySessions] = useState<number|undefined>(undefined);
+    const [todayIdeas, setTodayIdeas] = useState<number|undefined>(undefined);
+    const [consecutiveDays, setConsecutiveDays] = useState<number|undefined>(undefined);
 
     const getSessionsIdeasCount = async () => {
         setLoading(true);
@@ -27,13 +30,28 @@ const HeadCards = () => {
             const result = await getTotalSessionsAndIdeas();
             setTotalIdeasSessions(result);
         } catch (error:any) {
-            await APIWithoutAuth.post('/error-message',{error});
+            await APIWithoutAuth.post('/error-message',{error:error.message});
         } finally {
             setLoading(false);
         }
     }
+
+    const getTodayData = async() => {
+        setLoading(true);
+        try {
+            const result = await getTodaySessionsIdeas();
+            setTodayIdeas(result?.totalIdeas);
+            setTodaySessions(result?.totalSessions);
+        } catch (error:any){
+            await APIWithoutAuth.post('/error-message', {error: error.message});
+        } finally {
+            setLoading(false);
+        }
+    }
+
     useEffect(()=>{
         getSessionsIdeasCount();
+        getTodayData();
     },[])
 
   return (
@@ -50,10 +68,15 @@ const HeadCards = () => {
                         description={
                             <div className='flex flex-row justify-between'>
                                 <div className='flex flex-col w-full'>
-                                    <div className='text-gray-500 '>Today&apos;s ideas</div>
+                                    <div className='text-gray-500 uppercase'>
+                                        <span className='bg-blue-50 px-2 py-0.5 rounded'>Today</span>
+                                    </div>
                                     <div className='flex justify-center w-full gap-2'>
-                                        <div className='text-3xl font-bold text-gray-800'>X</div>
-                                        <div className='text-green-500'>+Y%</div>
+                                        <div className='text-3xl font-bold text-gray-800'>
+                                            {todaySessions || 'X'} <span className='text-xs text-gray-400'>Sessions</span>
+                                            <Divider type='vertical'/>
+                                            {todayIdeas || 'X'} <span className='text-xs text-gray-400'>Ideas</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <AimOutlined 
@@ -72,7 +95,9 @@ const HeadCards = () => {
                         description={
                             <div className='flex flex-row justify-between'>
                                 <div className='flex flex-col w-full'>
-                                    <div className='text-gray-500 '>Total sessions</div>
+                                    <div className='text-gray-500 uppercase'>
+                                        <span className='bg-blue-50 px-2 py-0.5 rounded'>Total Sessions</span>
+                                    </div>
                                     <div className='flex justify-center w-full  gap-2'>
                                         <div className='text-3xl font-bold text-gray-800'>{totalIdeasSessions?.totalSessions}</div>
                                     </div>
@@ -92,7 +117,9 @@ const HeadCards = () => {
                         description={
                             <div className='flex flex-row justify-between'>
                                 <div className='flex flex-col w-full'>
-                                    <div className='text-gray-500 '>Total Ideas</div>
+                                    <div className='text-gray-500 uppercase'>
+                                        <span className='bg-blue-50 px-2 py-0.5 rounded'>TOTAL IDEAS</span>
+                                    </div>
                                     <div className='flex justify-center w-full  gap-2'>
                                         <div className='text-3xl font-bold text-gray-800'>{totalIdeasSessions?.totalIdeas}</div>
                                         <div className='text-green-500'>+X%</div>
@@ -113,7 +140,9 @@ const HeadCards = () => {
                         description={
                             <div className='flex flex-row justify-between'>
                                 <div className='flex flex-col w-full'>
-                                    <div className='text-gray-500 '>Consecutive days</div>
+                                    <div className='text-gray-500 uppercase'>
+                                        <span className='bg-blue-50 px-2 py-0.5 rounded'>Consecutive days</span>
+                                    </div>
                                     <div className='flex justify-center w-full  gap-2'>
                                         <div className='text-3xl font-bold text-gray-800'>X</div>
                                     </div>
