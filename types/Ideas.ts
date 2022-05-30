@@ -3,3 +3,14 @@ export type ITotalIdeasSessions = {
     totalIdeas: number;
     totalSessions: number;
 }
+
+export type IWeeklyIdeasSessions = {
+    _id: string;
+    totalIdeas:number;
+    totalSessions:number;
+}
+
+export type IWeeklyData = {
+    weeklyRecords: IWeeklyIdeasSessions[];
+    lastMonday: Date;
+}

@@ -18,3 +18,12 @@ export const getTodaySessionsIdeas = async () => {
         return { success: false, message: error.message };      
     }
 }
+
+export const getWeeklyRecords = async () => {
+    try {
+        const {data} = await API.get('/ideas/weekly-records', {errorHandle: false});
+        return data;
+    } catch (error) {
+        return { success:false, message: error.message}
+    }
+}

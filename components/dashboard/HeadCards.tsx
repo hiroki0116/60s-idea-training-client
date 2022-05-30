@@ -60,7 +60,7 @@ const HeadCards = () => {
             initial='initial'
             animate='animate'
             variants={fadeInRight}
-            className='flex flex-row justify-between sm:h-24 h-auto mb-5 gap-5'
+            className='flex flex-row justify-between h-28 mb-5 gap-5'
         >
             <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' >
                 <Skeleton loading={loading} active className={loading && '-mt-10'}>
@@ -73,13 +73,13 @@ const HeadCards = () => {
                                     </div>
                                     <div className='flex flex-row w-full gap-4 justify-evenly'>
                                         <div className='flex flex-col text-center'>
-                                            <div className='text-3xl font-bold text-gray-800'>{todaySessions || 0}</div>
+                                            <div className='text-3xl font-bold text-gray-800 '>{todaySessions || 0}</div>
                                             <span className='text-xs text-gray-400'>Sessions</span>
                                         </div>
                                         <div className='border-l-[1.5px] h-1/2 flex self-center text-gray-400'/>
                                         <div className='flex flex-col text-center'>
                                             <div className='text-3xl font-bold text-gray-800'>{todayIdeas || 0}</div>
-                                            <span className='text-xs text-gray-400'>Ideas</span>
+                                            <span className='text-sm text-gray-400'>Ideas</span>
                                         </div>
                                     </div>
                                 </div>
@@ -104,7 +104,7 @@ const HeadCards = () => {
                                     </div>
                                     <div className='flex flex-col text-center'>
                                             <div className='text-3xl font-bold text-gray-800'>{totalIdeasSessions?.totalSessions || 0} </div>
-                                            <span className='text-xs text-gray-400'>Sessions</span>
+                                            <span className='text-sm text-gray-400'>Sessions</span>
                                     </div>
                                 </div>
                                 <LineChartOutlined 
@@ -127,7 +127,7 @@ const HeadCards = () => {
                                     </div>
                                     <div className='flex flex-col text-center'>
                                             <div className='text-3xl font-bold text-gray-800'>{totalIdeasSessions?.totalIdeas || 0} <span className='text-green-500 text-base'>+15%</span></div>
-                                            <span className='text-xs text-gray-400'>Ideas</span>
+                                            <span className='text-sm text-gray-400'>Ideas</span>
                                     </div>
                                 </div>
                                 <BulbOutlined 
@@ -150,7 +150,7 @@ const HeadCards = () => {
                                     </div>
                                     <div className='flex flex-col text-center'>
                                             <div className='text-3xl font-bold text-gray-800'>{consecutiveDays || 0}</div>
-                                            <span className='text-xs text-gray-400'>Days</span>
+                                            <span className='text-sm text-gray-400'>Days</span>
                                     </div>
                                 </div>
                                 <CalendarOutlined 
