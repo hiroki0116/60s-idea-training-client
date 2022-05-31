@@ -8,7 +8,7 @@ import {getWeeklyRecords} from 'services/dashboard'
 import CenterSpin from "components/Layout/CenterSpin";
 
 const BarChart = () => {
-  const { Title, Paragraph } = Typography;
+  const { Title } = Typography;
   const [ loading, setLoading ] = useState<boolean>(false);
   const [ weeklyData, setWeeklyData ] = useState<IWeeklyData|undefined>(undefined);
 
@@ -30,7 +30,7 @@ const BarChart = () => {
 
   return (
     <>
-      <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg'>
+      <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg' loading={loading}>
         <div>
           <Title level={5}>Weekly Achievements</Title>
         </div>

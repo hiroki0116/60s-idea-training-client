@@ -62,8 +62,7 @@ const HeadCards = () => {
             variants={fadeInRight}
             className='flex flex-row justify-between h-28 mb-5 gap-5'
         >
-            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' >
-                <Skeleton loading={loading} active className={loading && '-mt-10'}>
+            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' loading={loading}>
                     <Meta
                         description={
                             <div className='flex flex-row justify-between'>
@@ -90,11 +89,8 @@ const HeadCards = () => {
                             </div>
                             }
                     />
-                </Skeleton>
             </Card>
-            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' >
-
-                <Skeleton loading={loading} active className={loading && '-mt-10'}>
+            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' loading={loading}>
                     <Meta
                         description={
                             <div className='flex flex-row justify-between'>
@@ -114,10 +110,8 @@ const HeadCards = () => {
                             </div>
                             }
                     />
-                </Skeleton>
             </Card>
-            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' >
-                    <Skeleton loading={loading} active className={loading && '-mt-10'}>
+            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' loading={loading}>
                     <Meta
                         description={
                             <div className='flex flex-row justify-between'>
@@ -137,10 +131,8 @@ const HeadCards = () => {
                             </div>
                             }
                     />
-                </Skeleton>
             </Card>
-            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' >
-                <Skeleton loading={loading} active className={loading && '-mt-10'}>
+            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' loading={loading}>
                     <Meta
                         description={
                             <div className='flex flex-row justify-between'>
@@ -160,7 +152,6 @@ const HeadCards = () => {
                             </div>
                             }
                     />
-                </Skeleton>
             </Card>
         </motion.div>
     </>
