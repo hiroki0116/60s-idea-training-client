@@ -120,7 +120,7 @@ const HeadCards = () => {
                                         <span className='bg-blue-50 px-2 py-0.5 rounded'>Total</span>
                                     </div>
                                     <div className='flex flex-col text-center'>
-                                            <div className='text-3xl font-bold text-gray-800'>{totalIdeasSessions?.totalIdeas || 0} <span className='text-green-500 text-base'>+15%</span></div>
+                                            <div className='text-3xl font-bold text-gray-800'>{totalIdeasSessions?.totalIdeas || 0}</div>
                                             <span className='text-sm text-gray-400'>Ideas</span>
                                     </div>
                                 </div>

@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { IWeeklyIdeasSessions } from "types/Ideas";
 import { PRIMARY_COLOR } from "utils/constants";
 
+const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 
 const barChart = (
   { 
@@ -70,6 +71,11 @@ const barChart = (
 
     xaxis: {
       categories: weeklyDates,
+      labels: {
+        formatter: function(val) {
+          return moment(val).format('ddd DD MMM')
+        }
+      }
     },
 
     fill: {

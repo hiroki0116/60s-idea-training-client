@@ -1,3 +1,6 @@
+import moment from "moment";
+import { IUser } from "./User";
+
 export type ITotalIdeasSessions = {
     _id: null;
     totalIdeas: number;
@@ -13,4 +16,15 @@ export type IWeeklyIdeasSessions = {
 export type IWeeklyData = {
     weeklyRecords: IWeeklyIdeasSessions[];
     lastMonday: Date;
+}
+
+export type IIdeas = {
+    _id: string;
+    topicTitle: string;
+    ideas: string[];
+    createdBy: IUser;
+    viewed: Boolean;
+    comment: string;
+    createdAt: moment.Moment;
+    updatedAt: moment.Moment
 }
