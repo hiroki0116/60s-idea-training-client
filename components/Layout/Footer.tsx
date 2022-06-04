@@ -8,9 +8,9 @@ const Footer = () => {
             © 2021, 60seconds Idea Training.
           </div>
           <div className="flex flex-row gap-2">
-            <a href='!#'>Home</a>
+            <a href='!#' className="hover:animate-bounce">Home</a>
             <div className="border-l-2" />
-            <a href='!#'>About this app</a>
+            <a href='!#' className="hover:animate-bounce">About this app</a>
           </div>
       </div>
     </footer>

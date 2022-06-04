@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import Router from 'next/router';
 import { auth } from 'utils/firebase';
-import { getCookie, setCookie, isAuth, logout } from './auth';
+import { getCookie, setCookie, isAuth,logoutToHomePage } from './auth';
 
 declare module 'axios' {
     export interface AxiosRequestConfig {
@@ -36,6 +36,7 @@ API.interceptors.request.use(async (config:any) => {
 });
 
 const errorResponseHandler = (error:any) => {
+
     // check for errorHandle config
     if (error.config.hasOwnProperty('errorHandle') && error.config.errorHandle === false) {
       return Promise.reject(error);
@@ -54,7 +55,8 @@ const errorResponseHandler = (error:any) => {
       } else if (status === 400) {
         return Router.push('/400');
       } else if (status === 401) {
-        logout();
+          auth.signOut();
+          logoutToHomePage();
       } else {
         console.error(error.response.data.message);
         return Promise.reject(error);
