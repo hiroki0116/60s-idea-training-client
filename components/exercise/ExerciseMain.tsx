@@ -1,101 +1,38 @@
-import { useState } from 'react';
-import { Form, Input, Button, Spin, message } from 'antd';
+import { useContext } from 'react';
+import {ExerciseContext} from 'context/exerciseContext';
+import PreviousIdeaRecords from "./PreviousIdeaRecords"
+import FirstSection from "./FirstSection";
+import SubmitSection from "./SubmitSection";
 import { motion } from 'framer-motion';
-import { fadeInUp } from 'utils/animations';
-//Components
-import CountDownTimer from './CountDownTimer';
-import IdeasInput from './IdeasInput';
-//API service
-import {handleSubmitIdeas} from 'services/exercise';
-//Icons
-import TagOutlined from '@ant-design/icons/TagOutlined';
+import { fadeInRight } from 'utils/animations';
+import { stepEnum } from 'context/exerciseContext';
+import { Steps } from 'antd';
 
-type FormValues = {
-    topicTitle: string;
-    ideas: string[];
-}
+const { Step } = Steps;
 
 const ExerciseMain = () => {
-    const [form] = Form.useForm();
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [isDisabled, setIsDisabled] = useState(true);
-    const [topicText, setTopicText ] = useState('');
-    const [ideaValue, setIdeaValue] = useState<string>('')
-
-    const handlePlay = () => {setIsPlaying(true)};
-    const handleReset = () => {
-        form.resetFields();
-        setIsPlaying(false);
-        setTopicText('');
-    };
-    const handleDisabled = (e) => {
-        e.preventDefault();
-        setTopicText(e.target.value)
-        if(e.target.value!=='')setIsDisabled(false);
-        else setIsDisabled(true);
-    };
-    const handleSubmit = async()=> {
-        setLoading(true)
-        setIsPlaying(false);
-        const formValues:FormValues = form.getFieldsValue();
-        try {
-           const ideas = await handleSubmitIdeas(formValues.topicTitle, formValues.ideas);
-            setTimeout(() =>handleReset(), 1000)
-            message.success("Successfully submitted!")
-        } catch (error: any) {
-            message.error(error.message)
-        } finally {
-            setLoading(false);
-        }
-    }
-
+    const { showFirstSection, showSubmitSection } = useContext(ExerciseContext);
 
   return (
-      <Spin spinning={loading}>
-        <motion.div
-            initial='initial'
-            animate='animate'
-            variants={fadeInUp}
-            className='grid grid-cols-1 justify-items-center w-full'
-        >
-            <CountDownTimer {...{isPlaying, handleSubmit}}/>
-            <Button 
-                type='primary' 
-                shape='round' 
-                className='tracking-widest rounded-lg mt-5'
-                onClick={handlePlay}
-                disabled={isDisabled}
+    <div className="flex flex-col sm:grid grid-cols-5 gap-4">
+        <div className="sm:col-span-3 flex flex-col h-screen overflow-auto mx-5">
+            <motion.div
+                initial='initial'
+                animate='animate'
+                variants={fadeInRight}
             >
-                START
-            </Button>
-            <Form form={form} >
-                <span className='font-bold tracking-wider'>TOPIC:</span>
-                <Form.Item  name='topicTitle'>
-                    <Input 
-                        placeholder='Enter any topic before you start'
-                        style={{borderRadius:'0.5rem', width:'500px'}}
-                        prefix={<TagOutlined />}
-                        allowClear
-                        onBlur={handleDisabled}
-                        onChange={handleDisabled}
-                        disabled={isPlaying}
-                    />
-                </Form.Item>
-                {topicText ? (
-                    <div className='bg-blue-100 rounded-lg py-1 px-2 mb-5 font-bold tracking-wide text-16 whitespace-normal h-auto'>
-                        {topicText}
-                    </div>
-                ) : null}
-
-                <span className='font-bold tracking-wider'>ACTION:</span>
-                <br/>
-                <Form.Item  name='ideas'>
-                    <IdeasInput {...{isPlaying,ideaValue,setIdeaValue}} />
-                </Form.Item>
-            </Form>
-        </motion.div>
-      </Spin>
+                <Steps current={showFirstSection ? stepEnum.firstSection : stepEnum.submitSection} >
+                    <Step title="Step 1" description="What's your topic?" status={!showSubmitSection ? 'finish' : 'process'} />
+                    <Step title="Step 2" description="Elaborate your ideas" />
+                </Steps>
+            </motion.div>
+            <FirstSection />
+            <SubmitSection />
+        </div>
+        <div className="sm:col-span-2 flex flex-col h-screen overflow-auto">
+            <PreviousIdeaRecords />
+        </div>
+    </div>
   )
 }
 

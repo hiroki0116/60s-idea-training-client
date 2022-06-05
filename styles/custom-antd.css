@@ -1,4 +1,4 @@
-/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* /* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown
 /* stylelint-disable no-duplicate-selectors */
 /* stylelint-disable */
 /* stylelint-disable declaration-bang-space-before,no-duplicate-selectors,string-no-newline */
@@ -377,7 +377,7 @@ mark {
   line-height: 0;
   text-align: center;
   text-transform: none;
-  vertical-align: -0.125em;
+  vertical-align: middle;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -25072,4 +25072,4 @@ div.ant-typography-edit-content.ant-typography-rtl {
   border-bottom-color:#525252;
   border-left-color: transparent;
   box-shadow: 3px 3px 7px rgb(0 0 0 / 7%);
-}
+} 

@@ -1,6 +1,11 @@
 import { useState, useEffect, createContext } from 'react';
 import { IIdeas } from 'types/Ideas';
-import { getPreviousSessions } from 'services/exercise'
+import { getPreviousIdeaRecords } from 'services/exercise'
+
+export enum stepEnum {
+    firstSection = 0,
+    submitSection = 1
+}
 
 interface ExerciseContext {
     topicTitle: string;
@@ -9,6 +14,8 @@ interface ExerciseContext {
     setIdeas: (ideas: string[]) => void;
     prevSessions: IIdeas[];
     prevSessionsLoading: boolean;
+    showFirstSection: boolean;
+    showSubmitSection:boolean;
 }
 
 const initialValue = {
@@ -17,7 +24,9 @@ const initialValue = {
     ideas: [],
     setIdeas: () => {},
     prevSessions: [],
-    prevSessionsLoading: false
+    prevSessionsLoading: false,
+    showFirstSection: true,
+    showSubmitSection: false
 } as ExerciseContext;
 
 export const ExerciseContext = createContext<ExerciseContext>(initialValue);
@@ -28,6 +37,8 @@ export const ExerciseProfileProvider = ({ children }) => {
     const [topicTitle, setTopicTitle] = useState<string>('');
     const [ideas, setIdeas] = useState<string[]>([])
     const [prevSessions, setPrevSessions] = useState(initialValue.prevSessions);
+    const [showFirstSection, setShowFirstSection] = useState<boolean>(true);
+    const [showSubmitSection, setShowSubmitSection] = useState<boolean>(false);
 
     useEffect(() => {
         getPrevSessions();
@@ -35,7 +46,7 @@ export const ExerciseProfileProvider = ({ children }) => {
   
     const getPrevSessions = async () => {
         setPrevSessionsLoading(true);
-      const result = await getPreviousSessions();
+      const result = await getPreviousIdeaRecords();
       if (result?.length) setPrevSessions(result);
       setPrevSessionsLoading(false);
     };
@@ -46,7 +57,11 @@ export const ExerciseProfileProvider = ({ children }) => {
         ideas,
         setIdeas,
         prevSessions,
-        prevSessionsLoading
+        prevSessionsLoading,
+        showFirstSection,
+        setShowFirstSection,
+        showSubmitSection,
+        setShowSubmitSection
     };
   
     return <ExerciseContext.Provider value={value}>{children}</ExerciseContext.Provider>;

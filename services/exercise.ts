@@ -9,9 +9,9 @@ export const handleSubmitIdeas = async (topicTitle: string,ideas:string[]) => {
     }
 }
 
-export const getPreviousSessions = async () => {
+export const getPreviousIdeaRecords = async () => {
     try {
-        const res = await API.get('/ideas/recent', {errorHandle:false});
+        const res = await API.get('/ideas/most-recent', {errorHandle:false});
         return res.data.prevSessions;
     } catch (error: any) {
         return {success: false, message: error.message}
