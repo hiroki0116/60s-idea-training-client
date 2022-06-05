@@ -23,7 +23,7 @@ const DashboardWrapper = ({children}) => {
         </Sider>
         <Layout>
           <Header name={router.pathname}/>
-          <Content className="px-5 py-10 bg-slate-50">{children}</Content>
+          <Content className="px-5 py-10 bg-slate-50 min-h-screen w-full mx-auto">{children}</Content>
           <Footer />
         </Layout>
       </Layout>
