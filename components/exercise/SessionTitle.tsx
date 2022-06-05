@@ -59,7 +59,7 @@ const SessionTitle = () => {
             variants={fadeInUp}
             className='grid grid-cols-1 justify-items-center w-full'
         >
-            <CountDownTimer {...{isPlaying, handleSubmit}}/>
+            <CountDownTimer />
             <Button 
                 type='primary' 
                 shape='round' 

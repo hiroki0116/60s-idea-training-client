@@ -1,10 +1,15 @@
+import { useContext } from 'react';
+import {ExerciseContext} from 'context/exerciseContext';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
-const CountDownTimer = ({isPlaying,handleSubmit}) => {
+
+const CountDownTimer = () => {
+  const { isPlaying, handleSubmit } = useContext(ExerciseContext);
+
         
   const renderTimeLeft = ({ remainingTime }) => {
     if (remainingTime === 0) {
-      return <div className="text-16 font-bold bg-gray-100 p-2 rounded-lg">Time out ...</div>;
+      return <div className="text-16 font-bold">Time out ...</div>;
     }
   
     return (

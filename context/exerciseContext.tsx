@@ -1,6 +1,7 @@
 import { useState, useEffect, createContext } from 'react';
 import { IIdeas } from 'types/Ideas';
 import { getPreviousIdeaRecords } from 'services/exercise'
+import { message } from 'antd';
 
 export enum stepEnum {
     firstSection = 0,
@@ -15,7 +16,14 @@ interface ExerciseContext {
     prevSessions: IIdeas[];
     prevSessionsLoading: boolean;
     showFirstSection: boolean;
+    setShowFirstSection: (showFirstSection: boolean) => void;
     showSubmitSection:boolean;
+    setShowSubmitSection: (showSubmitSection: boolean) => void;
+    handleNext: ()=> void;
+    handleBack: ()=> void;
+    isPlaying: boolean;
+    setIsPlaying: (isPlaying: boolean) => void;
+    handleSubmit: ()=> void;
 }
 
 const initialValue = {
@@ -26,7 +34,14 @@ const initialValue = {
     prevSessions: [],
     prevSessionsLoading: false,
     showFirstSection: true,
-    showSubmitSection: false
+    setShowFirstSection: () => {},
+    showSubmitSection: false,
+    setShowSubmitSection: () => {},
+    handleNext: () => {},
+    handleBack: () => {},
+    isPlaying: false,
+    setIsPlaying: () => {},
+    handleSubmit: () => {}
 } as ExerciseContext;
 
 export const ExerciseContext = createContext<ExerciseContext>(initialValue);
@@ -39,18 +54,42 @@ export const ExerciseProfileProvider = ({ children }) => {
     const [prevSessions, setPrevSessions] = useState(initialValue.prevSessions);
     const [showFirstSection, setShowFirstSection] = useState<boolean>(true);
     const [showSubmitSection, setShowSubmitSection] = useState<boolean>(false);
+    const [isPlaying, setIsPlaying] = useState<boolean>(false);
+
 
     useEffect(() => {
         getPrevSessions();
     }, []);
-  
+    
     const getPrevSessions = async () => {
         setPrevSessionsLoading(true);
       const result = await getPreviousIdeaRecords();
       if (result?.length) setPrevSessions(result);
       setPrevSessionsLoading(false);
     };
-  
+
+    const handleNext = () => {
+        setShowFirstSection(false);
+        setShowSubmitSection(true);
+    }
+
+    const handleBack = () => {
+        setShowFirstSection(true);
+        setShowSubmitSection(false);
+    }
+
+    const handleSubmit = () => {
+        clearSteps();
+        message.success('Successfully Submitted!')
+    }
+
+    const clearSteps = () => {
+        setIsPlaying(false);
+        setTopicTitle('');
+        setIdeas([]);
+        handleBack();
+    }
+
     const value = {
         topicTitle,
         setTopicTitle,
@@ -61,7 +100,12 @@ export const ExerciseProfileProvider = ({ children }) => {
         showFirstSection,
         setShowFirstSection,
         showSubmitSection,
-        setShowSubmitSection
+        setShowSubmitSection,
+        handleNext,
+        handleBack,
+        isPlaying,
+        setIsPlaying,
+        handleSubmit
     };
   
     return <ExerciseContext.Provider value={value}>{children}</ExerciseContext.Provider>;
