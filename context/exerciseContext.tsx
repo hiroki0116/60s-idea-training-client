@@ -2,6 +2,11 @@ import { useState, useEffect, createContext } from 'react';
 import { IIdeas } from 'types/Ideas';
 import { getPreviousIdeaRecords } from 'services/exercise'
 
+export enum stepEnum {
+    firstSection = 0,
+    submitSection = 1
+}
+
 interface ExerciseContext {
     topicTitle: string;
     setTopicTitle: (title: string) => void;

@@ -21,10 +21,12 @@ const PreviousIdeaRecords = () => {
         initial='initial'
         animate='animate'
         variants={fadeInRight}
+        onMouseOver={()=>{setMouseOver(true)}} 
+        onMouseLeave={()=>{setMouseOver(false)}}
     >
         <h2 className={`font-bold text-lg ${mouseOver && 'transition duration-300 ease-out hover:ease-in underline underline-offset-8'}`}>Most Recent Sessions</h2>
         {prevSessions.map((session) => (
-            <div key = {session._id} className="relative rounded-xl mb-2 px-4 pt-3 pb-1 bg-white shadow-lg border border-blue-100 hover:bg-blue-50" onMouseOver={()=>{setMouseOver(true)}} onMouseLeave={()=>{setMouseOver(false)}}>
+            <div key = {session._id} className="relative rounded-xl mb-2 px-4 pt-3 pb-1 bg-white shadow-lg border border-blue-100 hover:bg-blue-50">
                 <div className='absolute top-1 right-3 text-gray-500 text-xs'>{moment(session.createdAt).fromNow()}</div>
                 <h3 className='text-16 font-bold tracking-wide text-gray-700'>{session.topicTitle}</h3>
                 <ul>
