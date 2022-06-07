@@ -15,7 +15,7 @@ const ExerciseMain = () => {
 
   return (
     <div className="flex flex-col sm:grid grid-cols-5 gap-4">
-        <div className="sm:col-span-3 flex flex-col h-screen overflow-auto mx-5">
+        <div className="sm:col-span-3 flex flex-col mx-5 bg-white p-5 rounded-lg shadow-lg">
             <motion.div
                 initial='initial'
                 animate='animate'
@@ -29,7 +29,7 @@ const ExerciseMain = () => {
                 <SubmitSection />
             </motion.div>
         </div>
-        <div className="sm:col-span-2 flex flex-col h-screen overflow-auto">
+        <div className="sm:col-span-2 flex flex-col overflow-auto">
             <PreviousIdeaRecords />
         </div>
     </div>

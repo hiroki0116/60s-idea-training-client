@@ -2,6 +2,8 @@ import { useState, useEffect, createContext } from 'react';
 import { IIdeas } from 'types/Ideas';
 import { getPreviousIdeaRecords } from 'services/exercise'
 import { message } from 'antd';
+import { APIWithoutAuth } from 'utils/api';
+import { handleSubmitIdeas } from 'services/exercise'
 
 export enum stepEnum {
     firstSection = 0,
@@ -78,9 +80,17 @@ export const ExerciseProfileProvider = ({ children }) => {
         setShowSubmitSection(false);
     }
 
-    const handleSubmit = () => {
-        clearSteps();
-        message.success('Successfully Submitted!')
+    const handleSubmit = async () => {
+        try {
+            const {newSession} = await handleSubmitIdeas(topicTitle,ideas);
+            setPrevSessions([newSession,...prevSessions,])
+            message.success('Successfully Submitted!')
+        } catch (error:any) {
+            await APIWithoutAuth.post('/error-message',{clientError:error.message}, { errorHandle: false});
+            message.error(error.message)
+        } finally {
+            clearSteps();
+        }
     }
 
     const clearSteps = () => {
