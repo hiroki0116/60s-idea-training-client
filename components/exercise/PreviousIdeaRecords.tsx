@@ -2,6 +2,7 @@ import { useState,useContext } from 'react';
 import {ExerciseContext} from 'context/exerciseContext';
 import CenterSpin from 'components/Layout/CenterSpin';
 import { Tag } from 'antd';
+import TagOutlined from '@ant-design/icons/TagOutlined'
 import moment from 'moment';
 import { motion } from 'framer-motion';
 import { fadeInRight } from 'utils/animations';
@@ -26,16 +27,14 @@ const PreviousIdeaRecords = () => {
     >
         <h2 className={`font-bold text-lg ${mouseOver && 'transition duration-300 ease-out hover:ease-in underline underline-offset-8'}`}>Most Recent Sessions</h2>
         {prevSessions.map((session) => (
-            <div key = {session._id} className="relative rounded-xl mb-2 px-4 pt-3 pb-1 bg-white shadow-lg border border-blue-100 hover:bg-blue-50">
-                <div className='absolute top-1 right-3 text-gray-500 text-xs'>{moment(session.createdAt).fromNow()}</div>
-                <h3 className='text-16 font-bold tracking-wide text-gray-700'>{session.topicTitle}</h3>
-                <ul>
-                    {session.ideas.map((idea,index) => (
-                        <li key={index} className="mb-1">
-                            <Tag color="geekblue" style={{borderRadius: "0.5rem"}}>{idea}</Tag>
-                        </li>
+            <div key = {session._id} className="relative rounded-xl mb-2 px-5 pt-4 pb-1 bg-white shadow-lg border border-blue-100 hover:bg-blue-50">
+                <div className='absolute top-1 right-0 text-gray-500 text-xs'>{moment(session.createdAt).fromNow()}  <Tag color="cyan" style={{borderRadius: "0.5rem",marginLeft:'5px'}} icon={<TagOutlined />}>{session.category}</Tag></div>
+                <h3 className='text-16 font-bold tracking-wide text-gray-700 '>{session.topicTitle}</h3>
+                {session.ideas.map((idea,index) => (
+                    <div key={index} className="mb-1">
+                        <span className='bg-gray-50 px-2 rounded'>- {idea}</span>
+                    </div>
                     ))}
-                </ul>
             </div>
         ))}
         {/* TO DO 'set Load more */}

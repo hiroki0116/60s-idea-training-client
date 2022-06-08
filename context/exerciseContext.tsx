@@ -13,6 +13,8 @@ export enum stepEnum {
 interface ExerciseContext {
     topicTitle: string;
     setTopicTitle: (title: string) => void;
+    category: string;
+    setCategory: (category: string) => void;
     ideas: string[];
     setIdeas: (ideas: string[]) => void;
     prevSessions: IIdeas[];
@@ -31,6 +33,8 @@ interface ExerciseContext {
 const initialValue = {
     topicTitle: '',
     setTopicTitle: () => {},
+    category: '',
+    setCategory: () => {},
     ideas: [],
     setIdeas: () => {},
     prevSessions: [],
@@ -51,7 +55,8 @@ export const ExerciseContext = createContext<ExerciseContext>(initialValue);
 
 export const ExerciseProfileProvider = ({ children }) => {
     const [prevSessionsLoading, setPrevSessionsLoading] = useState(false);
-    const [topicTitle, setTopicTitle] = useState<string>('');
+    const [topicTitle, setTopicTitle] = useState<string | undefined>('');
+    const [category, setCategory] = useState<string>('');
     const [ideas, setIdeas] = useState<string[]>([])
     const [prevSessions, setPrevSessions] = useState(initialValue.prevSessions);
     const [showFirstSection, setShowFirstSection] = useState<boolean>(true);
@@ -82,7 +87,7 @@ export const ExerciseProfileProvider = ({ children }) => {
 
     const handleSubmit = async () => {
         try {
-            const {newSession} = await handleSubmitIdeas(topicTitle,ideas);
+            const {newSession} = await handleSubmitIdeas(topicTitle,ideas,category);
             setPrevSessions([newSession,...prevSessions,])
             message.success('Successfully Submitted!')
         } catch (error:any) {
@@ -96,6 +101,7 @@ export const ExerciseProfileProvider = ({ children }) => {
     const clearSteps = () => {
         setIsPlaying(false);
         setTopicTitle('');
+        setCategory('');
         setIdeas([]);
         handleBack();
     }
@@ -103,6 +109,8 @@ export const ExerciseProfileProvider = ({ children }) => {
     const value = {
         topicTitle,
         setTopicTitle,
+        category,
+        setCategory,
         ideas,
         setIdeas,
         prevSessions,

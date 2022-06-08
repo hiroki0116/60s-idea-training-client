@@ -15,14 +15,14 @@ const ExerciseMain = () => {
 
   return (
     <div className="flex flex-col sm:grid grid-cols-5 gap-4">
-        <div className="sm:col-span-3 flex flex-col mx-5 bg-white p-5 rounded-lg shadow-lg">
+        <div className="sm:col-span-3 flex flex-col mx-5 bg-white p-5 rounded-xl shadow-lg">
             <motion.div
                 initial='initial'
                 animate='animate'
                 variants={fadeInRight}
             >
                 <Steps current={showFirstSection ? stepEnum.firstSection : stepEnum.submitSection} >
-                    <Step title={showFirstSection ? "Step 1" : "Completed"} description="What's your topic?" status={showFirstSection ? 'process' : 'finish'} onClick={handleBack} className='cursor-pointer'/>
+                    <Step title={showFirstSection ? "Step 1" : "Completed"} description="Choose your topic and category!" status={showFirstSection ? 'process' : 'finish'} onClick={handleBack} className='cursor-pointer'/>
                     <Step title={showSubmitSection ? 'In Process' : 'Step 2'} description="Elaborate your ideas!" status={showSubmitSection ? 'process' : 'wait'} />
                 </Steps>
                 <FirstSection />

@@ -21,6 +21,7 @@ export type IWeeklyData = {
 export type IIdeas = {
     _id: string;
     topicTitle: string;
+    category: string;
     ideas: string[];
     createdBy: IUser;
     viewed: Boolean;
