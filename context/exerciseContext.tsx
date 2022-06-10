@@ -2,6 +2,8 @@ import { useState, useEffect, createContext } from 'react';
 import { IIdeas } from 'types/Ideas';
 import { getPreviousIdeaRecords } from 'services/exercise'
 import { message } from 'antd';
+import { APIWithoutAuth } from 'utils/api';
+import { handleSubmitIdeas } from 'services/exercise'
 
 export enum stepEnum {
     firstSection = 0,
@@ -11,6 +13,8 @@ export enum stepEnum {
 interface ExerciseContext {
     topicTitle: string;
     setTopicTitle: (title: string) => void;
+    category: string;
+    setCategory: (category: string) => void;
     ideas: string[];
     setIdeas: (ideas: string[]) => void;
     prevSessions: IIdeas[];
@@ -29,6 +33,8 @@ interface ExerciseContext {
 const initialValue = {
     topicTitle: '',
     setTopicTitle: () => {},
+    category: '',
+    setCategory: () => {},
     ideas: [],
     setIdeas: () => {},
     prevSessions: [],
@@ -49,7 +55,8 @@ export const ExerciseContext = createContext<ExerciseContext>(initialValue);
 
 export const ExerciseProfileProvider = ({ children }) => {
     const [prevSessionsLoading, setPrevSessionsLoading] = useState(false);
-    const [topicTitle, setTopicTitle] = useState<string>('');
+    const [topicTitle, setTopicTitle] = useState<string | undefined>('');
+    const [category, setCategory] = useState<string>('');
     const [ideas, setIdeas] = useState<string[]>([])
     const [prevSessions, setPrevSessions] = useState(initialValue.prevSessions);
     const [showFirstSection, setShowFirstSection] = useState<boolean>(true);
@@ -78,14 +85,23 @@ export const ExerciseProfileProvider = ({ children }) => {
         setShowSubmitSection(false);
     }
 
-    const handleSubmit = () => {
-        clearSteps();
-        message.success('Successfully Submitted!')
+    const handleSubmit = async () => {
+        try {
+            const {newSession} = await handleSubmitIdeas(topicTitle,ideas,category);
+            setPrevSessions([newSession,...prevSessions,])
+            message.success('Successfully Submitted!')
+        } catch (error:any) {
+            await APIWithoutAuth.post('/error-message',{clientError:error.message}, { errorHandle: false});
+            message.error(error.message)
+        } finally {
+            clearSteps();
+        }
     }
 
     const clearSteps = () => {
         setIsPlaying(false);
         setTopicTitle('');
+        setCategory('');
         setIdeas([]);
         handleBack();
     }
@@ -93,6 +109,8 @@ export const ExerciseProfileProvider = ({ children }) => {
     const value = {
         topicTitle,
         setTopicTitle,
+        category,
+        setCategory,
         ideas,
         setIdeas,
         prevSessions,
