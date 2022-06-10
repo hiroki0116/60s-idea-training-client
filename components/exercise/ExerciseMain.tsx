@@ -14,8 +14,8 @@ const ExerciseMain = () => {
     const { showFirstSection, showSubmitSection,handleBack } = useContext(ExerciseContext);
 
   return (
-    <div className="flex flex-col sm:grid grid-cols-5 gap-4">
-        <div className="sm:col-span-3 flex flex-col mx-5 bg-white p-5 rounded-xl shadow-lg">
+    <div className="flex flex-col sm:grid grid-cols-5 gap-8">
+        <div className="sm:col-span-3 flex flex-col bg-white p-5 rounded-xl shadow-lg">
             <motion.div
                 initial='initial'
                 animate='animate'
