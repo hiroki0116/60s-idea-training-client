@@ -17,13 +17,13 @@ const DashboardWrapper = ({children}) => {
           trigger={null}
           width={200}
           theme="light"
-          className="h-screen"
+          className="min-h-screen"
         >
           <Sidenav />
         </Sider>
         <Layout>
           <Header name={router.pathname}/>
-          <Content className="px-5 py-10 bg-slate-50 min-h-screen w-full mx-auto">{children}</Content>
+          <Content className="px-5 py-10 bg-slate-50 h-full w-full mx-auto">{children}</Content>
           <Footer />
         </Layout>
       </Layout>

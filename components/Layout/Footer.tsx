@@ -3,7 +3,7 @@ import Link from 'next/link';
 const Footer = () => {
 
   return (
-    <footer className='h-12 bg-slate-50'>
+    <footer className='bg-slate-50'>
       <div className="flex flex-col text-center">
           <div className="flex flex-row justify-center mb-1">
             <Link href='/dashboard'><a className="hover:animate-bounce">Home</a></Link>
