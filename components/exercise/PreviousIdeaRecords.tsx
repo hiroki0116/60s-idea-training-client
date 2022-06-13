@@ -32,7 +32,7 @@ const PreviousIdeaRecords = () => {
                 <h3 className='text-16 font-bold tracking-wide text-gray-700 '>{session.topicTitle}</h3>
                 {session.ideas.map((idea,index) => (
                     <div key={index} className="mb-1">
-                        <span className='bg-gray-50 px-2 rounded'>- {idea}</span>
+                        <Tag color={'purple'} style={{borderRadius:'0.5rem'}}>- {idea}</Tag>
                     </div>
                     ))}
             </div>
