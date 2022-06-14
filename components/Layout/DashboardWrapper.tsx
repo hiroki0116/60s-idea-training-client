@@ -22,7 +22,7 @@ const DashboardWrapper = ({children}) => {
           <Sidenav />
         </Sider>
         <Layout>
-          <Header name={router.pathname}/>
+          <Header name={router.asPath}/>
           <Content className="px-5 py-10 bg-slate-50 h-full w-full mx-auto">{children}</Content>
           <Footer />
         </Layout>
