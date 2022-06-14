@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
+import Link from 'next/link'
 import { API } from 'utils/api';
 import moment from 'moment';
 import TagOutlined from '@ant-design/icons/TagOutlined'
-import { Input, Select, DatePicker, message, Tag, Empty, Pagination, Button } from 'antd';
-import CloseCircleFilled from '@ant-design/icons/CloseCircleFilled';
+import { Input, Select, DatePicker, message, Tag, Empty, Pagination } from 'antd';
 
 import {CATEGORIES,DEFAULT_CREATED_AT} from 'utils/constants';
 import MotionDiv from 'components/Layout/MotionDiv';
@@ -137,17 +137,25 @@ const RecordsMain = () => {
                             </div>
                             <div className='grid grid-cols-3 gap-5'>
                             {results.map(result => 
-                                <div key={result._id} className="relative rounded-xl mb-2 px-5 pt-4 pb-1 bg-white shadow-lg border border-blue-100 hover:bg-blue-50">
-                                    <div className='absolute top-1 right-0 text-gray-500 text-xs'>{moment(result.createdAt).fromNow()}  <Tag color="cyan" style={{borderRadius: "0.5rem",marginLeft:'5px'}} icon={<TagOutlined />}>
-                                        {result.category && result.category.length ? result.category : 'Others'}</Tag>
-                                    </div>
-                                    <h3 className='text-16 font-bold tracking-wide text-gray-700 my-3'>{result.topicTitle}</h3>
-                                    {result.ideas.map((idea,index) => 
-                                        <div key={index} className="mb-1">
-                                            <Tag color={'purple'} style={{borderRadius:'0.5rem'}}>- {idea}</Tag>
+                                <Link  key={result._id} href={`/records/${result._id}`}>
+                                    <div className={`relative rounded-xl mb-2 px-5 pt-4 pb-1 shadow-lg border border-purple-100  hover:bg-purple-50 cursor-pointer ${result.viewed ? 'bg-white' : 'bg-blue-50'}`}>
+                                        <div className='absolute top-1 left-3 text-gray-500'>
+
                                         </div>
-                                    )}
-                                </div>
+                                        <div className='absolute top-1 right-0 text-gray-500 text-xs'>
+                                            {moment(result.createdAt).fromNow()}
+                                            <Tag color="cyan" style={{borderRadius: "0.5rem",marginLeft:'5px'}} icon={<TagOutlined />}>
+                                                {result.category && result.category.length ? result.category : 'Others'}
+                                            </Tag>
+                                        </div>
+                                        <h3 className='text-16 font-bold tracking-wide text-gray-700 my-4'>{result.topicTitle}</h3>
+                                        {result.ideas.map((idea,index) => 
+                                            <div key={index} className="mb-1">
+                                                <Tag color={'purple'} style={{borderRadius:'0.5rem'}}>- {idea}</Tag>
+                                            </div>
+                                        )}
+                                    </div>        
+                                </Link>
                             )}
                             </div>
                             <div className="mt-3 flex justify-center">
