@@ -138,10 +138,7 @@ const RecordsMain = () => {
                             <div className='grid grid-cols-3 gap-5'>
                             {results.map(result => 
                                 <Link  key={result._id} href={`/records/${result._id}`}>
-                                    <div className={`relative rounded-xl mb-2 px-5 pt-4 pb-1 shadow-lg border border-purple-100  hover:bg-purple-50 cursor-pointer ${result.viewed ? 'bg-white' : 'bg-blue-50'}`}>
-                                        <div className='absolute top-1 left-3 text-gray-500'>
-
-                                        </div>
+                                    <div className={`relative rounded-xl mb-2 px-5 py-5 pb-1 shadow-lg border border-purple-100  hover:bg-purple-50 cursor-pointer ${result.viewed ? 'bg-white' : 'bg-blue-50'}`}>
                                         <div className='absolute top-1 right-0 text-gray-500 text-xs'>
                                             {moment(result.createdAt).fromNow()}
                                             <Tag color="cyan" style={{borderRadius: "0.5rem",marginLeft:'5px'}} icon={<TagOutlined />}>
@@ -154,7 +151,8 @@ const RecordsMain = () => {
                                                 <Tag color={'purple'} style={{borderRadius:'0.5rem'}}>- {idea}</Tag>
                                             </div>
                                         )}
-                                    </div>        
+                                        {result.viewed ? <div className='absolute bottom-0 right-2 text-red-600 text-xs'>Viewed</div> : null}
+                                    </div>
                                 </Link>
                             )}
                             </div>
