@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Card, Divider, Skeleton } from 'antd';
+import { Card } from 'antd';
 import { getTotalSessionsAndIdeas,getTodaySessionsIdeas } from 'services/dashboard'
 //Type
 import { ITotalIdeasSessions } from 'types/Ideas';
@@ -18,26 +18,27 @@ import { PRIMARY_COLOR } from 'utils/constants';
 import { APIWithoutAuth } from 'utils/api';
 
 const HeadCards = () => {
-    const [loading, setLoading] = useState(false)
+    const [loadingFotToday, setLoadingForToday] = useState(false);
+    const [loadingForTotal, setLoadingForTotal] = useState(false);
     const [totalIdeasSessions,setTotalIdeasSessions] = useState<ITotalIdeasSessions|undefined>(undefined);
     const [todaySessions, setTodaySessions] = useState<number|undefined>(undefined);
     const [todayIdeas, setTodayIdeas] = useState<number|undefined>(undefined);
     const [consecutiveDays, setConsecutiveDays] = useState<number|undefined>(undefined);
 
     const getSessionsIdeasCount = async () => {
-        setLoading(true);
+        setLoadingForTotal(true);
         try {
             const result = await getTotalSessionsAndIdeas();
             setTotalIdeasSessions(result);
         } catch (error:any) {
             await APIWithoutAuth.post('/error-message',{error:error.message});
         } finally {
-            setLoading(false);
+            setLoadingForTotal(false);
         }
     }
 
     const getTodayData = async() => {
-        setLoading(true);
+        setLoadingForToday(true);
         try {
             const result = await getTodaySessionsIdeas();
             setTodayIdeas(result?.totalIdeas);
@@ -45,7 +46,7 @@ const HeadCards = () => {
         } catch (error:any){
             await APIWithoutAuth.post('/error-message', {error: error.message});
         } finally {
-            setLoading(false);
+            setLoadingForToday(false);
         }
     }
 
@@ -62,7 +63,7 @@ const HeadCards = () => {
             variants={fadeInRight}
             className='flex flex-row justify-between h-28 mb-5 gap-5'
         >
-            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' loading={loading}>
+            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' loading={loadingFotToday}>
                     <Meta
                         description={
                             <div className='flex flex-row justify-between'>
@@ -90,7 +91,7 @@ const HeadCards = () => {
                             }
                     />
             </Card>
-            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' loading={loading}>
+            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' loading={loadingForTotal}>
                     <Meta
                         description={
                             <div className='flex flex-row justify-between'>
@@ -111,7 +112,7 @@ const HeadCards = () => {
                             }
                     />
             </Card>
-            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' loading={loading}>
+            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' loading={loadingForTotal}>
                     <Meta
                         description={
                             <div className='flex flex-row justify-between'>
@@ -132,7 +133,7 @@ const HeadCards = () => {
                             }
                     />
             </Card>
-            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' loading={loading}>
+            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' loading={loadingFotToday}>
                     <Meta
                         description={
                             <div className='flex flex-row justify-between'>
