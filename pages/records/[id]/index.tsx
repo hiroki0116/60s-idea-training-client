@@ -18,7 +18,7 @@ const Records = ({ideaRecord}:{ideaRecord:IIdeas}) => {
 
 Records.getInitialProps = async ({ query }) => {
     try {
-      const res = await APIWithoutAuth.get(`/ideas/${query.id}`);
+      const res = await APIWithoutAuth.get(`/ideas/session/${query.id}`);
       return { ideaRecord: res.data };
     } catch (error) {
       return { ideaRecord: null };
