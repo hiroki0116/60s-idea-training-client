@@ -13,9 +13,11 @@ import FieldTimeOutlined from '@ant-design/icons/FieldTimeOutlined';
 import TagOutlined from '@ant-design/icons/TagOutlined';
 import BulbTwoTone from '@ant-design/icons/BulbTwoTone';
 import FileTextTwoTone from '@ant-design/icons/FileTextTwoTone';
+import ThreeDotsMenu from "./ThreeDotsMenu";
 
 const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
     const [content, setContent] = useState<string>('');
+
 
     const changeViewStatus = async (id: string) => {
         try {
@@ -33,7 +35,10 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
     },[router.query])
   return (
     <MotionDiv>
-        <div className="grid grid-cols-1 bg-white p-5 rounded-xl shadow-lg w-2/3 mx-auto gap-2">
+        <div className="grid grid-cols-1 bg-white p-5 rounded-xl shadow-lg w-2/3 mx-auto gap-2 relative">
+            <div className="absolute top-2 right-2">
+                <ThreeDotsMenu />
+            </div>
             <h1 className="text-lg text-center font-bold tracking-wider">{ideaRecord.topicTitle}</h1>
             <div className="flex items-center gap-2 text-gray-500">
                 <FieldTimeOutlined className="text-base"/>
@@ -62,7 +67,7 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
                 </div>
             </div>
             <div className="rounded-lg shadow-lg p-5 bg-slate-50 mt-3">
-                <div className="flex gap-2">
+                <div className="flex gap-2 mb-1">
                     <FileTextTwoTone className="text-base"/>
                     <h3 className="text-base font-bold tracking-widest uppercase">notes</h3>
                 </div>

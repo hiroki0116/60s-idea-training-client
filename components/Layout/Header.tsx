@@ -23,7 +23,7 @@ const Header = ({ name }) => {
   ]
 
   const menu = (
-    <Menu className="rounded-lg max-w-sm whitespace-normal ">
+    <Menu className="rounded-lg max-w-sm whitespace-normal">
       {notifications.map((item) => (
         <Menu.Item key={item.key}>
           <div>{item.message}</div>
