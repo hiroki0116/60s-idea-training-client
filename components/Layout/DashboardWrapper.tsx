@@ -10,6 +10,7 @@ const { Header: AntHeader, Content, Sider } = Layout;
 const DashboardWrapper = ({children}) => {
     const router = useRouter();
     if (!router.isReady) return <CenterSpin />;
+    console.log(router)
     return (
       <Layout>
         <Sider
@@ -22,7 +23,7 @@ const DashboardWrapper = ({children}) => {
           <Sidenav />
         </Sider>
         <Layout>
-          <Header name={router.asPath}/>
+          <Header name={router.pathname}/>
           <Content className="px-5 py-10 bg-slate-50 h-full w-full mx-auto">{children}</Content>
           <Footer />
         </Layout>

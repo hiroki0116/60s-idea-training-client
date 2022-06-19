@@ -68,7 +68,7 @@ const Sidenav = () => {
         className="w-40 h-24 text-white absolute left-2 bottom-32 rounded-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 drop-shadow-2xl text-center pt-5"
       >
         <p>Need Help?</p>
-        <p>Please check our docs</p>
+        <p>Feel free to contact me</p>
       </div>
     </>
   );
