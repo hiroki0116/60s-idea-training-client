@@ -5,7 +5,7 @@ const settings = () => {
   return (
     <DashboardWrapper>
       <DashboardAuthWrapper>
-      <div>Settings contents</div>
+      <div>Settings feature is comming soon :D</div>
       </DashboardAuthWrapper>
     </DashboardWrapper>
   )

@@ -45,7 +45,7 @@ const FirstSection = () => {
                     prefix={<BulbTwoTone />}
                     value={topicTitle}
                     onChange={(e)=>setTopicTitle(e.target.value)}
-                    placeholder=' Enter topic here'
+                    placeholder=' Enter your topic here'
                     style={{borderRadius:'0.85rem'}}
                 />
             </div>

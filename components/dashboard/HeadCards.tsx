@@ -68,8 +68,8 @@ const HeadCards = () => {
                         description={
                             <div className='flex flex-row justify-between'>
                                 <div className='flex flex-col w-full'>
-                                    <div className='text-gray-500 uppercase'>
-                                        <span className='bg-blue-50 px-2 py-0.5 rounded'>Today</span>
+                                    <div className='text-gray-500'>
+                                        <span className='bg-blue-50 px-2 py-0.5 rounded tracking-wider'>TODAY</span>
                                     </div>
                                     <div className='flex flex-row w-full gap-4 justify-evenly'>
                                         <div className='flex flex-col text-center'>
@@ -96,8 +96,8 @@ const HeadCards = () => {
                         description={
                             <div className='flex flex-row justify-between'>
                                 <div className='flex flex-col w-full'>
-                                    <div className='text-gray-500 uppercase'>
-                                        <span className='bg-blue-50 px-2 py-0.5 rounded'>Total</span>
+                                    <div className='text-gray-500'>
+                                        <span className='bg-blue-50 px-2 py-0.5 rounded tracking-wider'>TOTAL</span>
                                     </div>
                                     <div className='flex flex-col text-center'>
                                             <div className='text-3xl font-bold text-gray-800'>{totalIdeasSessions?.totalSessions || 0} </div>
@@ -117,8 +117,8 @@ const HeadCards = () => {
                         description={
                             <div className='flex flex-row justify-between'>
                                 <div className='flex flex-col w-full'>
-                                    <div className='text-gray-500 uppercase'>
-                                        <span className='bg-blue-50 px-2 py-0.5 rounded'>Total</span>
+                                    <div className='text-gray-500'>
+                                        <span className='bg-blue-50 px-2 py-0.5 rounded tracking-wider'>TOTAL</span>
                                     </div>
                                     <div className='flex flex-col text-center'>
                                             <div className='text-3xl font-bold text-gray-800'>{totalIdeasSessions?.totalIdeas || 0}</div>
@@ -138,8 +138,8 @@ const HeadCards = () => {
                         description={
                             <div className='flex flex-row justify-between'>
                                 <div className='flex flex-col w-full'>
-                                    <div className='text-gray-500 uppercase'>
-                                        <span className='bg-blue-50 px-2 py-0.5 rounded'>Consecutive</span>
+                                    <div className='text-gray-500'>
+                                        <span className='bg-blue-50 px-2 py-0.5 rounded tracking-wider'>CONSECUTIVE</span>
                                     </div>
                                     <div className='flex flex-col text-center'>
                                             <div className='text-3xl font-bold text-gray-800'>{consecutiveDays || 0}</div>

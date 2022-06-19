@@ -3,7 +3,7 @@ import { Dropdown, Menu, Modal } from 'antd';
 import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined';
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
 
-const ThreeDotsMenu = () => {
+const ThreeDotsMenu = ({deleteIdeaRecord}) => {
     const [dropDownVisible, setDropDownVisible] = useState<boolean>(false);
     const [showModal, setShowModal] = useState<boolean>(false);
     
@@ -31,7 +31,7 @@ const ThreeDotsMenu = () => {
         </Dropdown>
         <Modal
             visible={showModal}
-            onOk={null}
+            onOk={deleteIdeaRecord}
             okText="Yes"
             cancelText="Cancel"
             onCancel={()=>{setShowModal(false)}}

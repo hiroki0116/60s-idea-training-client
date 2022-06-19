@@ -11,7 +11,7 @@ import { handleLogout } from "utils/auth";
 const Sidenav = () => {
   const router = useRouter();
   const { setUser } = useContext(AuthContext);
-  const selectedStyle = 'font-bold border-r-4 bg-blue-50';
+  const selectedStyle = 'font-bold border-r-4 bg-blue-50 text-16';
   
   return (
     <>
@@ -30,25 +30,26 @@ const Sidenav = () => {
           key="1"
           className = {router.pathname === '/dashboard' && selectedStyle}
         >
-            <Link href={'/dashboard'}><a><AppstoreFilled style={{fontSize:'1.25rem'}}/>Dashboard</a></Link>
+          
+            <Link href={'/dashboard'}><a className="flex items-center"><AppstoreFilled style={{fontSize:'1.25rem'}}/>Dashboard</a></Link>
         </Menu.Item>
         <Menu.Item 
           key="2"
           className = {router.pathname === '/exercise' && selectedStyle}
         >
-            <Link href={'/exercise'}><a><FireFilled style={{fontSize:'1.25rem'}}/>Exercise</a></Link>
+            <Link href={'/exercise'}><a className="flex items-center"><FireFilled style={{fontSize:'1.25rem'}}/>Exercise</a></Link>
         </Menu.Item>
         <Menu.Item 
           key="3"
           className = {router.pathname === '/records' && selectedStyle}
         >
-            <Link href={'/records'}><a><SignalFilled style={{fontSize:'1.25rem'}}/>Records</a></Link>
+            <Link href={'/records'}><a className="flex items-center"><SignalFilled style={{fontSize:'1.25rem'}}/>Records</a></Link>
         </Menu.Item>
         <Menu.Item 
           key="4"
           className = {router.pathname === '/settings' && selectedStyle}
         >
-            <Link href={'/settings'}><a><SettingFilled style={{fontSize:'1.25rem'}}/>Settings</a></Link>
+            <Link href={'/settings'}><a className="flex items-center"><SettingFilled style={{fontSize:'1.25rem'}}/>Settings</a></Link>
         </Menu.Item>
         <Menu.Divider key={Math.random()}/>
         <Menu.Item 
@@ -56,8 +57,10 @@ const Sidenav = () => {
           className='font-bold'
           onClick={()=>handleLogout(setUser)}
         >
-            <span><LogoutOutlined style={{fontSize:'1.25rem'}}/></span>
-            <span>Logout</span>
+          <div className="flex items-center">
+            <LogoutOutlined style={{fontSize:'1.25rem'}}/>
+            Logout
+          </div>
         </Menu.Item>
       </Menu>
 
