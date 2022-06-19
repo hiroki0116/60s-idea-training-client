@@ -22,8 +22,8 @@ const ExerciseMain = () => {
                 variants={fadeInRight}
             >
                 <Steps current={showFirstSection ? stepEnum.firstSection : stepEnum.submitSection} >
-                    <Step title={showFirstSection ? "Step 1" : "Completed"} description={<div className='text-xs text-center bg-yellow-50 p-1 rounded-lg'>Choose your topic and category!</div>} status={showFirstSection ? 'process' : 'finish'} onClick={handleBack} className='cursor-pointer'/>
-                    <Step title={showSubmitSection ? 'In Process' : 'Step 2'} description={<div className='text-xs text-center bg-yellow-50 p-1 rounded-lg'>Elaborate your ideas!</div>} status={showSubmitSection ? 'process' : 'wait'} />
+                    <Step title={showFirstSection ? "Step 1" : "Completed"} description={<div className={`text-xs text-center p-2 rounded-lg ${showFirstSection && 'bg-yellow-50 font-bold'}`}>Choose your topic and category!</div>} status={showFirstSection ? 'process' : 'finish'} onClick={handleBack} className='cursor-pointer'/>
+                    <Step title={showSubmitSection ? 'In Process' : 'Step 2'} description={<div className={`text-xs text-center p-2 rounded-lg ${showSubmitSection && 'bg-yellow-50 font-bold'}`}>Elaborate your ideas!</div>} status={showSubmitSection ? 'process' : 'wait'} />
                 </Steps>
                 <FirstSection />
                 <SubmitSection />
