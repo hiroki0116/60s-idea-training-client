@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { API } from 'utils/api';
 import moment from 'moment';
 import TagOutlined from '@ant-design/icons/TagOutlined'
-import { Input, Select, DatePicker, message, Tag, Empty, Pagination } from 'antd';
+import { Input, Select, DatePicker, message, Tag, Empty, Pagination, Switch } from 'antd';
 
 import {CATEGORIES,DEFAULT_CREATED_AT} from 'utils/constants';
 import MotionDiv from 'components/Layout/MotionDiv';
@@ -19,24 +19,25 @@ const RecordsMain = () => {
     const [results, setResults] = useState([]);
     const [dataInfo, setDataInfo] = useState({totalDocs: 0});
     const [paginate, setPaginate] = useState({ current: 1, pageSize: 9 });
+    const [sortByRecent, setSortByRecent] = useState(true);
 
 
     useEffect(() => {
         handleSubmit();
         // eslint-disable-next-line
-      }, [searchInput,paginate, category,createdAtTo, createdAtFrom]);
+      }, [searchInput,paginate, category,createdAtTo, createdAtFrom, sortByRecent]);
 
 
     const handleSubmit = async () => {
         try {
             setLoading(true);
-            //TO DO: Add sort by
             const requestBody = {
                 searchInput: searchInput.trim(),
                 category,
                 createdAtFrom,
                 createdAtTo,
                 paginate,
+                sortByRecent
             }
 
             const { data } = await API.post(`/ideas/search`,requestBody, {errorHandle: false});
@@ -112,9 +113,6 @@ const RecordsMain = () => {
                     </div>
                 </div>
             </div>
-            {/* <div className='flex justify-center mt-1'>
-                <Button type='primary' className='uppercase' shape='round' onClick={handleReset}>Reset</Button>
-            </div> */}
         </div>
 
         {/* Results table */}
@@ -125,7 +123,7 @@ const RecordsMain = () => {
                     {results.length
                     ? (
                         <>
-                            <div className="mb-3 flex justify-center">
+                            <div className="mb-3 flex justify-center relative">
                                 <Pagination
                                     size="small"
                                     total={dataInfo.totalDocs}
@@ -134,6 +132,14 @@ const RecordsMain = () => {
                                     pageSize={paginate.pageSize}
                                     responsive
                                 />
+                                <div className='absolute right-2'>
+                                    <Switch
+                                        checked={sortByRecent}
+                                        onChange={()=> setSortByRecent(!sortByRecent)}
+                                        checkedChildren="Recent"
+                                        unCheckedChildren="Older"
+                                    />
+                                </div>
                             </div>
                             <div className='grid grid-cols-3 gap-5'>
                             {results.map(result => 
