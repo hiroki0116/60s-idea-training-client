@@ -31,8 +31,8 @@ const BarChart = () => {
   return (
     <>
       <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg' loading={loading}>
-        <div>
-          <Title level={5}>Weekly Achievements</Title>
+        <div className="trakcking-wider">
+          <Title level={5}>WEEKLY ACHIEVEMENTS</Title>
         </div>
 
         {!weeklyData 

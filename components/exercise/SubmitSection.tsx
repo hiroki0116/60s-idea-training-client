@@ -1,4 +1,4 @@
-import { useState, useContext, useRef } from 'react';
+import { useState, useContext, useRef, useEffect } from 'react';
 import {ExerciseContext} from 'context/exerciseContext';
 import CountDownTimer from './CountDownTimer';
 import BulbTwoTone from '@ant-design/icons/BulbTwoTone';
@@ -23,7 +23,12 @@ const SubmitSection = () => {
         }
     };
 
+    const handleStart = () => setIsPlaying(true);
     const handeOnChange = (e) => setIdeaValue(e.target.value);
+
+    useEffect(()=>{
+      if(isPlaying && inputRef?.current) inputRef?.current?.focus();
+    },[isPlaying])
 
   return (
     showSubmitSection ? (
@@ -39,27 +44,24 @@ const SubmitSection = () => {
             shape='round'
             type='primary'
             disabled={isPlaying}
-            onClick={()=>setIsPlaying(true)}
+            onClick={handleStart}
           >
             Start
           </Button>
-          {isPlaying ? (
-              <div className='self-center w-2/3 mt-5'>
-                <TextArea
-                  placeholder='Enter your ideas'
-                  style={{borderRadius:'0.5rem'}}
-                  className={`bg-blue-100 border-blue-200 shadow-lg`}
-                  allowClear
-                  disabled={!isPlaying}
-                  onPressEnter={handleAdd}
-                  value={ideaValue}
-                  onChange={handeOnChange}
-                  ref={inputRef}
-                  showCount
-                  bordered={false}
-                />
-              </div>
-          ): null}
+          <div className='self-center w-2/3 mt-5' hidden={!isPlaying}>
+            <TextArea
+              placeholder='Enter your ideas'
+              style={{borderRadius:'0.5rem'}}
+              className={`bg-blue-100 border-blue-200 shadow-lg`}
+              allowClear
+              onPressEnter={handleAdd}
+              value={ideaValue}
+              onChange={handeOnChange}
+              ref={inputRef}
+              showCount
+              bordered={false}
+            />
+          </div>
           {ideas.length ? (
             <ul className='px-2 mb-5 font-bold tracking-wide text-16 whitespace-normal flex flex-wrap'>
                 {ideas.map((idea,index)=> (

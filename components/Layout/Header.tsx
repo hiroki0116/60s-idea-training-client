@@ -7,38 +7,21 @@ const Header = ({ name }) => {
 
   useEffect(() => window.scrollTo(0, 0));
 
-  const notifications = [
-    {
-      key:1,
-      message:'Welcome to my application. Start your first exercise!'
-    },
-    {
-      key:2,
-      message:'New feature released! You can share your note on line!'
-    },
-    {
-      key:3,
-      message:'Something test3'
-    }
-  ]
-
   const menu = (
-    <Menu className="rounded-lg max-w-sm whitespace-normal ">
-      {notifications.map((item) => (
-        <Menu.Item key={item.key}>
-          <div>{item.message}</div>
+    <Menu className="rounded-lg max-w-sm whitespace-normal">
+        <Menu.Item>
+          <div className="text-gray-600">No, notification yet</div>
         </Menu.Item>
-      ))}
     </Menu>
   );
 
   return (
       <div className='flex justify-between bg-black h-16 items-center	text-white pr-10 pl-5 z-30'>
-        <div className="uppercase tracking-wider">
-          {name.replace("/", "")}
+        <div className="uppercase tracking-widest">
+          {name === "/records/[id]" ?  'idea record' : name.replace("/", "")}
         </div>
         <div >
-          <Badge size="small" count={2}>
+          <Badge size="small">
             <Dropdown overlay={menu} trigger={["click"]} placement="bottomRight" className="text-lg">
               <BellFilled className='text-lg'/>
             </Dropdown>
