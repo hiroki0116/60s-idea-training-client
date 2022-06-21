@@ -151,7 +151,7 @@ const RecordsMain = () => {
                                                 {result.category && result.category.length ? result.category : 'Others'}
                                             </Tag>
                                         </div>
-                                        <h3 className='text-16 font-bold tracking-wide text-gray-700 my-4'>{result.topicTitle}</h3>
+                                        <h3 className='border-l-4 pl-2 text-16 font-bold tracking-wide text-gray-700 my-4'>{result.topicTitle}</h3>
                                         {result.ideas.map((idea,index) => 
                                             <div key={index} className="mb-1">
                                                 <Tag color={'purple'} style={{borderRadius:'0.5rem'}}>- {idea}</Tag>

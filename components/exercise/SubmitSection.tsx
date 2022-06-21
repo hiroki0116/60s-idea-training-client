@@ -24,11 +24,21 @@ const SubmitSection = () => {
     };
 
     const handleStart = () => setIsPlaying(true);
+    const handleSpace = (e) => { if (e.key === " ") setIsPlaying(true) }
     const handeOnChange = (e) => setIdeaValue(e.target.value);
 
     useEffect(()=>{
       if(isPlaying && inputRef?.current) inputRef?.current?.focus();
     },[isPlaying])
+
+    useEffect(() => {
+      window.addEventListener('keydown', handleSpace);
+    
+      return () => {
+        window.removeEventListener('keydown', handleSpace);
+      };
+      // eslint-disable-next-line
+    }, []);
 
   return (
     showSubmitSection ? (
@@ -48,6 +58,7 @@ const SubmitSection = () => {
           >
             Start
           </Button>
+          <div className='text-xs text-gray-400 text-center pt-1'>Click START or Press Space Key</div>
           <div className='self-center w-2/3 mt-5' hidden={!isPlaying}>
             <TextArea
               placeholder='Enter your ideas'

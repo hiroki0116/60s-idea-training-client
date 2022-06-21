@@ -1,12 +1,15 @@
 import type { NextPage } from 'next'
-
+import Hero from 'components/homepage/Hero/HeroSection';
+import CustomNavBar from 'components/Layout/CustomNavBar';
 
 const Home: NextPage = () => {
   return (
-    <div className='pt-52 text-center'>
-      <h1>Top page is comming soon :D</h1>
-    </div>
-  )
+    <>
+      <CustomNavBar />
+      <Hero />
+    </>
+
+    )
 }
 
 export default Home
