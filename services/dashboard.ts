@@ -23,7 +23,15 @@ export const getWeeklyRecords = async () => {
     try {
         const {data} = await API.get('/ideas/weekly-records', {errorHandle: false});
         return data;
-    } catch (error) {
+    } catch (error:any) {
         return { success:false, message: error.message}
+    }
+}
+
+export const getConsecutiveDays = async () => {
+    try{
+        
+    }catch(error:any){
+
     }
 }

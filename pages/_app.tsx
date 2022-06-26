@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
       <AuthProvider>
-        <CustomNavBar />
+        {/* <CustomNavBar /> */}
         <Component {...pageProps} />
       </AuthProvider>
     </>
