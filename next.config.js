@@ -7,6 +7,6 @@ module.exports = nextConfig
 
 module.exports = {
   images: {
-    domains: ['ik.imagekit.io'],
+    domains: ['res.cloudinary.com'],
   },
 }

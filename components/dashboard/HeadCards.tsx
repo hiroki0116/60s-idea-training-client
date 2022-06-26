@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Card } from 'antd';
-import { getTotalSessionsAndIdeas,getTodaySessionsIdeas } from 'services/dashboard'
+import { getTotalSessionsAndIdeas,getTodaySessionsIdeas,getConsecutiveDays } from 'services/dashboard'
 //Type
 import { ITotalIdeasSessions } from 'types/Ideas';
 
@@ -20,6 +20,7 @@ import { APIWithoutAuth } from 'utils/api';
 const HeadCards = () => {
     const [loadingFotToday, setLoadingForToday] = useState(false);
     const [loadingForTotal, setLoadingForTotal] = useState(false);
+    const [loadingForConsecutiveDays, setLoadingForConsecutiveDays] = useState(false);
     const [totalIdeasSessions,setTotalIdeasSessions] = useState<ITotalIdeasSessions|undefined>(undefined);
     const [todaySessions, setTodaySessions] = useState<number|undefined>(undefined);
     const [todayIdeas, setTodayIdeas] = useState<number|undefined>(undefined);
@@ -50,9 +51,22 @@ const HeadCards = () => {
         }
     }
 
+    const getConsecutive = async() => {
+        setLoadingForConsecutiveDays(true)
+        try {
+            const result = await getConsecutiveDays();
+            // setConsecutiveDays(result?.consecutiveDays);
+        } catch (error:any) {
+            await APIWithoutAuth.post('/error-message', {error: error.message})
+        } finally {
+            setLoadingForConsecutiveDays(false)
+        }
+    }
+
     useEffect(()=>{
         getSessionsIdeasCount();
         getTodayData();
+        getConsecutive();
     },[])
 
   return (
@@ -133,7 +147,7 @@ const HeadCards = () => {
                             }
                     />
             </Card>
-            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' loading={loadingFotToday}>
+            <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg w-1/4 overflow-hidden' loading={loadingForConsecutiveDays}>
                     <Meta
                         description={
                             <div className='flex flex-row justify-between'>

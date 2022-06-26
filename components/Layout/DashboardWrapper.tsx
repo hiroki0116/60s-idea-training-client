@@ -10,7 +10,6 @@ const { Header: AntHeader, Content, Sider } = Layout;
 const DashboardWrapper = ({children}) => {
     const router = useRouter();
     if (!router.isReady) return <CenterSpin />;
-    console.log(router)
     return (
       <Layout>
         <Sider

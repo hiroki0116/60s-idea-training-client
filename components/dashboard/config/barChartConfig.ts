@@ -24,7 +24,7 @@ const barChart = (
   }
 
   weeklyDates.forEach((day) => {
-    if (weeklyRecords.some((record) => record._id === day)) {
+    if (weeklyRecords?.some((record) => record._id === day)) {
       ideasData.push(_.find(weeklyRecords, { _id: day }).totalIdeas);
       sessionsData.push(_.find(weeklyRecords, { _id: day }).totalSessions);
     } else {
@@ -74,6 +74,10 @@ const barChart = (
       labels: {
         formatter: function(val) {
           return moment(val).format('ddd DD MMM')
+        },
+        style:{
+          fontSize:'13px',
+          fontWeight:700,
         }
       }
     },
