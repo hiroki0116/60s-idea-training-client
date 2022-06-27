@@ -23,22 +23,21 @@ const SubmitSection = () => {
         }
     };
 
-    const handleStart = () => setIsPlaying(true);
-    const handleSpace = (e) => { if (e.key === " ") setIsPlaying(true) }
+    const handleEnter = () => setIsPlaying(true);
     const handeOnChange = (e) => setIdeaValue(e.target.value);
 
     useEffect(()=>{
       if(isPlaying && inputRef?.current) inputRef?.current?.focus();
     },[isPlaying])
 
-    useEffect(() => {
-      window.addEventListener('keydown', handleSpace);
+    // useEffect(() => {
+    //   window.addEventListener('keydown', handleSpace);
     
-      return () => {
-        window.removeEventListener('keydown', handleSpace);
-      };
-      // eslint-disable-next-line
-    }, []);
+    //   return () => {
+    //     window.removeEventListener('keydown', handleSpace);
+    //   };
+    //   // eslint-disable-next-line
+    // }, []);
 
   return (
     showSubmitSection ? (
@@ -54,7 +53,7 @@ const SubmitSection = () => {
             shape='round'
             type='primary'
             disabled={isPlaying}
-            onClick={handleStart}
+            onClick={handleEnter}
           >
             Start
           </Button>

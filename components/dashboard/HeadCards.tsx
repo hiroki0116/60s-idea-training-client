@@ -55,7 +55,7 @@ const HeadCards = () => {
         setLoadingForConsecutiveDays(true)
         try {
             const result = await getConsecutiveDays();
-            // setConsecutiveDays(result?.consecutiveDays);
+            setConsecutiveDays(result.consecutiveDays);
         } catch (error:any) {
             await APIWithoutAuth.post('/error-message', {error: error.message})
         } finally {
