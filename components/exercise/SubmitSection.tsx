@@ -9,7 +9,8 @@ const SubmitSection = () => {
     const { topicTitle, showSubmitSection,isPlaying, setIsPlaying, ideas, setIdeas } = useContext(ExerciseContext);
     const [ideaValue, setIdeaValue] = useState<string>('');
 
-    const inputRef = useRef<any>(null);
+    let inputRef = useRef<any>(null);
+    let buttonRef = useRef<any>(null);
 
     const handleAdd = (e) => {
         if(e.keyCode == 13){
@@ -23,21 +24,19 @@ const SubmitSection = () => {
         }
     };
 
-    const handleEnter = () => setIsPlaying(true);
+    const handleEnter = () => {
+        setIsPlaying(true);
+        buttonRef.current = null;
+    }
     const handeOnChange = (e) => setIdeaValue(e.target.value);
 
     useEffect(()=>{
       if(isPlaying && inputRef?.current) inputRef?.current?.focus();
     },[isPlaying])
 
-    // useEffect(() => {
-    //   window.addEventListener('keydown', handleSpace);
-    
-    //   return () => {
-    //     window.removeEventListener('keydown', handleSpace);
-    //   };
-    //   // eslint-disable-next-line
-    // }, []);
+    useEffect(() => {
+      if(buttonRef?.current) buttonRef?.current.focus();
+    }, [showSubmitSection]);
 
   return (
     showSubmitSection ? (
@@ -54,6 +53,8 @@ const SubmitSection = () => {
             type='primary'
             disabled={isPlaying}
             onClick={handleEnter}
+            onKeyPress={handleEnter}
+            ref={buttonRef}
           >
             Start
           </Button>
