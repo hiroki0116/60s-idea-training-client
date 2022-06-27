@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { AuthContext } from 'context/authContext';
 //ThirdParty
-import EnvironmentOutlined from '@ant-design/icons/EnvironmentOutlined'
+import EnvironmentOutlined from '@ant-design/icons/EnvironmentOutlined';
 //Utils
 import { currAuthUser } from 'utils/auth';
 import { SETTING_BACKGROUND }  from 'utils/constants';
@@ -9,6 +9,7 @@ import { capitalizeFirst } from 'utils/formatter';
 //Components
 import MotionDiv from 'components/Layout/MotionDiv';
 import ProfileImage from 'components/setting/profile/ProfileImage';
+import SettingSection from 'components/setting/profile/SettingSection';
 
 const ProfileSection = () => {
   const { user } = useContext(AuthContext);
@@ -33,10 +34,8 @@ const ProfileSection = () => {
         <div className='flex items-center gap-1'><EnvironmentOutlined/> Australia</div>
       </div>
       <MotionDiv>
-        <div className='grid grid-cols-2 gap-5'>
-          <div className='bg-white rounded-lg shadow-lg p-5'>
-            
-          </div>
+        <div className='grid grid-cols-2 gap-8'>
+          <SettingSection />
           <ProfileImage />
         </div>
       </MotionDiv>

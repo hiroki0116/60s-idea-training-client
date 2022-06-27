@@ -63,7 +63,7 @@ const RecordsMain = () => {
       <MotionDiv>
         {/* Filter section */}
         <div className="grid grid-cols-1 bg-white p-5 rounded-xl shadow-lg">
-            <div className='font-bold text-lg'>Session Records</div>
+            <div className='font-bold text-lg'>Search</div>
 
             <div className='py-3 flex justify-around  gap-3 w-full'>
                 <div className='w-2/6'>

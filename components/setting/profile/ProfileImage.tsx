@@ -151,13 +151,13 @@ const ProfileImage = () => {
 
   return (
     <div className='bg-white rounded-lg shadow-lg'>
-        <div className='font-bold py-3 px-5 bg-blue-50 overflow-hidden rounded-t-lg'>
+        <div className='font-bold py-3 px-5 bg-blue-50 overflow-hidden rounded-t-lg text-base'>
             Profile Image
         </div>
 
         <div className='flex py-5 px-10'>
             <div
-                className="mb-8 sm:mr-8 flex justify-center"
+                className="mb-8 sm:mr-8 flex justify-center mt-4"
                 onMouseEnter={() => setShowDelete(true)}
                 onMouseLeave={() => setShowDelete(false)}
             >
@@ -170,7 +170,7 @@ const ProfileImage = () => {
                     />
                 </Spin>
             </div>
-            <div className={`flex flex-col justify-center items-center text-gray-600 border  rounded cursor-pointer w-full mx-10 my-5 ${dragOver ? 'bg-blue-50 border' : 'border-dashed'}`} >
+            <div className={`flex flex-col justify-center items-center text-gray-600 border  rounded cursor-pointer w-full mx-10 my-4 ${dragOver ? 'bg-blue-50 border' : 'border-dashed'}`} >
                 <Spin spinning={loading}>
                     <label
                         htmlFor="file_upload" 
