@@ -54,8 +54,8 @@ const RecordsMain = () => {
         }
     };
 
-    const handlePageChange = (page:number) => {
-        setPaginate({ current: page, pageSize: 9 });
+    const handlePageChange = (page:number, pageSize:number) => {
+        setPaginate({ current: page, pageSize: pageSize });
         window.scroll(0, 0);
     };
 
@@ -124,6 +124,7 @@ const RecordsMain = () => {
                     onChange={()=> setSortByRecent(!sortByRecent)}
                     checkedChildren="Recent"
                     unCheckedChildren="Older"
+                    className='shadow'
                 />
             </div>
             {loading ? <CenterSpin />
@@ -140,6 +141,7 @@ const RecordsMain = () => {
                                     onChange={handlePageChange}
                                     pageSize={paginate.pageSize}
                                     responsive
+                                    pageSizeOptions={['9','18','36','50']}
                                 />
                             </div>
                             <div className='grid grid-cols-3 gap-5'>
@@ -174,6 +176,7 @@ const RecordsMain = () => {
                                     onChange={handlePageChange}
                                     pageSize={paginate.pageSize}
                                     responsive
+                                    pageSizeOptions={['9','18','36','50']}
                                 />
                             </div>
                         </>
