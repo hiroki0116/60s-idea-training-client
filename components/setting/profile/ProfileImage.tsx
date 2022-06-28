@@ -155,7 +155,7 @@ const ProfileImage = () => {
             Profile Image
         </div>
 
-        <div className='flex py-5 px-10'>
+        <div className='flex px-10'>
             <div
                 className="mb-8 sm:mr-8 flex justify-center mt-4"
                 onMouseEnter={() => setShowDelete(true)}
