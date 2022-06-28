@@ -28,6 +28,8 @@ interface ExerciseContext {
     isPlaying: boolean;
     setIsPlaying: (isPlaying: boolean) => void;
     handleSubmit: ()=> void;
+    contextLoading: boolean;
+    setContextLoading: (contextLoading:boolean)=> void;
 }
 
 const initialValue = {
@@ -47,7 +49,9 @@ const initialValue = {
     handleBack: () => {},
     isPlaying: false,
     setIsPlaying: () => {},
-    handleSubmit: () => {}
+    handleSubmit: () => {},
+    contextLoading: false,
+    setContextLoading: () => {}
 } as ExerciseContext;
 
 export const ExerciseContext = createContext<ExerciseContext>(initialValue);
@@ -62,6 +66,7 @@ export const ExerciseProfileProvider = ({ children }) => {
     const [showFirstSection, setShowFirstSection] = useState<boolean>(true);
     const [showSubmitSection, setShowSubmitSection] = useState<boolean>(false);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
+    const [contextLoading, setContextLoading] = useState<boolean>(false);
 
 
     useEffect(() => {
@@ -87,11 +92,14 @@ export const ExerciseProfileProvider = ({ children }) => {
 
     const handleSubmit = async () => {
         try {
+            setContextLoading(true);
             const {newSession} = await handleSubmitIdeas(topicTitle,ideas,category);
             setPrevSessions([newSession,...prevSessions,])
-            message.success('Successfully Submitted!')
+            setContextLoading(false);
+            message.success('Successfully Saved!')
         } catch (error:any) {
             await APIWithoutAuth.post('/error-message',{clientError:error.message}, { errorHandle: false});
+            setContextLoading(false);
             message.error(error.message)
         } finally {
             clearSteps();
@@ -123,7 +131,9 @@ export const ExerciseProfileProvider = ({ children }) => {
         handleBack,
         isPlaying,
         setIsPlaying,
-        handleSubmit
+        handleSubmit,
+        contextLoading,
+        setContextLoading
     };
   
     return <ExerciseContext.Provider value={value}>{children}</ExerciseContext.Provider>;

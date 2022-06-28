@@ -7,10 +7,8 @@ const SettingSection = () => {
             Account
         </div>
 
-        <div className='flex p-5'>
-            <div className="mb-8 sm:mr-8 flex justify-center">
-                Password change
-            </div>
+        <div className=''>
+                
         </div>
     </div>
   )
