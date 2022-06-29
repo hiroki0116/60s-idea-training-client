@@ -22,16 +22,18 @@ const ProfileSection = () => {
   }}
 
   return (
-    <div className='flex flex-col relative'>
-      <div className="h-36 rounded-lg shadow-lg" style={embedImage(SETTING_BACKGROUND)}>
-        <div className='text-white font-bold p-5 text-lg tracking-wider'>Profile</div>
-      </div>
-      <div className="top-20 left-1/2 absolute">
-        <div className="shadow-xl rounded w-20 h-20 relative right-1/2" style={embedImage(user ? user.images[0].url : currAuthUser()?.images[0]?.url)} />
-      </div>
-      <div className='mt-8 mb-5 grid grid-cols-1 justify-items-center'>
-        <div className='text-lg font-bold'>{capitalizeFirst(currAuthUser()?.firstName)} {capitalizeFirst(currAuthUser()?.lastName)}</div>
-        <div className='flex items-center gap-1'><EnvironmentOutlined/> Australia</div>
+    <div className='flex flex-col relative gap-8'>
+      <div className='bg-white rounded-lg shadow-lg overflow-hidden'>
+        <div className="h-36 shadow-lg" style={embedImage(SETTING_BACKGROUND)}>
+          <div className='text-white font-bold p-5 text-lg tracking-wider'>Profile</div>
+        </div>
+        <div className="top-20 left-1/2 absolute">
+          <div className="shadow-xl rounded w-20 h-20 relative right-1/2" style={embedImage(user ? user.images[0].url : currAuthUser()?.images[0]?.url)} />
+        </div>
+        <div className='mt-8 mb-3 grid grid-cols-1 justify-items-center'>
+          <div className='text-lg font-bold'>{capitalizeFirst(currAuthUser()?.firstName)} {capitalizeFirst(currAuthUser()?.lastName)}</div>
+          <div className='flex items-center gap-1'><EnvironmentOutlined/> Australia</div>
+        </div>
       </div>
       <MotionDiv>
         <div className='grid grid-cols-2 gap-8'>

@@ -26,7 +26,7 @@ const CountDownTimer = () => {
     <>
         <CountdownCircleTimer
             isPlaying={isPlaying}
-            duration={10}
+            duration={60}
             colors={['#0a2339', '#F7B801', '#A30000', '#A30000']}
             colorsTime={[7, 5, 2, 0]}
             size={150}
