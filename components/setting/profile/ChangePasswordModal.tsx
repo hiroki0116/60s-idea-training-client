@@ -30,12 +30,12 @@ const ChangePasswordModal = ({showChangePasswordModal, setShowChangePasswordModa
       width={500}
       getContainer={false}
     >
-      <ChangePassword showChangePasswordModal={showChangePasswordModal} setShowChangePasswordModal={setShowChangePasswordModal} />
+      <ChangePassword setShowChangePasswordModal={setShowChangePasswordModal} />
     </Modal>
   );
 };
 
-const ChangePassword = ({showChangePasswordModal, setShowChangePasswordModal}: modalProps) => {
+const ChangePassword = ({ setShowChangePasswordModal}: {setShowChangePasswordModal:(boolean) => void}) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -44,10 +44,9 @@ const ChangePassword = ({showChangePasswordModal, setShowChangePasswordModal}: m
     setLoading(true);
     try {
       await auth.currentUser.updatePassword(password);
-      await API.put('/user', { tempPassword: '' });
       setLoading(false);
+      setShowChangePasswordModal(false);
       message.success('Password update success.');
-      router.push('/user/account-settings/security');
     } catch (err) {
       setLoading(false);
       message.error('Please login again. Your session has been expired.');
