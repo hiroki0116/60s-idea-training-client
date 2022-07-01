@@ -44,7 +44,6 @@ const DashboardLayoutWrapper = ({children}) => {
         }
       ];
     
-      if(!user) return <SignUpOrLogin/>
 
   return (
     <div className="grid grid-cols-7 gap-6 p-5 bg-slate-100 min-h-screen">
