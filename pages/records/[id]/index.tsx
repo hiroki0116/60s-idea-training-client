@@ -16,12 +16,12 @@ const Records = ({ideaRecord}:{ideaRecord:IIdeas}) => {
   )
 }
 
-Records.getInitialProps = async ({ query }) => {
+export async function getServerSideProps ({ query }){
     try {
       const res = await APIWithoutAuth.get(`/ideas/session/${query.id}`);
-      return { ideaRecord: res.data };
+      return { props: {ideaRecord: res.data }};
     } catch (error) {
-      return { ideaRecord: null };
+      return { props: {ideaRecord: null }};
     }
   };
 
