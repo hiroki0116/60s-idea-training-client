@@ -2,12 +2,12 @@
 .banner-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center; */
+    /* align-items: center; */
     height: 100vh;
     width: 100%;
     /* background-image: url(https://res.cloudinary.com/ds3sagrkv/image/upload/c_scale,h_565,w_1202/v1611122500/homePagePhoto/we-are-hiring-banner4-scaled_xaqwy5.jpg); */
-    background-color: #0a2339;
+    background-color: #ffffff;
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -19,7 +19,7 @@
   
   
   .banner-title {
-    color: #ffffff;
+    color: #0a2339;
     text-align: center;
   }
   
