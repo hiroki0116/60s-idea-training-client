@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 import DashboardAuthWrapper from 'components/auth/DashboardAuthWrapper'
-import DashboardWrapper from 'components/Layout/DashboardWrapper'
+import DashboardLayoutWrapper from 'components/Layout/DashboardLayoutWrapper';
 import { IIdeas } from 'types/Ideas';
 import { APIWithoutAuth } from 'utils/api';
 const RecordsDetail = dynamic(() => import('components/records/RecordDetail/RecordsDetail'), {ssr:true});
@@ -8,11 +8,11 @@ const RecordsDetail = dynamic(() => import('components/records/RecordDetail/Reco
 
 const Records = ({ideaRecord}:{ideaRecord:IIdeas}) => {
   return (
-    <DashboardWrapper>
+    <DashboardLayoutWrapper>
       <DashboardAuthWrapper>
         <RecordsDetail ideaRecord={ideaRecord} />
       </DashboardAuthWrapper>
-    </DashboardWrapper>
+    </DashboardLayoutWrapper>
   )
 }
 

@@ -1,9 +1,10 @@
 import { useEffect } from "react";
+import { PRIMARY_COLOR } from "utils/constants";
+//Third Party
 import { Badge,Dropdown, Menu } from "antd";
-
 import { BellFilled } from "@ant-design/icons";
 
-const Header = ({ name }) => {
+const Header = ({ pathname }) => {
 
   useEffect(() => window.scrollTo(0, 0));
 
@@ -16,9 +17,9 @@ const Header = ({ name }) => {
   );
 
   return (
-      <div className='flex justify-between bg-black h-16 items-center	text-white pr-10 pl-5 z-30'>
-        <div className="uppercase tracking-widest">
-          {name === "/records/[id]" ?  'idea record' : name.replace("/", "")}
+      <div className='flex justify-between h-14 items-center text-white pl-7 pr-10 rounded-xl mb-5' style={{backgroundColor:PRIMARY_COLOR}}>
+        <div className="uppercase tracking-widest font-sans">
+          {pathname === "/records/[id]" ?  'idea record' : pathname.replace("/", "")}
         </div>
         <div >
           <Badge size="small">

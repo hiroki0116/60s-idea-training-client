@@ -1,17 +1,17 @@
 import dynamic from 'next/dynamic';
 import { ExerciseProfileProvider } from 'context/exerciseContext';
 import DashboardAuthWrapper from 'components/auth/DashboardAuthWrapper';
-import DashboardWrapper from 'components/Layout/DashboardWrapper';
+import DashboardLayoutWrapper from 'components/Layout/DashboardLayoutWrapper';
 const ExerciseMain = dynamic(() => import('components/exercise/ExerciseMain'), {ssr:false});
 
 const exersize = () => {
   return (
     <ExerciseProfileProvider>
-      <DashboardWrapper>
+      <DashboardLayoutWrapper>
         <DashboardAuthWrapper>
           <ExerciseMain />
         </DashboardAuthWrapper>
-      </DashboardWrapper>
+      </DashboardLayoutWrapper>
     </ExerciseProfileProvider>
   )
 }
