@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useState,useContext, useEffect } from 'react';
 import { AuthContext } from 'context/authContext';
 import Link from 'next/link';
 import router from 'next/router';
@@ -14,11 +14,15 @@ import CenterSpin from './CenterSpin';
 //Components
 import Header from 'components/Layout/Header';
 import Footer from 'components/Layout/Footer';
-import SignUpOrLogin from 'components/auth/SignUpOrLogin';
 
 
 const DashboardLayoutWrapper = ({children}) => {
-  const user: IUser = currAuthUser();
+  const [user, setUserInfo] = useState<IUser | undefined>(undefined);
+
+  useEffect(()=>{
+    setUserInfo(currAuthUser())
+  },[])
+
   const { setUser } = useContext(AuthContext);
     const customCss = 'text-3xl mb-1';
     const options = [
@@ -45,7 +49,7 @@ const DashboardLayoutWrapper = ({children}) => {
       ];
     
 
-  return (
+  return user ? (
     <div className="grid grid-cols-7 gap-6 p-5 bg-slate-100 min-h-screen">
         <div className="">
           <div className="place-items-stretch shadow-lg p-2 rounded-lg bg-white">
@@ -106,7 +110,7 @@ const DashboardLayoutWrapper = ({children}) => {
         <Footer />
       </div>
     </div>
-  )
+  ): <CenterSpin />
 }
 
 export default DashboardLayoutWrapper
