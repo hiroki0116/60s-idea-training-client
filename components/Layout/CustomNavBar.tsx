@@ -5,9 +5,7 @@ const NavBarDesktop = dynamic(()=> import('components/Layout/NavBarDesktop'));
 const CustomNavBar = () => {
 
   return (
-    <div className='px-8 pt-5 fixed inset-x-0 top-0 h-12 transition duration-1000 duration-1000 ease-in-out flex justify-between items-center'>
       <NavBarDesktop />
-    </div>
   )
 }
 

@@ -1,4 +1,5 @@
 const colors = require('tailwindcss/colors');
+const defaultTheme = require("tailwindcss/defaultTheme")
 
 module.exports = {
   purge: {
@@ -18,6 +19,12 @@ module.exports = {
     removeDeprecatedGapUtilities: true
   },
   theme: {
+    extend: {
+      fontFamily: {
+        "Fredoka": ["Fredoka", ...defaultTheme.fontFamily.sans],
+      },
+
+    },
     fontWeight: {
       thin: 100,
       light: 300,
