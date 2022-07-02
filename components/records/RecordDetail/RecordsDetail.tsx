@@ -1,4 +1,5 @@
 import { useEffect,useState } from "react";
+import Link from 'next/link';
 import { Divider, Tag, Input, message,notification, Select} from 'antd'
 import router from 'next/router';
 import { IIdeas } from "types/Ideas"
@@ -14,6 +15,7 @@ import FieldTimeOutlined from '@ant-design/icons/FieldTimeOutlined';
 import TagOutlined from '@ant-design/icons/TagOutlined';
 import BulbTwoTone from '@ant-design/icons/BulbTwoTone';
 import FileTextTwoTone from '@ant-design/icons/FileTextTwoTone';
+import LeftOutlined from '@ant-design/icons/LeftOutlined';
 import ThreeDotsMenu from "./ThreeDotsMenu";
 const { Option } = Select;
 
@@ -95,11 +97,16 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
     },[router.query])
   return (
     <MotionDiv>
+        <Link href={'/records'}>
+            <a className="sm:hidden block text-blue-500">
+                <LeftOutlined /> Back to Records
+            </a>
+        </Link>
         <div className="grid grid-cols-1 bg-white p-5 rounded-xl shadow-lg sm:w-2/3 w-full mx-auto gap-2 relative">
             <div className="absolute top-2 right-2">
                 <ThreeDotsMenu deleteIdeaRecord={deleteIdeaRecord}/>
             </div>
-            <Input 
+            <Input
                 size='large'
                 value={topicTitle}
                 onChange={(e)=>setTopicTitle(e.target.value)}
