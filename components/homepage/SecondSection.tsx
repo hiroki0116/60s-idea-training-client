@@ -35,7 +35,7 @@ const SecondSection = () => {
                 <div className='col-1 rounded-lg border border-white p-5 transform transition duration-500 hover:scale-110' key={index}>
                     {content.icon}
                     <h4 className='text-lg text-white font-bold tracking-wider pb-5'>{content.title}</h4>
-                    <p className='border-l-2 pl-2 text-base'>{content.body}</p>
+                    <p className='border-l-2 pl-2 text-base leading-7'>{content.body}</p>
                 </div>
             ))}
             </div>
