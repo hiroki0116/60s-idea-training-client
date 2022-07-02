@@ -16,8 +16,8 @@ const HeroSection = () => {
           <Image src={MOBILE_MOCKUP} alt='Mobile Mockup' width={150} height={50}/>
         </div>
       </div>
-      <div className='cols-1 self-center justify-self-center'>
-        <Image src={HERO_IMAGE} alt="Hero Idea image" width={400} height={270} />
+      <div className='cols-1 self-center justify-self-end'>
+        <Image src={HERO_IMAGE} alt="Hero Idea image" width={500} height={350} />
       </div>
     </div>
   )
