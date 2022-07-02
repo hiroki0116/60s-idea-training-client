@@ -1,9 +1,9 @@
 import dynamic from 'next/dynamic'
 import DashboardAuthWrapper from 'components/auth/DashboardAuthWrapper'
 import DashboardLayoutWrapper from 'components/Layout/DashboardLayoutWrapper';
+import RecordsDetail from 'components/records/RecordDetail/RecordsDetail';
 import { IIdeas } from 'types/Ideas';
 import { APIWithoutAuth } from 'utils/api';
-const RecordsDetail = dynamic(() => import('components/records/RecordDetail/RecordsDetail'), {ssr:true});
 
 
 const Records = ({ideaRecord}:{ideaRecord:IIdeas}) => {
