@@ -2,9 +2,7 @@ import { ApexOptions } from "apexcharts";
 import moment from 'moment'
 import _ from 'lodash';
 import { IWeeklyIdeasSessions } from "types/Ideas";
-import { PRIMARY_COLOR } from "utils/constants";
 
-const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 
 const barChart = (
   { 

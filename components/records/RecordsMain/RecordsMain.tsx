@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link'
-import { API } from 'utils/api';
-import moment from 'moment';
-import TagOutlined from '@ant-design/icons/TagOutlined';
-import EyeOutlined from '@ant-design/icons/EyeOutlined';
-import { Input, Select, DatePicker, message, Tag, Empty, Pagination, Switch } from 'antd';
-
+//Utils
 import {CATEGORIES,DEFAULT_CREATED_AT} from 'utils/constants';
+import { API } from 'utils/api';
+//Third Party
+import { Input, Select, DatePicker, message, Tag, Empty, Pagination, Switch } from 'antd';
+import TagOutlined from '@ant-design/icons/TagOutlined';
+import moment from 'moment';
+//Components
 import MotionDiv from 'components/Layout/MotionDiv';
 import CenterSpin from 'components/Layout/CenterSpin';
-const { Option } = Select;
 
 const RecordsMain = () => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -65,8 +65,8 @@ const RecordsMain = () => {
         <div className="grid grid-cols-1 bg-white p-5 rounded-xl shadow-lg">
             <div className='font-bold text-lg'>Search</div>
 
-            <div className='py-3 flex justify-around  gap-3 w-full'>
-                <div className='w-2/6'>
+            <div className='sm:flex sm:justify-around grid grid-cols-2 gap-3 w-full py-3'>
+                <div className='sm:w-2/6 '>
                     <div>Keyword</div>
                     <Input.Search 
                         onPressEnter={() => handleSubmit()}
@@ -77,17 +77,17 @@ const RecordsMain = () => {
                         allowClear
                     />
                 </div>
-                <div className='w-1/6'>
-                <div>Category</div>
-                <Select className="w-full" onChange={(value: string) => setCategory(value)} allowClear value={category}>
-                {CATEGORIES.map((cate, key) => (
-                    <Select.Option value={cate} key={key}>
-                        {cate}
-                    </Select.Option>
-                ))}
-                </Select>
-                </div>
-                <div className='w-1/6'>
+                <div className='sm:w-1/6 w-full'>
+                    <div>Category</div>
+                        <Select className="w-full" onChange={(value: string) => setCategory(value)} allowClear value={category}>
+                        {CATEGORIES.map((cate, key) => (
+                            <Select.Option value={cate} key={key}>
+                                {cate}
+                            </Select.Option>
+                        ))}
+                        </Select>
+                    </div>
+                <div className='sm:w-1/6 w-full'>
                     <div>From (optional)</div>
                     <div>
                         <DatePicker
@@ -100,7 +100,7 @@ const RecordsMain = () => {
                         />
                     </div>
                 </div>
-                <div className='w-1/6'>
+                <div className='sm:w-1/6 w-full'>
                     <div>To (optional)</div>
                     <div>
                         <DatePicker
@@ -117,7 +117,7 @@ const RecordsMain = () => {
         </div>
 
         {/* Results table */}
-        <div className="grid grid-cols-1 p-6 w-full bg-white sm:rounded-lg h-full shadow my-5 relative">
+        <div className="grid grid-cols-1 p-6 w-full bg-white rounded-lg h-full shadow my-5 relative">
             <div className='absolute top-5 left-6'>
                 <Switch
                     checked={sortByRecent}
@@ -133,7 +133,7 @@ const RecordsMain = () => {
                     {results.length
                     ? (
                         <>
-                            <div className="mb-3 flex justify-center">
+                            <div className="sm:mb-3 mb-5 flex sm:justify-center justify-end w-full">
                                 <Pagination
                                     size="small"
                                     total={dataInfo.totalDocs}
@@ -144,7 +144,7 @@ const RecordsMain = () => {
                                     pageSizeOptions={['9','18','36','50']}
                                 />
                             </div>
-                            <div className='grid grid-cols-3 gap-5'>
+                            <div className='grid sm:grid-cols-3 grid-cols-1 gap-5 w-full'>
                             {results.map(result => 
                                 <Link  key={result._id} href={`/records/${result._id}`}>
                                     <div className={`relative rounded-xl mb-2 p-5 shadow-lg border border-purple-100  hover:bg-purple-50 cursor-pointer ${result.viewed ? 'bg-white' : 'bg-blue-50'}`}>
@@ -156,8 +156,8 @@ const RecordsMain = () => {
                                         </div>
                                         <h3 className='border-l-4 pl-2 text-16 font-bold tracking-wide text-gray-700 my-4'>{result.topicTitle}</h3>
                                         {result.ideas.map((idea,index) => 
-                                            <div key={index} className="mb-1">
-                                                <Tag color={'purple'} style={{borderRadius:'0.5rem'}}>- {idea}</Tag>
+                                            <div key={index} className="mb-1 whitespace-pre-wrap break-normal">
+                                                <Tag color={'purple'} style={{borderRadius:'0.5rem', overflowWrap:'normal', wordBreak:'normal', whiteSpace:'normal'}}>- {idea}</Tag>
                                             </div>
                                         )}
                                     {result.viewed ? 

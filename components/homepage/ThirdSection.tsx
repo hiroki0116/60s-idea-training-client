@@ -7,11 +7,14 @@ import ReadOutlined from '@ant-design/icons/ReadOutlined';
 
 const ThirdSection = () => {
   return (
-    <div className="min-h-screen w-full grid grid-cols-2 tracking-wider p-20 gap-10 px-28" >
-        <div className="cols-1">
+    <div className="min-h-screen w-full grid sm:grid-cols-2 grid-cols-1 tracking-wider sm:py-20 py-10 gap-10 sm:px-28 px-10" >
+        <div className="col-span-1">
 
-            <h3 className="text-4xl">How it works?</h3>
-            <div className="text-lg font-bold">Simple rules! Easy to continue everyday!</div>
+            <h3 className="sm:text-4xl text-2xl">How it works?</h3>
+            <div className="col-span-1 self-center justify-self-center block sm:hidden">
+                <Image src={THIRD_SECTION} alt='Man adding data' width={500} height={350} />
+            </div>
+            <div className="sm:text-lg text-base font-bold">Simple rules! Easy to continue everyday!</div>
 
             <MotionDivWhenView variants = {{visible: { opacity: 1, x: 0 },hidden: { opacity: 0, x: 10 }}}>
                 <div className="grid grid-cols-1 gap-5 pt-5">
@@ -40,7 +43,7 @@ const ThirdSection = () => {
                 </div>
             </MotionDivWhenView>
         </div>
-        <div className="cols-1 self-center justify-self-center">
+        <div className="col-span-1 self-center justify-self-center sm:block hidden">
             <Image src={THIRD_SECTION} alt='Man adding data' width={500} height={350} />
         </div>
     </div>

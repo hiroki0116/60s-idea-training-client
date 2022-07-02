@@ -15542,7 +15542,7 @@ textarea.ant-mentions {
 .ant-menu-inline,
 .ant-menu-vertical,
 .ant-menu-vertical-left {
-  border-right: 1px solid #f0f0f0;
+  border-right: 0px solid #f0f0f0;
 }
 .ant-menu-vertical-right {
   border-left: 1px solid #f0f0f0;

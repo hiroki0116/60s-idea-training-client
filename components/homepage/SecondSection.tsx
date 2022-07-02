@@ -27,15 +27,15 @@ const SecondSection = () => {
     ]
 
   return (
-    <div className="min-h-screen w-full grid grid-cols-1 px-28 justify-items-center content-center text-white gap-10 tracking-wider" style={{backgroundColor:PRIMARY_COLOR}}>
-        <h3 className='text-4xl text-white text-center'>Why do you want to <br/>train output skill ?</h3>
+    <div className="min-h-screen w-full grid grid-cols-1 sm:px-28 py-10 justify-items-center content-center text-white gap-10 tracking-wider" style={{backgroundColor:PRIMARY_COLOR}}>
+        <h3 className='sm:text-4xl text-2xl text-white text-center'>Why do you want to <br/>train output skill ?</h3>
         <MotionDivWhenView  variants = {{visible: { opacity: 1, x: 0 },hidden: { opacity: 0, x: 10 }}}>
-            <div className='grid grid-cols-3 gap-10 w-full p-10 h-52'>
+            <div className='grid sm:grid-cols-3 grid-cols-1 gap-10 w-full px-10'>
             {contents.map((content, index) => (
-                <div className='col-1 rounded-lg border border-white p-5 transform transition duration-500 hover:scale-110' key={index}>
+                <div className='col-span-1 rounded-lg border border-white p-5 transform transition duration-500 hover:scale-110' key={index}>
                     {content.icon}
                     <h4 className='text-lg text-white font-bold tracking-wider pb-5'>{content.title}</h4>
-                    <p className='border-l-2 pl-2 text-base leading-7'>{content.body}</p>
+                    <p className='border-l-2 pl-2 text-base sm:leading-7 leading-5'>{content.body}</p>
                 </div>
             ))}
             </div>

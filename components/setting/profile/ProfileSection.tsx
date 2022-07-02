@@ -22,7 +22,7 @@ const ProfileSection = () => {
   }}
 
   return (
-    <div className='flex flex-col relative gap-8'>
+    <div className='flex flex-col relative gap-8 w-full'>
       <div className='bg-white rounded-lg shadow-lg overflow-hidden'>
         <div className="h-36 shadow-lg" style={embedImage(SETTING_BACKGROUND)}>
           <div className='text-white font-bold p-5 text-lg tracking-wider'>Profile</div>
@@ -36,7 +36,7 @@ const ProfileSection = () => {
         </div>
       </div>
       <MotionDiv>
-        <div className='grid grid-cols-2 gap-8'>
+        <div className='grid sm:grid-cols-2 grid-cols-1 gap-8'>
           <SettingSection />
           <ProfileImage />
         </div>
