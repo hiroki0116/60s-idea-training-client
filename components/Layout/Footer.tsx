@@ -10,7 +10,7 @@ const Footer = () => {
             <div className="border-r mx-3"/>
             <Link href='/'><a className="hover:animate-bounce">About This App</a></Link>
           </div>
-            <span className="italic">© 2021, 60seconds Idea Training.</span>
+            <span className="italic">© 2022, 60seconds Idea Training.</span>
       </div>
     </footer>
   );

@@ -15,11 +15,11 @@ const NavBarDesktop = () => {
 
   return  (
     <>
-      <div className='flex justify-between items-center w-full'>
-            <div>
+      <div className='bg-white px-20 fixed inset-x-0 top-0 items-center z-50 h-12 transition duration-1000 ease-in-out flex justify-between'>
+            <div className='pt-2'>
               <Link href={'/'}>
                 <a>
-                  <Image src={LOGO_IMAGE} alt='Logo' width={200} height={50} />
+                  <Image src={LOGO_IMAGE} alt='Logo' width={230} height={180} />
                 </a>
               </Link>
             </div>
@@ -30,7 +30,7 @@ const NavBarDesktop = () => {
               </Button>          
             </Link>
           ) : (
-            <div className='flex gap-5'>
+            <div className='flex gap-5 z-20'>
               <Button onClick={()=>setShowRegister(true)} shape='round' type='primary'>
                 Register
               </Button>

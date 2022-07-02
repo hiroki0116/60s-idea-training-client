@@ -1,14 +1,19 @@
 import type { NextPage } from 'next'
-import Hero from 'components/homepage/Hero/HeroSection';
+import Hero from 'components/homepage/HeroSection';
 import CustomNavBar from 'components/Layout/CustomNavBar';
+import SecondSection from 'components/homepage/SecondSection';
+import ThirdSection from 'components/homepage/ThirdSection';
+import HomePageFooter from 'components/homepage/HomePageFooter';
 
 const Home: NextPage = () => {
   return (
     <>
       <CustomNavBar />
       <Hero />
+      <SecondSection />
+      <ThirdSection />
+      <HomePageFooter />
     </>
-
     )
 }
 
