@@ -95,7 +95,7 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
     },[router.query])
   return (
     <MotionDiv>
-        <div className="grid grid-cols-1 bg-white p-5 rounded-xl shadow-lg w-2/3 mx-auto gap-2 relative">
+        <div className="grid grid-cols-1 bg-white p-5 rounded-xl shadow-lg sm:w-2/3 w-full mx-auto gap-2 relative">
             <div className="absolute top-2 right-2">
                 <ThreeDotsMenu deleteIdeaRecord={deleteIdeaRecord}/>
             </div>

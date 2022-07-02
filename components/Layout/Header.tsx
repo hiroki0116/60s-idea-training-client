@@ -3,6 +3,8 @@ import { PRIMARY_COLOR } from "utils/constants";
 //Third Party
 import { Badge,Dropdown, Menu } from "antd";
 import { BellFilled } from "@ant-design/icons";
+//Components
+import MobileMenu from 'components/Layout/MobileMenu';
 
 const Header = ({ pathname }) => {
 
@@ -17,16 +19,19 @@ const Header = ({ pathname }) => {
   );
 
   return (
-      <div className='flex justify-between h-14 items-center text-white pl-7 pr-10 rounded-xl mb-5' style={{backgroundColor:PRIMARY_COLOR}}>
+      <div className='flex justify-between h-14 items-center text-white px-5 rounded-xl mb-5' style={{backgroundColor:PRIMARY_COLOR}}>
         <div className="uppercase tracking-widest font-sans">
           {pathname === "/records/[id]" ?  'idea record' : pathname.replace("/", "")}
         </div>
-        <div >
+        <div className="sm:block hidden">
           <Badge size="small">
             <Dropdown overlay={menu} trigger={["click"]} placement="bottomRight" className="text-lg">
               <BellFilled className='text-lg'/>
             </Dropdown>
           </Badge>
+        </div>
+        <div className="sm:hidden block">
+          <MobileMenu />
         </div>
       </div>
   );

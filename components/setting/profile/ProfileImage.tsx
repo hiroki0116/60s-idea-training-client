@@ -155,9 +155,9 @@ const ProfileImage = () => {
             Profile Image
         </div>
 
-        <div className='flex px-10'>
+        <div className='grid grid-cols-2 sm:px-16 px-5 gap-5'>
             <div
-                className="mb-8 sm:mr-8 flex justify-center mt-4"
+                className="mb-8 mt-4 cols-span-1"
                 onMouseEnter={() => setShowDelete(true)}
                 onMouseLeave={() => setShowDelete(false)}
             >
@@ -170,7 +170,7 @@ const ProfileImage = () => {
                     />
                 </Spin>
             </div>
-            <div className={`flex flex-col justify-center items-center text-gray-600 border  rounded cursor-pointer w-full mx-10 my-4 ${dragOver ? 'bg-blue-50 border' : 'border-dashed'}`} >
+            <div className={`col-span-1 flex flex-col justify-center items-center text-gray-600 border rounded cursor-pointer my-4 ${dragOver ? 'bg-blue-50 border' : 'border-dashed'}`} >
                 <Spin spinning={loading}>
                     <label
                         htmlFor="file_upload" 
@@ -179,16 +179,16 @@ const ProfileImage = () => {
                         onDrop={onDrop}
                     >
                         <div className="flex flex-col justify-center items-center hover:opacity-75">
-                        <UploadOutlined className="text-xl sm:text-4xl font-bold" />
-                        <div className="ml-3 font-bold text-center">Click or Drag &amp; Drop to upload</div>
-                        <div className="hidden">
-                            <input
-                            type="file"
-                            id="file_upload"
-                            accept=".png, .jpg"
-                            onChange={handleChangeAvatar}
-                            />
-                        </div>
+                            <UploadOutlined className="text-xl sm:text-4xl font-bold" />
+                            <div className="ml-3 font-bold text-center">Click or Drag &amp; Drop to upload</div>
+                            <div className="hidden">
+                                <input
+                                type="file"
+                                id="file_upload"
+                                accept=".png, .jpg"
+                                onChange={handleChangeAvatar}
+                                />
+                            </div>
                         </div>
                     </label>
                 </Spin>    
