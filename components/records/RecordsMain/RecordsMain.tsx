@@ -23,12 +23,13 @@ const RecordsMain = () => {
     const [dataInfo, setDataInfo] = useState({totalDocs: 0});
     const [paginate, setPaginate] = useState({ current: 1, pageSize: 9 });
     const [sortByRecent, setSortByRecent] = useState(true);
+    const [isLiked, setIsLiked] = useState<boolean>(false);
 
 
     useEffect(() => {
         handleSubmit();
         // eslint-disable-next-line
-      }, [searchInput,paginate, category,createdAtTo, createdAtFrom, sortByRecent]);
+      }, [searchInput,paginate, category,createdAtTo, createdAtFrom, sortByRecent, isLiked]);
 
 
     const handleSubmit = async () => {
@@ -40,7 +41,8 @@ const RecordsMain = () => {
                 createdAtFrom,
                 createdAtTo,
                 paginate,
-                sortByRecent
+                sortByRecent,
+                isLiked
             }
 
             const { data } = await API.post(`/ideas/search`,requestBody, {errorHandle: false});
@@ -120,7 +122,7 @@ const RecordsMain = () => {
 
         {/* Results table */}
         <div className="grid grid-cols-1 p-6 w-full bg-white rounded-lg h-full shadow my-5 relative">
-            <div className='absolute top-5 left-6'>
+            <div className='absolute sm:top-5 top-6 left-6'>
                 <Switch
                     checked={sortByRecent}
                     onChange={()=> setSortByRecent(!sortByRecent)}
@@ -128,6 +130,9 @@ const RecordsMain = () => {
                     unCheckedChildren="Older"
                     className='shadow'
                 />
+            </div>
+            <div className="flex flex-col absolute sm:top-4 top-6  sm:left-28 left-24 sm:text-lg text-xl cursor-pointer transform transition duration-500 hover:scale-110" onClick={()=>{setIsLiked(!isLiked)}}>
+                {isLiked ? <StarFilled /> : <StarOutlined />} <div className='text-xs sm:block hidden'>Favorites</div>
             </div>
             {loading ? <CenterSpin />
             : (
@@ -137,7 +142,7 @@ const RecordsMain = () => {
                         <>
                             <div className="sm:mb-3 mb-5 flex sm:justify-center justify-end w-full">
                                 <Pagination
-                                    size="small"
+                                    size='small'
                                     total={dataInfo.totalDocs}
                                     current={paginate.current}
                                     onChange={handlePageChange}
