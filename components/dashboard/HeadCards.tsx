@@ -108,11 +108,11 @@ const HeadCards = () => {
                     <Meta
                         description={
                             <div className='flex flex-row justify-between items-center'>
-                                <div className='flex flex-col w-full pt-1'>
+                                <div className='flex flex-col w-full'>
                                     <div className='text-gray-500'>
                                         <span className='bg-blue-50 px-2 py-0.5 rounded tracking-wider'>TOTAL</span>
                                     </div>
-                                    <div className='flex flex-col text-center'>
+                                    <div className='flex flex-col text-center pt-1'>
                                             <div className='sm:text-3xl text-lg font-bold text-gray-800'>{totalIdeasSessions?.totalSessions || 0} </div>
                                             <span className='text-sm text-gray-400'>Sessions</span>
                                     </div>
