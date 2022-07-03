@@ -6,6 +6,8 @@ import { API } from 'utils/api';
 //Third Party
 import { Input, Select, DatePicker, message, Tag, Empty, Pagination, Switch } from 'antd';
 import TagOutlined from '@ant-design/icons/TagOutlined';
+import StarOutlined from '@ant-design/icons/StarOutlined';
+import StarFilled from '@ant-design/icons/StarFilled';
 import moment from 'moment';
 //Components
 import MotionDiv from 'components/Layout/MotionDiv';
@@ -148,6 +150,9 @@ const RecordsMain = () => {
                             {results.map(result => 
                                 <Link  key={result._id} href={`/records/${result._id}`}>
                                     <div className={`relative rounded-xl mb-2 p-5 shadow-lg border border-purple-100  hover:bg-purple-50 cursor-pointer ${result.viewed ? 'bg-white' : 'bg-blue-50'}`}>
+                                        <div className='absolute top-1 left-4 text-base cursor-pointer'>
+                                            {result?.isLiked ? <StarFilled /> : <StarOutlined />}
+                                        </div>
                                         <div className='absolute top-1 right-0 text-gray-500 text-xs'>
                                             {moment(result.createdAt).fromNow()}
                                             <Tag color="cyan" style={{borderRadius: "0.5rem",marginLeft:'5px'}} icon={<TagOutlined />}>
