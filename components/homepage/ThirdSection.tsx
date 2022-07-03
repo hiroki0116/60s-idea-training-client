@@ -22,7 +22,7 @@ const ThirdSection = () => {
                         <FieldTimeOutlined className='text-6xl'/>
                         <div>
                             <p className="text-xl font-bold">60 seconds only</p>
-                            <p className="sm:text-base text-sm leading-5">You have 60 seconds for each session. You don't have to structure your thoughts! Try to come up with ideas as much as you can in 60 seconds.</p>
+                            <p className="sm:text-base text-sm leading-5">You have 60 seconds for each session. You don&apos;t have to structure your thoughts! Try to come up with ideas as much as you can in 60 seconds.</p>
                         </div>
                     </div>
                     <div className="flex p-5 gap-8 rounded-lg shadow-lg bg-blue-50 transform transition duration-500 hover:scale-110">
