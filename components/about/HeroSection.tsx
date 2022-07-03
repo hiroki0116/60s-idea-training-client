@@ -10,7 +10,7 @@ const HeroSection = () => {
     }
 
   return (
-    <div className="min-h-screen w-full grid sm:grid-cols-3 grid-cols-1 justify-items-center items-center sm:px-36 px-10" style={{backgroundColor:PRIMARY_COLOR}}>
+    <div className="min-h-screen w-full grid sm:grid-cols-3 grid-cols-1 justify-items-center items-center sm:px-36 px-10 " style={{backgroundColor:PRIMARY_COLOR}}>
         <div className="sm:col-span-2">
             <div className="sm:pb-20 pb-5 pt-16">
                 <div className="pb-3 text-base text-green-400">Hi, my name is</div>
@@ -35,7 +35,7 @@ const HeroSection = () => {
             </div>
         </div>
 
-        <div className="sm:col-span-1 sm:pt-10">
+        <div className="sm:col-span-1 sm:pt-10 relative">
             <Timeline>
 
                 <Timeline.Item color="#4ade80">
