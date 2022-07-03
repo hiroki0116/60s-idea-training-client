@@ -34,7 +34,7 @@ const SecondSection = () => {
             {contents.map((content, index) => (
                 <div className='col-span-1 rounded-lg border border-white p-5 transform transition duration-500 hover:scale-110' key={index}>
                     {content.icon}
-                    <h4 className='text-lg text-white font-bold tracking-wider pb-5'>{content.title}</h4>
+                    <h4 className='text-lg text-green-400 font-bold tracking-wider pb-5'>{content.title}</h4>
                     <p className='border-l-2 pl-2 text-base sm:leading-7 leading-5'>{content.body}</p>
                 </div>
             ))}
