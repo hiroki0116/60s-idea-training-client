@@ -1,6 +1,6 @@
 import { useEffect,useState } from "react";
 import Link from 'next/link';
-import { Divider, Tag, Input, message,notification, Select} from 'antd'
+import { Divider, Tag, Input, message,notification, Select, Spin} from 'antd'
 import router from 'next/router';
 import { IIdeas } from "types/Ideas"
 import { APIWithoutAuth } from "utils/api";
@@ -23,10 +23,14 @@ const { Option } = Select;
 
 const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
     const [topicTitle,setTopicTitle] = useState<string>(ideaRecord.topicTitle || '');
-    const [comment, setComment] = useState<string>(ideaRecord.topicTitle || '');
+    const [comment, setComment] = useState<string>(ideaRecord.comment || '');
     const [isLiked, setIsLiked] = useState<boolean>(ideaRecord?.isLiked);
     const [loading, setLoading] = useState<boolean>(false);
+    const [commentLoading, setCommentLoading] = useState<boolean>(false);
     
+    useEffect(()=>{
+        updateComment();
+    },[comment])
 
     
     const changeViewStatus = async (id: string) => {
@@ -70,10 +74,9 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
     
     const updateComment = async () => {
         try {
-            const {data} = await APIWithoutAuth.patch(`/ideas/${ideaRecord._id}`, { comment }, { errorHandle: false });
-            if(data.success){
-                openNotification();
-            }
+            setCommentLoading(true);
+            await APIWithoutAuth.patch(`/ideas/${ideaRecord._id}`, { comment }, { errorHandle: false });
+            setCommentLoading(false);
         } catch (error: any) {
             await APIWithoutAuth.post('/error-message', { error: error.message })
             message.error(error.message);
@@ -120,7 +123,7 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
         </Link>
         <div className="grid grid-cols-1 bg-white p-5 rounded-xl shadow-lg sm:w-2/3 w-full mx-auto gap-2 relative">
             <div className="absolute top-2 right-12 text-lg cursor-pointer transform transition duration-500 hover:scale-110" onClick={handleLiked}>
-                {isLiked ? <StarFilled /> : <StarOutlined />}
+                {isLiked ? (loading ? <Spin /> : <StarFilled />) : (loading ? <Spin /> : <StarOutlined />)}
             </div>
             <div className="absolute top-2 right-2">
                 <ThreeDotsMenu deleteIdeaRecord={deleteIdeaRecord}/>
@@ -173,9 +176,10 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
                 </div>
             </div>
             <div className="rounded-lg shadow-lg p-5 bg-slate-50 mt-3">
-                <div className="flex gap-2 mb-1">
+                <div className="flex gap-2 mb-1 relative">
                     <FileTextTwoTone className="text-base"/>
                     <h3 className="text-base font-bold tracking-widest">NOTES</h3>
+                    {commentLoading ? <div className="absolute top-2 right-2">saving...</div> : null}
                 </div>
                 <div className="grid grid-cols-1">
                     <Editor
@@ -194,7 +198,6 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
                         initialValue={ideaRecord.comment || ''}
                         value={comment}
                         onEditorChange={(v) => {setComment(v)}}
-                        onBlur={updateComment}
                     />
                 </div>
             </div>
