@@ -1,7 +1,6 @@
-import dynamic from 'next/dynamic'
 import DashboardAuthWrapper from 'components/auth/DashboardAuthWrapper'
 import DashboardLayoutWrapper from 'components/Layout/DashboardLayoutWrapper';
-const RecordsMain = dynamic(() => import('components/records/RecordsMain/RecordsMain'), {ssr:false});
+import RecordsMain from 'components/records/RecordsMain/RecordsMain';
 
 
 const records = () => {
