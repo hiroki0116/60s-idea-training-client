@@ -6,24 +6,27 @@ import router from 'next/router';
 import { Avatar } from 'antd';
 import { AppstoreFilled, LogoutOutlined,FireFilled,SignalFilled,SettingFilled } from "@ant-design/icons";
 //Utils
-import { currAuthUser } from 'utils/auth';
+import { currAuthUser, isAuth } from 'utils/auth';
 import { capitalizeFirst } from 'utils/formatter';
 import { handleLogout } from "utils/auth";
 import { IUser } from 'types/User';
-import CenterSpin from './CenterSpin';
 //Components
+import LoginRequired from 'components/auth/LoginRequired';
 import Header from 'components/Layout/Header';
 import Footer from 'components/Layout/Footer';
+import CenterSpin from './CenterSpin';
 
 
 const DashboardLayoutWrapper = ({children}) => {
   const [user, setUserInfo] = useState<IUser | undefined>(undefined);
+  const { setUser } = useContext(AuthContext);
 
   useEffect(()=>{
     setUserInfo(currAuthUser())
   },[])
 
-  const { setUser } = useContext(AuthContext);
+  if (!isAuth()) return <LoginRequired />;
+
     const customCss = 'text-3xl mb-1';
     const options = [
         {
@@ -47,7 +50,6 @@ const DashboardLayoutWrapper = ({children}) => {
           icon: <SettingFilled className={customCss} />,
         }
       ];
-    
 
   return user ? (
     <div className="grid sm:grid-cols-7 grid-cols-1 w-full gap-6 p-5 bg-slate-100 min-h-screen">

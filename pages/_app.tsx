@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import CustomNavBar from 'components/Layout/CustomNavBar';
 import { AuthProvider } from 'context/authContext';
 import { useRouter } from 'next/router';
 import type { AppProps } from 'next/app'

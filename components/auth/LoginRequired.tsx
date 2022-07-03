@@ -7,11 +7,10 @@ const LoginRequired = () => {
     <Result
       className="bg-white m-10"
       status="403"
-      title="401"
-      subTitle="Please login to continue."
+      title='Please Login first to access your dashboard.'
       extra={
         <Link href={'/'}>
-          <Button type="primary">Home Page</Button>
+          <Button type="primary" shape='round'>Home Page</Button>
         </Link>
       }
     />
