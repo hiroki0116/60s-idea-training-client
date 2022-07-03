@@ -35,7 +35,7 @@ const HeroSection = () => {
             </div>
         </div>
 
-        <div className="sm:col-span-1 sm:pt-10 relative">
+        <div className="sm:col-span-1 py-10">
             <Timeline>
 
                 <Timeline.Item color="#4ade80">
@@ -62,12 +62,12 @@ const HeroSection = () => {
             </Timeline>
         </div>
 
-        <div className="absolute bottom-24 -right-10 text-zinc-400 transform rotate-90">
+        <div className="absolute bottom-24  -right-10  text-zinc-400 transform rotate-90 sm:block hidden">
             <p className="text-zinc-400">
                 console.log (&quot;Hello World!&quot;);
             </p>
         </div>
-        <div className="absolute bottom-0 right-14 text-zinc-400">
+        <div className="absolute bottom-0 right-16  text-zinc-400 sm:block hidden">
             <p className="text-zinc-400">
                 {`<60sIdeaTraining />`}
             </p>
