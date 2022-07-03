@@ -24,7 +24,8 @@ export type IIdeas = {
     category: string;
     ideas: string[];
     createdBy: IUser;
-    viewed: Boolean;
+    viewed: boolean;
+    isLiked: boolean; 
     comment: string;
     createdAt: moment.Moment;
     updatedAt: moment.Moment

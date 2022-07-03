@@ -16,12 +16,16 @@ import TagOutlined from '@ant-design/icons/TagOutlined';
 import BulbTwoTone from '@ant-design/icons/BulbTwoTone';
 import FileTextTwoTone from '@ant-design/icons/FileTextTwoTone';
 import LeftOutlined from '@ant-design/icons/LeftOutlined';
+import StarOutlined from '@ant-design/icons/StarOutlined';
+import StarFilled from '@ant-design/icons/StarFilled';
 import ThreeDotsMenu from "./ThreeDotsMenu";
 const { Option } = Select;
 
 const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
     const [topicTitle,setTopicTitle] = useState<string>(ideaRecord.topicTitle || '');
     const [comment, setComment] = useState<string>(ideaRecord.topicTitle || '');
+    const [isLiked, setIsLiked] = useState<boolean>(ideaRecord?.isLiked);
+    const [loading, setLoading] = useState<boolean>(false);
     
 
     
@@ -89,6 +93,18 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
         }
     }
 
+    const handleLiked = async () => {
+        try{
+            setLoading(true);
+            setIsLiked(!isLiked)
+            await APIWithoutAuth.patch(`/ideas/${ideaRecord._id}`, {isLiked: !isLiked},{errorHandle:false})
+            setLoading(false);
+        } catch(error:any){
+            await APIWithoutAuth.post('/error-message', {error: error.message});
+            message.error(error.message);
+        }
+    }
+
     useEffect(()=>{
         if(router.query.id){
             changeViewStatus(router.query.id.toString());
@@ -103,6 +119,9 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
             </a>
         </Link>
         <div className="grid grid-cols-1 bg-white p-5 rounded-xl shadow-lg sm:w-2/3 w-full mx-auto gap-2 relative">
+            <div className="absolute top-2 right-12 text-lg cursor-pointer transform transition duration-500 hover:scale-110" onClick={handleLiked}>
+                {isLiked ? <StarFilled /> : <StarOutlined />}
+            </div>
             <div className="absolute top-2 right-2">
                 <ThreeDotsMenu deleteIdeaRecord={deleteIdeaRecord}/>
             </div>
@@ -112,7 +131,7 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
                 onChange={(e)=>setTopicTitle(e.target.value)}
                 onBlur={updateTopicTitle}
                 bordered={false}
-                style={{fontWeight:"700", fontSize:'1.25rem'}}
+                style={{fontWeight:"700", fontSize:'1.25rem', marginTop:'1rem'}}
             />
             <div className="flex items-center gap-2 text-gray-500">
                 <FieldTimeOutlined className="text-base"/>
