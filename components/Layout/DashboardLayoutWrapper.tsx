@@ -50,7 +50,7 @@ const DashboardLayoutWrapper = ({children}) => {
     
 
   return user ? (
-    <div className="grid grid-cols-7 w-full gap-6 p-5 bg-slate-100 min-h-screen">
+    <div className="grid sm:grid-cols-7 grid-cols-1 w-full gap-6 p-5 bg-slate-100 min-h-screen">
         <div className="">
           <div className="place-items-stretch shadow-lg p-2 rounded-lg bg-white sm:block hidden">
             <div className="text-center py-2">
