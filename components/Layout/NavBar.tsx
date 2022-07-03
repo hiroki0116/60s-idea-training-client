@@ -15,7 +15,7 @@ const NavBar = () => {
 
   return  (
     <>
-      <div className='bg-white sm:px-20 px-5 fixed inset-x-0 top-0 items-center z-50 h-12 transition duration-1000 ease-in-out flex justify-between'>
+      <div className='bg-white sm:px-20 px-3 fixed inset-x-0 top-0 items-center z-50 h-12 transition duration-1000 ease-in-out flex justify-between'>
         <div className='pt-2'>
           <Link href={'/'}>
             <a>
