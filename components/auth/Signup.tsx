@@ -2,7 +2,6 @@ import { useState, useContext, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Form, Input, Spin, Divider, Checkbox, Button, Modal, message } from 'antd';
-
 import { auth, firebase_auth } from 'utils/firebase';
 import { AuthContext } from 'context/authContext';
 import { saveUserAndToken } from 'utils/auth';
@@ -106,7 +105,7 @@ const Register = () => {
     } catch (error: any) {
       await APIWithoutAuth.post('/error-message', { clientError: error.message });
       setLoading(false);
-      message.error(error.response ? error.response.data.message : 'Error in register. Please try again later.');
+      message.error('Error in register. Please try again later.');
     }
   };
 
@@ -195,13 +194,14 @@ const Register = () => {
         name="password"
         rules={[
           { required: true, message: 'Please enter password' },
-          { whitespace: true, message: 'Password cannot be empty' }
+          { whitespace: true, message: 'Password cannot be empty' },
+          { min: 6, message: 'Password needs to be minimum 6 characters.' }
         ]}
         required
       >
         <Input.Password className="p-2 rounded font-dark-gray" placeholder="Password" disabled={loading} />
       </Form.Item>
-      {commonItem()}
+      {/* {commonItem()} */}
       <Button className="w-full rounded h-auto py-2 mb-2" htmlType="submit" type="primary" disabled={loading || !terms}>
         Sign Up
       </Button>
