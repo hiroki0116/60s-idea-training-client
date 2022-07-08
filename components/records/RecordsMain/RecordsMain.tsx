@@ -190,7 +190,7 @@ const RecordsMain = () => {
                                 />
                             </div>
                         </>
-                    ) : <Empty />}
+                    ) : <Empty description={<div className='font-bold'>No data yet. <br/>Start your first exercise!</div>}/>}
                 </>
             )}
         </div>
