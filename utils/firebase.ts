@@ -1,5 +1,5 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import {getApps,initializeApp} from 'firebase/app';
+import { getAuth } from "firebase/auth";
 
 
 const firebaseConfig = {
@@ -24,17 +24,15 @@ const firebaseConfig_prod = {
 
 
 // Initialize Firebase
-if (firebase.apps.length === 0) {
+let firebaseApp;
+if (getApps().length === 0) {
   switch (process.env.NEXT_PUBLIC_STAGE) {
     case 'dev':
-      firebase.initializeApp(firebaseConfig);
+      firebaseApp = initializeApp(firebaseConfig);
       break;
     case 'prod':
-      firebase.initializeApp(firebaseConfig_prod);
+      firebaseApp = initializeApp(firebaseConfig_prod);
   }
 }
 
-export const auth = firebase.auth();
-export const firebase_auth = firebase.auth;
-export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-export const facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
+export const auth = getAuth(firebaseApp);

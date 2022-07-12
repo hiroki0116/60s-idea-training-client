@@ -2,7 +2,8 @@ import { useState, useContext, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Form, Input, Spin, Divider, Checkbox, Button, Modal, message } from 'antd';
-import { auth, firebase_auth } from 'utils/firebase';
+import { auth } from 'utils/firebase';
+import {setPersistence,browserLocalPersistence,signInWithEmailAndPassword } from 'firebase/auth';
 import { AuthContext } from 'context/authContext';
 import { saveUserAndToken } from 'utils/auth';
 import { APIWithoutAuth } from 'utils/api';
@@ -87,8 +88,8 @@ const Register = () => {
         return;
       }
 
-      await auth.setPersistence(firebase_auth.Auth.Persistence.LOCAL);
-      const loginRes = await auth.signInWithEmailAndPassword(email.toLowerCase().trim(), password);
+      await setPersistence(auth, browserLocalPersistence);
+      const loginRes = await signInWithEmailAndPassword(auth, email.toLowerCase().trim(), password);
       const { user } = loginRes;
       const idTokenResult = await user.getIdTokenResult();
       const userFromDB = registerRes.data.user;
@@ -115,38 +116,38 @@ const Register = () => {
     }
   };
 
-  const commonItem = () => {
+  // const commonItem = () => {
 
-    return (
-      <>
+  //   return (
+  //     <>
 
-        <div className="flex items-start mb-8">
-          <div className="mr-2">
-            <Checkbox checked={terms} onChange={(e) => setTerms(e.target.checked)}></Checkbox>
-          </div>
+  //       <div className="flex items-start mb-8">
+  //         <div className="mr-2">
+  //           <Checkbox checked={terms} onChange={(e) => setTerms(e.target.checked)}></Checkbox>
+  //         </div>
 
-          <div className="font-dark-gray">
-            I agree to 60seconds Idea Training&nbsp;
-            <Link href="#">
-              <a target="_blank">
-                <Button type="link" className="whitespace-normal h-auto p-0">
-                  Terms of Service
-                </Button>
-              </a>
-            </Link>
-            &nbsp;and&nbsp;
-            <Link href="#">
-              <a target="_blank">
-                <Button type="link" className="whitespace-normal h-auto p-0">
-                    Privacy Policy
-                </Button>
-              </a>
-            </Link>
-          </div>
-        </div>
-      </>
-    );
-  };
+  //         <div className="font-dark-gray">
+  //           I agree to 60seconds Idea Training&nbsp;
+  //           <Link href="#">
+  //             <a target="_blank">
+  //               <Button type="link" className="whitespace-normal h-auto p-0">
+  //                 Terms of Service
+  //               </Button>
+  //             </a>
+  //           </Link>
+  //           &nbsp;and&nbsp;
+  //           <Link href="#">
+  //             <a target="_blank">
+  //               <Button type="link" className="whitespace-normal h-auto p-0">
+  //                   Privacy Policy
+  //               </Button>
+  //             </a>
+  //           </Link>
+  //         </div>
+  //       </div>
+  //     </>
+  //   );
+  // };
 
   const emailForm = () => (
     <Form form={form} onFinish={handleSubmit} onKeyPress={handleFormOnKeyPress}>

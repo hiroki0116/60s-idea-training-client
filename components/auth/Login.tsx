@@ -3,7 +3,8 @@ import { AuthContext } from 'context/authContext';
 import Router, { useRouter } from 'next/router';
 import { Divider, Spin, Input, Form, Checkbox, Button, Modal, message } from 'antd';
 
-import { auth, firebase_auth } from 'utils/firebase';
+import { auth } from 'utils/firebase';
+import {setPersistence,browserLocalPersistence,signInWithEmailAndPassword } from 'firebase/auth';
 import { saveUserAndToken } from 'utils/auth';
 import { APIWithoutAuth } from 'utils/api';
 // import { handlePasswordLessEmail } from 'services/auth';
@@ -71,11 +72,11 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
     try {
       setLoading(true);
 
-      await auth.setPersistence(firebase_auth.Auth.Persistence.LOCAL);
-      const res = await auth.signInWithEmailAndPassword(email, password);
+      await setPersistence(auth, browserLocalPersistence);
+      const res = await signInWithEmailAndPassword(auth,email, password);
       const { user } = res;
       const idTokenResult = await user.getIdTokenResult();
-      const getUserRes = await APIWithoutAuth.get(`/users?email=${user.email}`);
+      const getUserRes = await APIWithoutAuth.get(`/user?email=${user.email}`);
       const userFromDB = await getUserRes.data.user;
 
       setLoading(false);

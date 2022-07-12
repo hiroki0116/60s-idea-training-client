@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import router from 'next/router';
 //Components
 import LoginRequired from 'components/auth/LoginRequired';
 //Third Party
 import { message, Modal } from 'antd'
+import { updatePassword } from 'firebase/auth';
 //Utils
-import { API } from 'utils/api';
 import { auth } from 'utils/firebase';
 import { isAuth } from 'utils/auth';
 import { Spin, Form, Input, Button } from 'antd';
@@ -43,7 +42,7 @@ const ChangePassword = ({ setShowChangePasswordModal}: {setShowChangePasswordMod
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      await auth.currentUser.updatePassword(password);
+      await updatePassword(auth.currentUser, password);
       setLoading(false);
       setShowChangePasswordModal(false);
       message.success('Password update success.');

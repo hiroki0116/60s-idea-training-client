@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic'
 import DashboardAuthWrapper from 'components/auth/DashboardAuthWrapper'
 import DashboardLayoutWrapper from 'components/Layout/DashboardLayoutWrapper';
 import RecordsDetail from 'components/records/RecordDetail/RecordsDetail';
