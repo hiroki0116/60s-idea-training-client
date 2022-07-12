@@ -8,22 +8,25 @@ import { Input, Select, DatePicker, message, Tag, Empty, Pagination, Switch } fr
 import TagOutlined from '@ant-design/icons/TagOutlined';
 import StarOutlined from '@ant-design/icons/StarOutlined';
 import StarFilled from '@ant-design/icons/StarFilled';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 //Components
 import MotionDiv from 'components/Layout/MotionDiv';
 import CenterSpin from 'components/Layout/CenterSpin';
+
 
 const RecordsMain = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [searchInput, setSearchInput] = useState<string>('');
     const [category, setCategory] = useState<string | undefined>(undefined);
-    const [createdAtFrom, setCreatedAtFrom] = useState(moment(DEFAULT_CREATED_AT).toISOString())
-    const [createdAtTo, setCreatedAtTo] = useState(moment().toISOString());
+    const [createdAtFrom, setCreatedAtFrom] = useState(dayjs(DEFAULT_CREATED_AT).toISOString())
+    const [createdAtTo, setCreatedAtTo] = useState(dayjs().toISOString());
     const [results, setResults] = useState([]);
     const [dataInfo, setDataInfo] = useState({totalDocs: 0});
     const [paginate, setPaginate] = useState({ current: 1, pageSize: 9 });
     const [sortByRecent, setSortByRecent] = useState(true);
     const [isLiked, setIsLiked] = useState<boolean>(false);
+    dayjs.extend(relativeTime)
 
 
     useEffect(() => {
@@ -96,9 +99,9 @@ const RecordsMain = () => {
                     <div>
                         <DatePicker
                             className="w-full"
-                            onChange={(date) => {
+                            onChange={(date:any) => {
                             const formattedCreatedAtFrom =
-                                date === null ? moment(DEFAULT_CREATED_AT).toISOString() : moment(date).startOf('day').toISOString();
+                                date === null ? dayjs(DEFAULT_CREATED_AT).toISOString() : dayjs(date).startOf('day').toISOString();
                             setCreatedAtFrom(formattedCreatedAtFrom);
                         }}
                         />
@@ -109,9 +112,9 @@ const RecordsMain = () => {
                     <div>
                         <DatePicker
                             className="w-full"
-                            onChange={(date) => {
+                            onChange={(date:any) => {
                             const formattedCreatedAtTo =
-                                date === null ? moment().toISOString() : moment(date).endOf('day').toISOString();
+                                date === null ? dayjs().toISOString() : dayjs(date).endOf('day').toISOString();
                             setCreatedAtTo(formattedCreatedAtTo);
                             }}
                         />
@@ -159,7 +162,7 @@ const RecordsMain = () => {
                                             {result?.isLiked ? <StarFilled /> : <StarOutlined />}
                                         </div>
                                         <div className='absolute top-1 right-0 text-gray-500 text-xs'>
-                                            {moment(result.createdAt).fromNow()}
+                                            {dayjs(result.createdAt).fromNow()}
                                             <Tag color="cyan" style={{borderRadius: "0.5rem",marginLeft:'5px'}} icon={<TagOutlined />}>
                                                 {result.category && result.category.length ? result.category : 'Others'}
                                             </Tag>

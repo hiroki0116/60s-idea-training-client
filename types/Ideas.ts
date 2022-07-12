@@ -1,4 +1,3 @@
-import moment from "moment";
 import { IUser } from "./User";
 
 export type ITotalIdeasSessions = {
@@ -27,6 +26,6 @@ export type IIdeas = {
     viewed: boolean;
     isLiked: boolean; 
     comment: string;
-    createdAt: moment.Moment;
-    updatedAt: moment.Moment
+    createdAt: Date;
+    updatedAt: Date;
 }

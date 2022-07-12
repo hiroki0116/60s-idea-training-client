@@ -2,8 +2,8 @@ import algoliasearch from 'algoliasearch/lite';
 import { Tag } from 'antd';
 import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined'
 import TagOutlined from '@ant-design/icons/TagOutlined'
+import dayjs from 'dayjs';
 
-import moment from 'moment';
 import { 
     InstantSearch,
     SearchBox,
@@ -20,7 +20,7 @@ const AlgoliaSearchMain = () => {
     const Hit = ({ hit }) => {
         return (
           <div className='relative rounded-xl mb-2 px-5 py-5  shadow-lg border border-blue-100 bg-white hover:bg-blue-50 cursor-pointer'>
-              <div className='absolute top-1 right-0 text-gray-500 text-xs'>{moment(hit.createdAt).format('MMM DD YYYY')}  <Tag color="cyan" style={{borderRadius: "0.5rem",marginLeft:'5px'}} icon={<TagOutlined />}>{hit.category}</Tag></div>
+              <div className='absolute top-1 right-0 text-gray-500 text-xs'>{dayjs(hit.createdAt).format('MMM DD YYYY')}  <Tag color="cyan" style={{borderRadius: "0.5rem",marginLeft:'5px'}} icon={<TagOutlined />}>{hit.category}</Tag></div>
               <h2 className='font-bold text-16'>{hit.topicTitle}</h2>
               {Object.keys(hit.ideas).map((key)=> (
                 <div className='' key={key}>

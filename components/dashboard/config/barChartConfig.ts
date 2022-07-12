@@ -1,5 +1,5 @@
 import { ApexOptions } from "apexcharts";
-import moment from 'moment'
+import dayjs from "dayjs";
 import _ from 'lodash';
 import { IWeeklyIdeasSessions } from "types/Ideas";
 
@@ -18,7 +18,7 @@ const barChart = (
   let ideasData:number[] = [];
 
   for(let i = 0; i < 7; i++){
-    weeklyDates.push(moment(lastMonday).add(i,'days').format('YYYY-MM-DD'));
+    weeklyDates.push(dayjs(lastMonday).add(i,'days').format('YYYY-MM-DD'));
   }
 
   weeklyDates.forEach((day) => {
@@ -71,7 +71,7 @@ const barChart = (
       categories: weeklyDates,
       labels: {
         formatter: function(val) {
-          return moment(val).format('ddd DD MMM')
+          return dayjs(val).format('ddd DD MMM')
         },
         style:{
           fontSize:'13px',

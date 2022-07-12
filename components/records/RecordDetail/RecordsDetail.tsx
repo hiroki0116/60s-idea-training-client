@@ -5,7 +5,7 @@ import router from 'next/router';
 import { IIdeas } from "types/Ideas"
 import { APIWithoutAuth } from "utils/api";
 import MotionDiv from 'components/Layout/MotionDiv';
-import moment from 'moment'
+import dayjs from "dayjs";
 import { capitalizeFirst } from 'utils/formatter';
 import { Editor } from '@tinymce/tinymce-react';
 import { CATEGORIES } from 'utils/constants'
@@ -139,7 +139,7 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
             <div className="flex items-center gap-2 text-gray-500">
                 <FieldTimeOutlined className="text-base"/>
                 <span>Created</span>
-                <div className="ml-10 text-gray-800">{moment(ideaRecord.createdAt).format('MMMM D YYYY h:mm A')}</div>
+                <div className="ml-10 text-gray-800">{dayjs(ideaRecord.createdAt).format('MMMM D YYYY h:mm A')}</div>
             </div>
             <div className="flex items-center gap-2 text-gray-500">
                 <TagOutlined className="text-base"/>

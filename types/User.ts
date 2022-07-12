@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { IPhoto } from './Photo';
 export interface IUser {
     _id:string;
@@ -8,6 +7,6 @@ export interface IUser {
     lastName: string;
     images: Array<IPhoto>;
     role: string;
-    createdAt: moment.Moment;
-    updatedAt: moment.Moment;
+    createdAt: Date;
+    updatedAt: Date;
 }
