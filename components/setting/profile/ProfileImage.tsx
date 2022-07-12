@@ -12,7 +12,6 @@ import { currAuthUser, setLocalStorage } from 'utils/auth';
 import { API, APIWithoutAuth } from 'utils/api';
 //Types
 import {IPhoto} from 'types/Photo';
-import CenterSpin from 'components/Layout/CenterSpin';
 
 const ProfileImage = () => {
     const [image, setImage] = useState<IPhoto | null >(null);

@@ -1,7 +1,8 @@
 import cookie from 'js-cookie';
 import Router from 'next/router';
 import { API, APIWithoutAuth } from './api';
-import { auth } from './firebase';
+import { auth } from 'utils/firebase';
+import { signInWithCustomToken } from 'firebase/auth';
 import { IUser } from 'types/User'
 
 export const setCookie = (key:string, value:string) => {
@@ -104,9 +105,9 @@ export const authUserByToken = async (token:string) => {
   }
 };
 
-export const signInWithCustomToken = async (token:string) => {
+export const signInWithCustomTokens = async (token:string) => {
   try {
-    const userCredential = await auth.signInWithCustomToken(token);
+    const userCredential = await signInWithCustomToken(auth, token);
     return userCredential;
   } catch (error: any) {
     console.error('error on signing in with custom token ', error.message);

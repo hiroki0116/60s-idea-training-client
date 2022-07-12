@@ -3,7 +3,8 @@ import { AuthContext } from 'context/authContext';
 //Third Party
 import { Form, Input, Spin, Button, Modal, Typography, message} from 'antd'
 //Utils
-import { auth, firebase_auth } from 'utils/firebase';
+import { auth } from 'utils/firebase';
+import { signInWithEmailAndPassword,updateEmail,setPersistence,browserLocalPersistence } from 'firebase/auth';
 import { currAuthUser, saveUserAndToken } from 'utils/auth';
 import { APIWithoutAuth } from 'utils/api';
 
@@ -52,45 +53,41 @@ const ChangeEmail = ({setShowChangeEmailModal}:prop) => {
 
   const handleSubmit = async (values: any) => {
       setLoading(true);
-
       const { email, password } = values;
       const currentEmail = currAuthUser().email.toLowerCase().trim();
       const newEmail = email.toLowerCase().trim();
       
       //update email in firebase
-      try{
-        const userCredential = await auth.signInWithEmailAndPassword(currentEmail, password);
-        await userCredential.user.updateEmail(newEmail);
-      } catch (error:any) {
+      updateEmail(auth.currentUser, newEmail).then(async () => {
+        const reqBody = { currentEmail,newEmail };
+
+        // Update email in mongoDB
+        try {
+          const result = await APIWithoutAuth.put('/auth/email/update', {...reqBody});
+          const userFromDB = result.data.user;
+          setUser(userFromDB);
+          await setPersistence(auth, browserLocalPersistence);
+          const { user } = await signInWithEmailAndPassword(auth, newEmail, password);
+          const { token } = await user.getIdTokenResult();
+          await saveUserAndToken(userFromDB, token);
+          window.localStorage.setItem('emailForSignIn', newEmail);
+          form.resetFields();
+          setLoading(false);
+          setShowChangeEmailModal(false);
+          message.success('Your email has been changed. Please veriify your new email.');
+        } catch (error: any) {
+          // As Firebase does not feature to revert, we change back to the current email if error occurs in database
+            await updateEmail(auth.currentUser, currentEmail).then(async () => {
+            await setPersistence(auth, browserLocalPersistence);
+            window.localStorage.setItem('emailForSignIn', currentEmail);
+            setLoading(false);
+            message.error('Failed to update your new email. Please try again later.');
+          })
+        }
+      }).catch((error:any) => {
         message.error(error.message);
         setLoading(false);
-        return; 
-      }
-      //update email in mongoDB
-      try{
-        const reqBody = { currentEmail,newEmail };
-        const result = await APIWithoutAuth.put('/auth/email/update', {...reqBody});
-        await auth.setPersistence(firebase_auth.Auth.Persistence.LOCAL);
-        const loginRes = await auth.signInWithEmailAndPassword(newEmail, password);
-        const { user } = loginRes;
-        const idTokenResult = await user.getIdTokenResult();
-        const userFromDB = result.data.user;
-        setUser(userFromDB);
-        saveUserAndToken(userFromDB, idTokenResult.token);
-        window.localStorage.setItem('emailForSignIn', newEmail);
-        form.resetFields();
-        message.success('Your email has been changed. Please veriify your new email.');
-        setLoading(false);
-        setShowChangeEmailModal(false);
-      } catch (error:any){
-        await APIWithoutAuth.post('/error-message', { clientError: error.message });
-        //Error occurs in Mongo change firebase email back
-        const userCredential = await auth.signInWithEmailAndPassword(newEmail, password);
-        await userCredential.user.updateEmail(currentEmail);
-        message.error('Error in register. Please try again later.');
-        setLoading(false);
-        setShowChangeEmailModal(false)
-      }
+      })
   };
 
   const handleFormOnKeyPress = (e) => {
