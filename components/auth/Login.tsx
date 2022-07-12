@@ -76,7 +76,7 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
       const res = await signInWithEmailAndPassword(auth,email, password);
       const { user } = res;
       const idTokenResult = await user.getIdTokenResult();
-      const getUserRes = await APIWithoutAuth.get(`/user?email=${user.email}`);
+      const getUserRes = await APIWithoutAuth.get(`/users?email=${user.email}`);
       const userFromDB = await getUserRes.data.user;
 
       setLoading(false);
