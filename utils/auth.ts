@@ -80,7 +80,7 @@ export const logout = () => {
 
 export const syncAuthFromDB = async (id: string) => {
   try {
-    const res = await API.get(`/user/${id}`);
+    const res = await API.get(`/users/${id}`);
     setLocalStorage('user', res.data.user);
     return res.data.user;
   } catch (error: any) {
