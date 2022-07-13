@@ -4,7 +4,7 @@ import Link from 'next/link'
 import {CATEGORIES,DEFAULT_CREATED_AT} from 'utils/constants';
 import { API } from 'utils/api';
 //Third Party
-import { Input, Select, DatePicker, message, Tag, Empty, Pagination, Switch } from 'antd';
+import { Input, Select, message, Tag, Empty, Pagination, Switch } from 'antd';
 import TagOutlined from '@ant-design/icons/TagOutlined';
 import StarOutlined from '@ant-design/icons/StarOutlined';
 import StarFilled from '@ant-design/icons/StarFilled';
@@ -13,7 +13,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 //Components
 import MotionDiv from 'components/Layout/MotionDiv';
 import CenterSpin from 'components/Layout/CenterSpin';
-
+import DatePicker from 'components/Layout/DatePicker';
 
 const RecordsMain = () => {
     const [loading, setLoading] = useState<boolean>(false);
