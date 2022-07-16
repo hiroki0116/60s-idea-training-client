@@ -42,25 +42,28 @@ const options = {
   };
 
 
-const apolloClient = new ApolloClient({
+  const apolloClient = new ApolloClient({
     link: from([authLink, httpLink]),
     cache: new InMemoryCache(options)
-})
-
-
-function createApolloClient(){
+  });
+  
+  function createApolloClient() {
     const errorLink = onError(({ networkError, graphQLErrors }) => {
-        for (const {message, locations, path} of graphQLErrors) {
-            console.log(`GraphQL error: Message: ${message}, Location: ${locations}, Path: ${path}`)
+      if (graphQLErrors) {
+        for (const { message, locations, path } of graphQLErrors) {
+          console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
         }
-    })
-
+      }
+  
+      if (networkError) {
+        console.log(`[Network error]: ${networkError}`);
+      }
+    });
     return new ApolloClient({
-        ssrMode: typeof window === 'undefined',
-        link: from([authLink, errorLink, httpLink]),
-        cache: new InMemoryCache(options)
-    })
-
-}
+      ssrMode: typeof window === 'undefined',
+      link: from([authLink, errorLink, httpLink]),
+      cache: new InMemoryCache(options)
+    });
+  }
 
 export {apolloClient, createApolloClient}

@@ -1,6 +1,7 @@
 import { useState, useEffect, createContext } from 'react';
 import { IIdeas } from 'types/Ideas';
-import { getPreviousIdeaRecords } from 'services/exercise'
+import { GET_MOST_RECENT_IDEA_RECORDS } from 'graphql/queries/ideaRecord';
+import { useMutation, useLazyQuery } from '@apollo/client';
 import { message } from 'antd';
 import { APIWithoutAuth } from 'utils/api';
 import { handleSubmitIdeas } from 'services/exercise'
@@ -18,7 +19,7 @@ interface ExerciseContext {
     ideas: string[];
     setIdeas: (ideas: string[]) => void;
     prevSessions: IIdeas[];
-    prevSessionsLoading: boolean;
+    loadingPrevSessions: boolean;
     showFirstSection: boolean;
     setShowFirstSection: (showFirstSection: boolean) => void;
     showSubmitSection:boolean;
@@ -40,7 +41,7 @@ const initialValue = {
     ideas: [],
     setIdeas: () => {},
     prevSessions: [],
-    prevSessionsLoading: false,
+    loadingPrevSessions: false,
     showFirstSection: true,
     setShowFirstSection: () => {},
     showSubmitSection: false,
@@ -58,28 +59,31 @@ export const ExerciseContext = createContext<ExerciseContext>(initialValue);
 
 
 export const ExerciseProfileProvider = ({ children }) => {
-    const [prevSessionsLoading, setPrevSessionsLoading] = useState(false);
+    const [prevSessions, setPrevSessions] = useState<IIdeas[]>([]);
     const [topicTitle, setTopicTitle] = useState<string | undefined>('');
     const [category, setCategory] = useState<string>('');
     const [ideas, setIdeas] = useState<string[]>([])
-    const [prevSessions, setPrevSessions] = useState(initialValue.prevSessions);
     const [showFirstSection, setShowFirstSection] = useState<boolean>(true);
     const [showSubmitSection, setShowSubmitSection] = useState<boolean>(false);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const [contextLoading, setContextLoading] = useState<boolean>(false);
-
+    const [ getMostRecentIdeaRecords, { 
+        data: mostRecentIdeaRecords, 
+        loading: loadingPrevSessions, 
+        error: loadingPrevSessionsError }] = useLazyQuery(GET_MOST_RECENT_IDEA_RECORDS, { errorPolicy: 'all' });
 
     useEffect(() => {
-        getPrevSessions();
+        getMostRecentIdeaRecords();
     }, []);
-    
-    const getPrevSessions = async () => {
-        setPrevSessionsLoading(true);
-      const result = await getPreviousIdeaRecords();
-      if (result?.length) setPrevSessions(result);
-      setPrevSessionsLoading(false);
-    };
 
+    useEffect(()=> {
+        if(mostRecentIdeaRecords) {
+            setPrevSessions(mostRecentIdeaRecords?.getMostRecentIdeaRecords);
+        }else {
+            setPrevSessions([])
+        }
+    },[mostRecentIdeaRecords])
+    
     const handleNext = () => {
         setShowFirstSection(false);
         setShowSubmitSection(true);
@@ -94,7 +98,7 @@ export const ExerciseProfileProvider = ({ children }) => {
         try {
             setContextLoading(true);
             const {newSession} = await handleSubmitIdeas(topicTitle,ideas,category);
-            setPrevSessions([newSession,...prevSessions,])
+            setPrevSessions([newSession,...prevSessions])
             setContextLoading(false);
             message.success('Successfully Saved!')
         } catch (error:any) {
@@ -122,7 +126,7 @@ export const ExerciseProfileProvider = ({ children }) => {
         ideas,
         setIdeas,
         prevSessions,
-        prevSessionsLoading,
+        loadingPrevSessions,
         showFirstSection,
         setShowFirstSection,
         showSubmitSection,
