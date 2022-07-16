@@ -6,7 +6,7 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+          <link rel="preconnect" href="https://fonts.gstatic.com"  crossOrigin/>
           <link href="https://fonts.googleapis.com/css2?family=Fredoka&family=Nunito:wght@200;400&family=Quicksand&display=swap" rel="stylesheet"/>
         </Head>
         <body>
