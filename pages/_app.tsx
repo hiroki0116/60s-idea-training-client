@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { AuthProvider } from 'context/authContext';
+import { ApolloProvider } from '@apollo/client';
 import { useRouter } from 'next/router';
 import type { AppProps } from 'next/app'
 import { capitalizeWords } from 'utils/formatter';
@@ -8,6 +9,7 @@ import { capitalizeWords } from 'utils/formatter';
 import 'tailwindcss/tailwind.css'
 import 'styles/globals.css'
 import '../styles/custom-antd.css';
+import { createApolloClient } from 'utils/apolloClient';
 
 
 
@@ -27,7 +29,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
       <AuthProvider>
-        <Component {...pageProps} />
+        <ApolloProvider client={createApolloClient()} >
+          <Component {...pageProps} />
+        </ApolloProvider>
       </AuthProvider>
     </>
   )
