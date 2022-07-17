@@ -1,12 +1,12 @@
-import { ApolloClient, InMemoryCache, createHttpLink, from } from '@apollo/client';
+import { ApolloClient, InMemoryCache, HttpLink, from } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 import { getCookie, isAuth, setCookie } from './auth';
 import { auth } from './firebase';
 
-const httpLink = createHttpLink({
-    uri: process.env.NEXT_PUBLIC_GRAPHQL
-})
+const httpLink = new HttpLink({
+  uri: process.env.NEXT_PUBLIC_GRAPHQL
+});
 
 const getToken = async (): Promise<string> => {
     const user = auth.currentUser;
@@ -38,15 +38,15 @@ const options = {
           },
         }
       }
-    }
-  };
+  }
+};
 
 
   const apolloClient = new ApolloClient({
     link: from([authLink, httpLink]),
     cache: new InMemoryCache(options)
   });
-  
+
   function createApolloClient() {
     const errorLink = onError(({ networkError, graphQLErrors }) => {
       if (graphQLErrors) {
@@ -62,7 +62,7 @@ const options = {
     return new ApolloClient({
       ssrMode: typeof window === 'undefined',
       link: from([authLink, errorLink, httpLink]),
-      cache: new InMemoryCache(options)
+      cache: new InMemoryCache(options),
     });
   }
 
