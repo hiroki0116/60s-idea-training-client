@@ -6,7 +6,7 @@ import { Button, Input, Tag, Spin } from 'antd';
 const { TextArea } = Input;
 
 const SubmitSection = () => {
-    const { topicTitle, showSubmitSection,isPlaying, setIsPlaying, ideas, setIdeas, contextLoading } = useContext(ExerciseContext);
+    const { topicTitle, showSubmitSection,isPlaying, setIsPlaying, ideas, setIdeas, createLoading } = useContext(ExerciseContext);
     const [ideaValue, setIdeaValue] = useState<string>('');
 
     let inputRef = useRef<any>(null);
@@ -41,7 +41,7 @@ const SubmitSection = () => {
   return (
     showSubmitSection ? (
         <div className='flex flex-col mt-5'>
-          <Spin spinning={ contextLoading}>
+          <Spin spinning={ createLoading}>
             <div className='flex justify-center'>
                 {topicTitle.length ? <h3 className='my-1 text-lg font-bold px-5 py-2 bg-blue-100 rounded-lg uppercase shadow'>{topicTitle}</h3> : null}
             </div>

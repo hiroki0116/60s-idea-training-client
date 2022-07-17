@@ -1,9 +1,9 @@
 import { useState, useEffect, createContext } from 'react';
 import { IIdeas } from 'types/Ideas';
-import { getPreviousIdeaRecords } from 'services/exercise'
+import { useMutation, useLazyQuery } from '@apollo/client';
+import { GET_MOST_RECENT_IDEA_RECORDS } from 'graphql/queries/ideaRecord';
+import { CREATE_NEW_IDEA_RECORD } from 'graphql/mutations/ideaRecord';
 import { message } from 'antd';
-import { APIWithoutAuth } from 'utils/api';
-import { handleSubmitIdeas } from 'services/exercise'
 
 export enum stepEnum {
     firstSection = 0,
@@ -18,7 +18,7 @@ interface ExerciseContext {
     ideas: string[];
     setIdeas: (ideas: string[]) => void;
     prevSessions: IIdeas[];
-    prevSessionsLoading: boolean;
+    loadingPrevSessions: boolean;
     showFirstSection: boolean;
     setShowFirstSection: (showFirstSection: boolean) => void;
     showSubmitSection:boolean;
@@ -28,8 +28,7 @@ interface ExerciseContext {
     isPlaying: boolean;
     setIsPlaying: (isPlaying: boolean) => void;
     handleSubmit: ()=> void;
-    contextLoading: boolean;
-    setContextLoading: (contextLoading:boolean)=> void;
+    createLoading: boolean;
 }
 
 const initialValue = {
@@ -40,7 +39,7 @@ const initialValue = {
     ideas: [],
     setIdeas: () => {},
     prevSessions: [],
-    prevSessionsLoading: false,
+    loadingPrevSessions: false,
     showFirstSection: true,
     setShowFirstSection: () => {},
     showSubmitSection: false,
@@ -50,36 +49,51 @@ const initialValue = {
     isPlaying: false,
     setIsPlaying: () => {},
     handleSubmit: () => {},
-    contextLoading: false,
-    setContextLoading: () => {}
+    createLoading: false,
 } as ExerciseContext;
 
 export const ExerciseContext = createContext<ExerciseContext>(initialValue);
 
 
 export const ExerciseProfileProvider = ({ children }) => {
-    const [prevSessionsLoading, setPrevSessionsLoading] = useState(false);
+    const [prevSessions, setPrevSessions] = useState<IIdeas[]>([]);
     const [topicTitle, setTopicTitle] = useState<string | undefined>('');
     const [category, setCategory] = useState<string>('');
     const [ideas, setIdeas] = useState<string[]>([])
-    const [prevSessions, setPrevSessions] = useState(initialValue.prevSessions);
     const [showFirstSection, setShowFirstSection] = useState<boolean>(true);
     const [showSubmitSection, setShowSubmitSection] = useState<boolean>(false);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
-    const [contextLoading, setContextLoading] = useState<boolean>(false);
 
+    // GraphQL Query
+    const [ getMostRecentIdeaRecords, { 
+        data: mostRecentIdeaRecords, 
+        loading: loadingPrevSessions, 
+        error: loadingPrevSessionsError }] = useLazyQuery(GET_MOST_RECENT_IDEA_RECORDS, { errorPolicy: 'all' });
+
+    const [createNewIdeaRecord, {
+        data: createdRes,
+        loading: createLoading,
+        error: createdError }] = useMutation(CREATE_NEW_IDEA_RECORD)
+    // End of GraphQL
 
     useEffect(() => {
-        getPrevSessions();
+        getMostRecentIdeaRecords();
+        // eslint-disable-next-line
     }, []);
-    
-    const getPrevSessions = async () => {
-        setPrevSessionsLoading(true);
-      const result = await getPreviousIdeaRecords();
-      if (result?.length) setPrevSessions(result);
-      setPrevSessionsLoading(false);
-    };
 
+    useEffect(()=> {
+        setPrevSessions(mostRecentIdeaRecords?.getMostRecentIdeaRecords);
+    },[mostRecentIdeaRecords]);
+
+    useEffect(() => {
+        if (createdRes?.createNewIdeaRecord?._id){
+            setPrevSessions([createdRes.createNewIdeaRecord,...prevSessions])
+            clearSteps();
+        }
+        if(createdError) message.error(`Failed to create new idea record. ${createdError.message}`);
+        // eslint-disable-next-line
+      }, [createdRes, createdError]);
+    
     const handleNext = () => {
         setShowFirstSection(false);
         setShowSubmitSection(true);
@@ -90,20 +104,12 @@ export const ExerciseProfileProvider = ({ children }) => {
         setShowSubmitSection(false);
     }
 
-    const handleSubmit = async () => {
-        try {
-            setContextLoading(true);
-            const {newSession} = await handleSubmitIdeas(topicTitle,ideas,category);
-            setPrevSessions([newSession,...prevSessions,])
-            setContextLoading(false);
-            message.success('Successfully Saved!')
-        } catch (error:any) {
-            await APIWithoutAuth.post('/error-message',{clientError:error.message}, { errorHandle: false});
-            setContextLoading(false);
-            message.error(error.message)
-        } finally {
-            clearSteps();
-        }
+    const handleSubmit = () => {
+        createNewIdeaRecord({ variables: {
+            topicTitle,
+            category,
+            ideas
+        }});
     }
 
     const clearSteps = () => {
@@ -122,7 +128,7 @@ export const ExerciseProfileProvider = ({ children }) => {
         ideas,
         setIdeas,
         prevSessions,
-        prevSessionsLoading,
+        loadingPrevSessions,
         showFirstSection,
         setShowFirstSection,
         showSubmitSection,
@@ -132,8 +138,7 @@ export const ExerciseProfileProvider = ({ children }) => {
         isPlaying,
         setIsPlaying,
         handleSubmit,
-        contextLoading,
-        setContextLoading
+        createLoading,
     };
   
     return <ExerciseContext.Provider value={value}>{children}</ExerciseContext.Provider>;

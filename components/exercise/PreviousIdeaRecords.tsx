@@ -10,11 +10,10 @@ import { fadeInRight } from 'utils/animations';
 import Link from 'next/link';
 
 const PreviousIdeaRecords = () => {
-  const { prevSessionsLoading,prevSessions } = useContext(ExerciseContext);
+  const { loadingPrevSessions,prevSessions } = useContext(ExerciseContext);
   const [ mouseOver, setMouseOver] = useState<Boolean>(false);
   dayjs.extend(relativeTime)
-
-  if(prevSessionsLoading) return <CenterSpin />
+  if(loadingPrevSessions) return <CenterSpin />
 
   return (
     <motion.div
@@ -25,7 +24,7 @@ const PreviousIdeaRecords = () => {
         onMouseLeave={()=>{setMouseOver(false)}}
     >
         <h2 className={`font-bold text-lg ${mouseOver && 'transition duration-300 ease-out hover:ease-in underline underline-offset-8'}`}>Most Recent Sessions</h2>
-        {!prevSessions.length ? <Empty description="No Data Yet." /> : prevSessions.map((session) => (
+        {!prevSessions?.length ? <Empty description="No Data Yet." /> : prevSessions.map((session) => (
             <div className="relative rounded-xl mb-2 px-5 pt-4 pb-1 bg-white shadow-lg border border-blue-100 hover:bg-blue-50 cursor-pointer"  key = {session._id}>
                 <Link href={`/records/${session._id}`} >
                     <a>
