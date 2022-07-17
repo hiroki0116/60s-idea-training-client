@@ -122,7 +122,7 @@ export const ExerciseProfileProvider = ({ children }) => {
         ideas,
         setIdeas,
         prevSessions,
-        loadingPrevSessions:getMostRecentIdeaRecordsRes?.data?.loading,
+        loadingPrevSessions:getMostRecentIdeaRecordsRes?.loading,
         showFirstSection,
         setShowFirstSection,
         showSubmitSection,
