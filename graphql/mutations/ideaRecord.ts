@@ -10,3 +10,11 @@ export const CREATE_NEW_IDEA_RECORD = gql`
     }
   }
 `;
+
+export const DELETE_IDEA_RECORD = gql`
+    mutation DeleteIdeaRecord($id: String!) {
+        deleteIdeaRecord(id: $id) {
+            _id
+        }
+    }
+`
