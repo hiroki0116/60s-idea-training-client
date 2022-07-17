@@ -1,16 +1,14 @@
 import { useEffect,useState } from "react";
-import Link from 'next/link';
-import { Divider, Tag, Input, message,notification, Select, Spin} from 'antd'
 import router from 'next/router';
-import { IIdeas } from "types/Ideas"
-import { APIWithoutAuth } from "utils/api";
-import MotionDiv from 'components/Layout/MotionDiv';
-import dayjs from "dayjs";
-import { capitalizeFirst } from 'utils/formatter';
-import { Editor } from '@tinymce/tinymce-react';
-import { CATEGORIES } from 'utils/constants'
+import Link from 'next/link';
 
-//Icons
+// Third Party
+import { Divider, Tag, Input, message,notification, Select, Spin} from 'antd'
+import { Editor } from '@tinymce/tinymce-react';
+import dayjs from "dayjs";
+import { useMutation } from '@apollo/client';
+
+// Icons
 import FieldTimeOutlined from '@ant-design/icons/FieldTimeOutlined';
 import TagOutlined from '@ant-design/icons/TagOutlined';
 import BulbTwoTone from '@ant-design/icons/BulbTwoTone';
@@ -18,7 +16,15 @@ import FileTextTwoTone from '@ant-design/icons/FileTextTwoTone';
 import LeftOutlined from '@ant-design/icons/LeftOutlined';
 import StarOutlined from '@ant-design/icons/StarOutlined';
 import StarFilled from '@ant-design/icons/StarFilled';
+import { DELETE_IDEA_RECORD } from "graphql/mutations/ideaRecord";
+// App
 import ThreeDotsMenu from "./ThreeDotsMenu";
+import MotionDiv from 'components/Layout/MotionDiv';
+import { APIWithoutAuth } from "utils/api";
+import { capitalizeFirst } from 'utils/formatter';
+import { CATEGORIES } from 'utils/constants'
+import { IIdeas } from "types/Ideas"
+
 const { Option } = Select;
 
 const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
@@ -27,10 +33,24 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
     const [isLiked, setIsLiked] = useState<boolean>(ideaRecord?.isLiked);
     const [loading, setLoading] = useState<boolean>(false);
     const [commentLoading, setCommentLoading] = useState<boolean>(false);
-    
+    const [deleteIdeaRecord, deleteIdeaRecordRes] = useMutation(DELETE_IDEA_RECORD);
+    const DeleteIdeaRecord = () => deleteIdeaRecord({variables: {id: router.query.id.toString() }});
+
     useEffect(()=>{
         updateComment();
+        //eslint-disable-next-line
     },[comment])
+
+    useEffect(()=>{
+        if(deleteIdeaRecordRes?.data?.deleteIdeaRecord){
+            message.success("Successfully Deleted!");
+            router.push("/records");
+        }
+        if(deleteIdeaRecordRes?.error) {
+            message.error('Failed to delete idea record.');
+        }
+        //eslint-disable-next-line
+    },[deleteIdeaRecordRes?.data?.deleteIdeaRecord]);
 
     
     const changeViewStatus = async (id: string) => {
@@ -83,18 +103,6 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
         }
     }
 
-    const deleteIdeaRecord = async () => {
-        try {
-            const {data} = await APIWithoutAuth.delete(`/ideas/${ideaRecord._id}`, {errorHandle: false});
-            if(data.success){
-                message.success('Successfully deleted');
-                router.push('/records');
-            }
-        } catch (error: any) {
-            await APIWithoutAuth.post('/error-message', { error: error.message });
-            message.error(error.message);
-        }
-    }
 
     const handleLiked = async () => {
         try{
@@ -114,6 +122,8 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
         }
         // eslint-disable-next-line
     },[router.query])
+
+
   return (
     <MotionDiv>
         <Link href={'/records'}>
@@ -126,7 +136,7 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
                 {isLiked ? (loading ? <Spin /> : <StarFilled />) : (loading ? <Spin /> : <StarOutlined />)}
             </div>
             <div className="absolute top-2 right-2">
-                <ThreeDotsMenu deleteIdeaRecord={deleteIdeaRecord}/>
+                <ThreeDotsMenu deleteIdeaRecord={DeleteIdeaRecord}/>
             </div>
             <Input
                 size='large'
