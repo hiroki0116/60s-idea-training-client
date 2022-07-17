@@ -63,18 +63,12 @@ export const ExerciseProfileProvider = ({ children }) => {
     const [showFirstSection, setShowFirstSection] = useState<boolean>(true);
     const [showSubmitSection, setShowSubmitSection] = useState<boolean>(false);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
-
-    // GraphQL Query
-    const [ getMostRecentIdeaRecords, { 
-        data: mostRecentIdeaRecords, 
-        loading: loadingPrevSessions, 
-        error: loadingPrevSessionsError }] = useLazyQuery(GET_MOST_RECENT_IDEA_RECORDS, { errorPolicy: 'all' });
+    const [ getMostRecentIdeaRecords, getMostRecentIdeaRecordsRes] = useLazyQuery(GET_MOST_RECENT_IDEA_RECORDS, { errorPolicy: 'all' });
 
     const [createNewIdeaRecord, {
         data: createdRes,
         loading: createLoading,
         error: createdError }] = useMutation(CREATE_NEW_IDEA_RECORD)
-    // End of GraphQL
 
     useEffect(() => {
         getMostRecentIdeaRecords();
@@ -82,8 +76,8 @@ export const ExerciseProfileProvider = ({ children }) => {
     }, []);
 
     useEffect(()=> {
-        setPrevSessions(mostRecentIdeaRecords?.getMostRecentIdeaRecords);
-    },[mostRecentIdeaRecords]);
+        setPrevSessions(getMostRecentIdeaRecordsRes?.data?.getMostRecentIdeaRecords);
+    },[getMostRecentIdeaRecordsRes?.data?.getMostRecentIdeaRecords]);
 
     useEffect(() => {
         if (createdRes?.createNewIdeaRecord?._id){
@@ -128,7 +122,7 @@ export const ExerciseProfileProvider = ({ children }) => {
         ideas,
         setIdeas,
         prevSessions,
-        loadingPrevSessions,
+        loadingPrevSessions:getMostRecentIdeaRecordsRes?.data?.loading,
         showFirstSection,
         setShowFirstSection,
         showSubmitSection,
