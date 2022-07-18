@@ -63,10 +63,17 @@ const HeadCards = () => {
         }
     }
 
+    const executePromiseAll = async () => {
+        await Promise.all([
+            getSessionsIdeasCount(),
+            getTodayData(),
+            getConsecutive()
+        ])
+    }
+
     useEffect(()=>{
-        getSessionsIdeasCount();
-        getTodayData();
-        getConsecutive();
+        executePromiseAll()
+        //eslint-disable-next-line
     },[])
 
   return (
