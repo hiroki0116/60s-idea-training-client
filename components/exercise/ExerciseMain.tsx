@@ -11,7 +11,7 @@ import { Steps } from 'antd';
 const { Step } = Steps;
 
 const ExerciseMain = () => {
-    const { showFirstSection, showSubmitSection,handleBack } = useContext(ExerciseContext);
+    const { showFirstSection, showSubmitSection, handleBack } = useContext(ExerciseContext);
 
   return (
     <div className="flex flex-col sm:grid sm:grid-cols-5 gap-8 w-full">
