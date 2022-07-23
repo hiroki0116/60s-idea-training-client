@@ -74,8 +74,8 @@ const barChart = (
           return dayjs(val).format('ddd DD MMM')
         },
         style:{
-          fontSize:'13px',
-          fontWeight:700,
+          fontSize:'14px',
+          fontWeight:700
         }
       }
     },

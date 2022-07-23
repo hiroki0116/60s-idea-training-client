@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { AuthProvider } from 'context/authContext';
+import { ThemeProvider } from 'next-themes'
 import { ApolloProvider } from '@apollo/client';
 import { useRouter } from 'next/router';
 import type { AppProps } from 'next/app'
@@ -28,11 +29,13 @@ function MyApp({ Component, pageProps }: AppProps) {
           content="60seconds Idea Training | Train your output skill for your thinkng ability and mental health."
         />
       </Head>
-      <AuthProvider>
-        <ApolloProvider client={createApolloClient()} >
-          <Component {...pageProps} />
-        </ApolloProvider>
-      </AuthProvider>
+      <ThemeProvider enableSystem={true} attribute="class">
+        <AuthProvider>
+          <ApolloProvider client={createApolloClient()} >
+            <Component {...pageProps} />
+          </ApolloProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </>
   )
 }

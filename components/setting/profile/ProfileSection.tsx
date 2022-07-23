@@ -23,7 +23,7 @@ const ProfileSection = () => {
 
   return (
     <div className='flex flex-col relative gap-8 w-full'>
-      <div className='bg-white rounded-lg shadow-lg overflow-hidden'>
+      <div className='bg-white rounded-lg shadow-lg overflow-hidden dark:bg-slate-800'>
         <div className="h-36 shadow-lg" style={embedImage(SETTING_BACKGROUND)}>
           <div className='text-white font-bold p-5 text-lg tracking-wider'>Profile</div>
         </div>

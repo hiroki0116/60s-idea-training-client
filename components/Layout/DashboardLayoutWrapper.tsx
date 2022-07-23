@@ -52,9 +52,9 @@ const DashboardLayoutWrapper = ({children}) => {
       ];
 
   return user ? (
-    <div className="grid sm:grid-cols-7 grid-cols-1 w-full gap-6 p-5 bg-slate-100 min-h-screen">
-        <div className="">
-          <div className="place-items-stretch shadow-lg p-2 rounded-lg bg-white sm:block hidden">
+    <div className="grid sm:grid-cols-7 grid-cols-1 w-full gap-6 p-5 bg-slate-100 dark:bg-slate-900 dark:text-green-500 min-h-screen">
+        <div>
+          <div className="place-items-stretch shadow-lg p-2 rounded-lg bg-white sm:block hidden  dark:bg-slate-800">
             <div className="text-center py-2">
               <div>
                 {user?.images[0]?.url ? (
@@ -71,19 +71,19 @@ const DashboardLayoutWrapper = ({children}) => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 place-items-stretch rounded-lg bg-white shadow-lg mt-6 p-3 text-gray-400 sticky top-10 sm:block hidden">
+          <div className="grid grid-cols-1 place-items-stretch rounded-lg bg-white shadow-lg mt-6 p-3 text-gray-400 sticky top-10 sm:block hidden  dark:bg-slate-800">
             {options.map((option, i) => {
               const style = `w-full rounded-lg transition duration-500 ease-in-out text-gray-500 hover:text-gray-800 hover:bg-blue-50 transform hover:-translate-y-1 mx-auto my-2 p-2 hover:scale-110 ${router.pathname === option.href && 'bg-blue-50 text-gray-800'}`;
               return (
                 <div key={i}>
                   {i === 0 && (
-                    <div className="text-center text-base py-1 bg-gray-200 rounded-lg mb-2 font-bold ">
+                    <div className="text-center text-base py-1 bg-gray-200 rounded-lg mb-2 font-bold dark:bg-slate-900">
                       <div className="">Menu</div>
                     </div>
                   )}
                     <div className={style}>
                         <Link href={option.href}>
-                            <button className={`m-auto w-full ${router.pathname === option.href  && 'font-bold text-lg text-gray-800'}`}>
+                            <button className={`m-auto w-full ${router.pathname === option.href  && 'font-bold text-lg text-gray-800 dark:text-green-600'}`}>
                                 {option.icon}
                                 <div className='text-sm'>
                                     {option.label}

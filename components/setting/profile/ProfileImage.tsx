@@ -149,12 +149,12 @@ const ProfileImage = () => {
     }
 
   return (
-    <div className='bg-white rounded-lg shadow-lg'>
-        <div className='font-bold py-3 px-5 bg-blue-50 overflow-hidden rounded-t-lg text-base'>
+    <div className='bg-white rounded-lg shadow-lg dark:bg-slate-900'>
+        <div className='font-bold py-3 px-5 bg-blue-50 overflow-hidden rounded-t-lg text-base dark:text-slate-900'>
             Profile Image
         </div>
 
-        <div className='grid grid-cols-2 sm:px-16 px-5 gap-5'>
+        <div className='grid grid-cols-2 sm:px-16 px-5 dark:bg-slate-800'>
             <div
                 className="mb-8 mt-4 cols-span-1"
                 onMouseEnter={() => setShowDelete(true)}

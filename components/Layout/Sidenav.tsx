@@ -17,7 +17,7 @@ const Sidenav = () => {
     <>
       <div className="h-10 p-2">
         <Link href='/dashboard'>
-          <a>
+          <a className="">
             <Image src={LOGO_IMAGE} width={200} height={50} alt='CompanyLogo' />
           </a>
         </Link>

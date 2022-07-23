@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
-import { Typography,Card } from "antd";
+import Card from 'antd/es/card'
 import barChart from "./config/barChartConfig";
 import { IWeeklyData } from "types/Ideas";
 import { APIWithoutAuth } from "utils/api";
@@ -8,7 +8,6 @@ import {getWeeklyRecords} from 'services/dashboard'
 import CenterSpin from "components/Layout/CenterSpin";
 
 const BarChart = () => {
-  const { Title } = Typography;
   const [ loading, setLoading ] = useState<boolean>(false);
   const [ weeklyData, setWeeklyData ] = useState<IWeeklyData|undefined>(undefined);
 
@@ -30,15 +29,13 @@ const BarChart = () => {
 
   return (
     <>
-      <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg' loading={loading}>
-        <div className="trakcking-wider">
-          <Title level={5}>WEEKLY ACHIEVEMENTS</Title>
-        </div>
+      <Card bordered={false} style={{borderRadius:'1rem'}} hoverable className='shadow-lg dark:bg-slate-800' loading={loading}>
+        <div className="trakcking-wider dark:text-green-400">WEEKLY ACHIEVEMENTS</div>
 
         {!weeklyData 
           ? <CenterSpin />
           : <ReactApexChart
-              className="full-width"
+              className="w-full d"
               options={barChart(weeklyData)}
               series={barChart(weeklyData).series}
               type="bar"

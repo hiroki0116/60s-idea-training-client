@@ -24,18 +24,18 @@ const FirstSection = () => {
             {topicTitle && topicTitle.length ? (
                 <MotionDiv>
                     <div className='flex justify-center'>
-                        <h3 className='my-1 text-lg font-bold px-5 py-2 bg-blue-100 rounded-lg'>{topicTitle}</h3>
+                        <h3 className='my-1 text-lg font-bold px-5 py-2 bg-blue-100 rounded-lg dark:bg-slate-900 dark:text-green-400'>{topicTitle}</h3>
                     </div>
                 </MotionDiv>
             ) : null}
             {category && category.length ? (
                 <MotionDiv>
                     <div className='flex justify-center'>
-                        <h3 className='my-2 font-bold px-5 py-2 bg-red-50 rounded-lg uppercase'>{category}</h3>
+                        <h3 className='my-2 font-bold px-5 py-2 bg-red-50 rounded-lg uppercase dark:bg-slate-700 dark:text-green-500'>{category}</h3>
                     </div>
                 </MotionDiv>
             ) :null}
-            <div className='flex justify-center'>
+            <div className='flex justify-center dark:hidden'>
                 <Image width={200} height={200} src={IDEA_IMAGE} alt='Idea image'/>
             </div>
             <div className='mt-5 w-2/3 self-center'>
@@ -66,7 +66,7 @@ const FirstSection = () => {
             <Button 
                 type='primary' 
                 shape='round' 
-                className='self-center mt-10 h-10 w-28' 
+                className='self-center mt-10 h-10 w-28 dark:text-green-400' 
                 onClick={handleNext}
                 disabled={!topicTitle.length}
             >
