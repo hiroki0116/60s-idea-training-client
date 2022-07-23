@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link'
+import { useTheme } from 'next-themes';
+
 //Utils
 import {CATEGORIES,DEFAULT_CREATED_AT} from 'utils/constants';
 import { API } from 'utils/api';
@@ -26,6 +28,8 @@ const RecordsMain = () => {
     const [paginate, setPaginate] = useState({ current: 1, pageSize: 9 });
     const [sortByRecent, setSortByRecent] = useState(true);
     const [isLiked, setIsLiked] = useState<boolean>(false);
+    const { theme,systemTheme } = useTheme();
+    const currentTheme = theme === "system" ? systemTheme : theme;
     dayjs.extend(relativeTime)
 
 
@@ -69,11 +73,11 @@ const RecordsMain = () => {
   return (
       <MotionDiv>
         {/* Filter section */}
-        <div className="grid grid-cols-1 bg-white p-5 rounded-xl shadow-lg">
+        <div className="grid grid-cols-1 bg-white p-5 rounded-xl shadow-lg dark:bg-slate-800">
             <div className='font-bold text-lg'>Search</div>
 
             <div className='sm:flex sm:justify-around grid grid-cols-2 gap-3 w-full py-3'>
-                <div className='sm:w-2/6 '>
+                <div className='sm:w-2/6'>
                     <div>Keyword</div>
                     <Input.Search 
                         onPressEnter={() => handleSubmit()}
@@ -124,7 +128,7 @@ const RecordsMain = () => {
         </div>
 
         {/* Results table */}
-        <div className="grid grid-cols-1 p-6 w-full bg-white rounded-lg h-full shadow my-5 relative">
+        <div className="grid grid-cols-1 p-6 w-full bg-white rounded-lg h-full shadow my-5 relative dark:bg-slate-800">
             <div className='absolute sm:top-5 top-6 left-6'>
                 <Switch
                     checked={sortByRecent}
@@ -157,7 +161,7 @@ const RecordsMain = () => {
                             <div className='grid sm:grid-cols-3 grid-cols-1 gap-5 w-full'>
                             {results.map(result => 
                                 <Link  key={result._id} href={`/records/${result._id}`}>
-                                    <div className={`relative rounded-xl mb-2 p-5 shadow-lg border border-purple-100  hover:bg-purple-50 cursor-pointer ${result.viewed ? 'bg-white' : 'bg-blue-50'}`}>
+                                    <div className={`relative rounded-xl mb-2 p-5 shadow-lg border border-purple-100  hover:bg-purple-50 cursor-pointer dark:bg-slate-900 hover:dark:bg-slate-700 dark:border-none ${result.viewed ? 'bg-white' : 'bg-blue-50'}`}>
                                         <div className='absolute top-1 left-4 text-base cursor-pointer'>
                                             {result?.isLiked ? <StarFilled /> : <StarOutlined />}
                                         </div>
@@ -167,10 +171,10 @@ const RecordsMain = () => {
                                                 {result.category && result.category.length ? result.category : 'Others'}
                                             </Tag>
                                         </div>
-                                        <h3 className='border-l-4 pl-2 text-16 font-bold tracking-wide text-gray-700 my-4'>{result.topicTitle}</h3>
+                                        <h3 className='border-l-4 pl-2 text-16 font-bold tracking-wide text-gray-700 my-4 dark:text-green-400'>{result.topicTitle}</h3>
                                         {result.ideas.map((idea,index) => 
                                             <div key={index} className="mb-1 whitespace-pre-wrap break-normal">
-                                                <Tag color={'purple'} style={{borderRadius:'0.5rem', overflowWrap:'normal', wordBreak:'normal', whiteSpace:'normal'}}>- {idea}</Tag>
+                                                <Tag color={currentTheme === 'dark' ? 'green' : 'purple'} style={{borderRadius:'0.5rem', overflowWrap:'normal', wordBreak:'normal', whiteSpace:'normal'}}>- {idea}</Tag>
                                             </div>
                                         )}
                                     {result.viewed ? 

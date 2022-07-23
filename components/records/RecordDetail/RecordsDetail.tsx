@@ -1,9 +1,10 @@
 import { useEffect,useState } from "react";
 import router from 'next/router';
 import Link from 'next/link';
+import { useTheme } from 'next-themes';
 
 // Third Party
-import { Divider, Tag, Input, message,notification, Select, Spin} from 'antd'
+import { Tag, Input, message,notification, Select, Spin} from 'antd'
 import { Editor } from '@tinymce/tinymce-react';
 import dayjs from "dayjs";
 import { useMutation } from '@apollo/client';
@@ -33,6 +34,8 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
     const [isLiked, setIsLiked] = useState<boolean>(ideaRecord?.isLiked);
     const [loading, setLoading] = useState<boolean>(false);
     const [commentLoading, setCommentLoading] = useState<boolean>(false);
+    const { theme,systemTheme } = useTheme();
+    const currentTheme = theme === "system" ? systemTheme : theme;
     const [deleteIdeaRecord, deleteIdeaRecordRes] = useMutation(DELETE_IDEA_RECORD);
     const DeleteIdeaRecord = () => deleteIdeaRecord({variables: {id: router.query.id.toString() }});
 
@@ -131,7 +134,7 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
                 <LeftOutlined /> Back to Records
             </a>
         </Link>
-        <div className="grid grid-cols-1 bg-white p-5 rounded-xl shadow-lg sm:w-2/3 w-full mx-auto gap-2 relative">
+        <div className="grid grid-cols-1 bg-white p-5 rounded-xl shadow-lg sm:w-2/3 w-full mx-auto gap-2 relative dark:bg-slate-800">
             <div className="absolute top-2 right-12 text-lg cursor-pointer transform transition duration-500 hover:scale-110" onClick={handleLiked}>
                 {isLiked ? (loading ? <Spin /> : <StarFilled />) : (loading ? <Spin /> : <StarOutlined />)}
             </div>
@@ -144,14 +147,17 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
                 onChange={(e)=>setTopicTitle(e.target.value)}
                 onBlur={updateTopicTitle}
                 bordered={false}
-                style={{fontWeight:"700", fontSize:'1.25rem', marginTop:'1rem'}}
+                style={ currentTheme === 'dark' ? 
+                    {fontWeight:"700", fontSize:'1.25rem', marginTop:'1rem',color:'#4ade80'} : 
+                    {fontWeight:"700", fontSize:'1.25rem', marginTop:'1rem', }
+                }
             />
             <div className="flex items-center gap-2 text-gray-500">
-                <FieldTimeOutlined className="text-base"/>
-                <span>Created</span>
-                <div className="ml-10 text-gray-800">{dayjs(ideaRecord.createdAt).format('MMMM D YYYY h:mm A')}</div>
+                <FieldTimeOutlined className="text-base dark:text-green-400"/>
+                <span className="dark:text-green-400">Created</span>
+                <div className="ml-10 text-gray-800 dark:text-green-400">{dayjs(ideaRecord.createdAt).format('MMMM D YYYY h:mm A')}</div>
             </div>
-            <div className="flex items-center gap-2 text-gray-500">
+            <div className="flex items-center gap-2 text-gray-500 dark:text-green-400">
                 <TagOutlined className="text-base"/>
                 <span>Category</span>
                 <div className="">
@@ -163,19 +169,19 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
                     >
                         {CATEGORIES.map(cate=>
                             <Option value={cate} key={cate}>
-                                <Tag color={'cyan'} style={{borderRadius:'0.5rem'}}>{cate}</Tag>
+                                <Tag color={currentTheme === 'dark' ? 'green' : 'cyan'} style={{borderRadius:'0.5rem'}}>{cate}</Tag>
                             </Option>
                         )}
                     </Select>
                 </div>
             </div>
 
-            <Divider style={{marginTop:'0.5rem', marginBottom:'0.5rem'}}/>
+            <hr className="text-gray-100 my-5 dark:text-gray-700"/>
             
-            <div className="rounded-lg shadow-lg p-5 bg-slate-50">
+            <div className="rounded-lg shadow-lg p-5 bg-slate-50 dark:bg-slate-900">
                 <div className="flex gap-2">
                     <BulbTwoTone className="text-base"/>
-                    <h3 className="text-base font-bold tracking-widest">IDEAS</h3>
+                    <h3 className="text-base font-bold tracking-widest dark:text-green-400">IDEAS</h3>
                 </div>
                 <div className="px-3">
                     {ideaRecord.ideas.map((idea,index) => 
@@ -185,11 +191,11 @@ const RecordsDetail = ({ideaRecord}:{ideaRecord:IIdeas}) => {
                     )}
                 </div>
             </div>
-            <div className="rounded-lg shadow-lg p-5 bg-slate-50 mt-3">
+            <div className="rounded-lg shadow-lg p-5 bg-slate-50 mt-3 dark:bg-slate-900">
                 <div className="flex gap-2 mb-1 relative">
                     <FileTextTwoTone className="text-base"/>
-                    <h3 className="text-base font-bold tracking-widest">NOTES</h3>
-                    {commentLoading ? <div className="absolute top-2 right-2">saving...</div> : null}
+                    <h3 className="text-base font-bold tracking-widest dark:text-green-400">NOTES</h3>
+                    {commentLoading ? <div className="absolute top-2 right-2 dark:text-green-400">saving...</div> : null}
                 </div>
                 <div className="grid grid-cols-1">
                     <Editor

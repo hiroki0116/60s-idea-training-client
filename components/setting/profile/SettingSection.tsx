@@ -14,15 +14,15 @@ const SettingSection = () => {
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
 
   return (
-    <div className='bg-white rounded-lg shadow-lg'>
-        <div className='font-bold py-3 px-5 bg-blue-50 overflow-hidden rounded-t-lg text-base'>
+    <div className='bg-white rounded-lg shadow-lg dark:bg-slate-900'>
+        <div className='font-bold py-3 px-5 bg-blue-50 overflow-hidden rounded-t-lg text-base dark:text-slate-900'>
             Account
         </div>
 
-        <div className='flex place-content-center'>
+        <div className='flex place-content-center dark:bg-slate-800'>
           <Card
               hoverable
-              className='text-center w-full'
+              className='text-center w-full dark:bg-slate-900 dark:border-none hover:dark:bg-slate-800'
               style={{borderRadius:'0.5rem', margin:'1rem'}}
               onClick={()=>setShowChangeEmailModal(!showChangeEmailModal)}
             >
@@ -39,7 +39,7 @@ const SettingSection = () => {
                 }
                 description={
                   <>
-                    <div className='text-gray-700 font-bold'>Change Email</div>
+                    <div className='text-gray-700 font-bold dark:text-white'>Change Email</div>
                   </>
                 }
               />
@@ -47,7 +47,7 @@ const SettingSection = () => {
 
           <Card
               hoverable
-              className='text-center w-full'
+              className='text-center w-full dark:bg-slate-900 dark:border-none hover:dark:bg-slate-800'
               style={{borderRadius:'0.5rem', margin:'1rem'}}
               onClick={()=>setShowChangePasswordModal(!showChangePasswordModal)}
             >
@@ -64,7 +64,7 @@ const SettingSection = () => {
                 }
                 description={
                   <>
-                    <div className='text-gray-700 font-bold'>Change Password</div>
+                    <div className='text-gray-700 font-bold dark:text-white'>Change Password</div>
                   </>
                 }
               />
