@@ -9,7 +9,8 @@ import MobileMenu from 'components/Layout/MobileMenu';
 
 const Header = ({ pathname }) => {
 
-  const { setTheme } = useTheme();
+  const { setTheme,theme,systemTheme } = useTheme();
+  const currentTheme = theme === "system" ? systemTheme : theme;
 
   const handleTheme = (checked:boolean) => {
     if(checked){
@@ -35,7 +36,13 @@ const Header = ({ pathname }) => {
           {pathname === "/records/[id]" ?  'idea record' : pathname.replace("/", "")}
         </div>
         <div className="flex items-center gap-10">
-          <Switch checkedChildren='Dark' unCheckedChildren='Light' onChange={handleTheme}/>
+          <Switch 
+            checkedChildren='Dark' 
+            unCheckedChildren='Light' 
+            onChange={handleTheme} 
+            checked={currentTheme === 'dark'} 
+            style={{background:'#0f172a'}}
+          />
           <div className="sm:block hidden">
             <Badge size="small">
               <Dropdown overlay={menu} trigger={["click"]} placement="bottomRight" className="text-lg">
