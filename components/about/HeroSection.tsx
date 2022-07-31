@@ -10,7 +10,7 @@ const HeroSection = () => {
         window.open(`mailto:hirokiseino0116@gmail.com?subject=${emailSubject}&body=${emailBody}`, '_blank');
     }
 
-    const techStacks = ["Typescript","React.js","Next.js","Express.js","MongoDB","MySQL","REST API","GraphQL","AWS Solutions Architect Associate"];
+    const techStacks = ["Typescript","React.js","Next.js","Express.js","MongoDB","MySQL","REST API","GraphQL","AWS Solutions Architect Associate","Jest","Suptertest"];
 
   return (
     <div className="min-h-screen w-full grid sm:grid-cols-3 grid-cols-1 justify-items-center items-center sm:px-36 px-10 " style={{backgroundColor:PRIMARY_COLOR}}>
