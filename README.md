@@ -2,8 +2,7 @@ This is MERN stack project.
 
 Production site -> https://60s-idea-training.vercel.app
 
-![image](https://res.cloudinary.com/sixty-seconds-idea-training-project/image/upload/v1656668607/ApplicationLayout/desktop_mockup_dferjt.jpg)
-
+<img src="https://res.cloudinary.com/sixty-seconds-idea-training-project/image/upload/v1656668607/ApplicationLayout/desktop_mockup_dferjt.jpg" alt="drawing" width="500"/>
 
 
 ## Getting Started
