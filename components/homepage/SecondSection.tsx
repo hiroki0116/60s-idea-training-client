@@ -20,7 +20,7 @@ const SecondSection = () => {
         },
         {
             title: "Better Learning Practice",
-            body: "Familier with the forgetting curve theory? 70% of what you learn today will be lost tomorrow without reviewing.",
+            body: "Familiar with the forgetting curve theory? 70% of what you learn today will be lost tomorrow without reviewing.",
             icon: <HighlightOutlined className='text-4xl pb-5'/>
         }
 
