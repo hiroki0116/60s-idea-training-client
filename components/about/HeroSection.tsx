@@ -10,7 +10,7 @@ const HeroSection = () => {
         window.open(`mailto:hirokiseino0116@gmail.com?subject=${emailSubject}&body=${emailBody}`, '_blank');
     }
 
-    const techStacks = ["Typescript","React.js","Next.js","Express.js","MongoDB","MySQL","REST API","GraphQL","AWS Solutions Architect Associate","Jest","Supertest"];
+    const techStacks = ["Typescript","React.js","Next.js","Express.js","MongoDB","MySQL","REST API","GraphQL","AWS Solutions Architect Associate","Jest","Supertest","Golang","Firebase","ElasticSearch"];
 
   return (
     <div className="min-h-screen w-full grid sm:grid-cols-3 grid-cols-1 justify-items-center items-center sm:px-36 px-10 " style={{backgroundColor:PRIMARY_COLOR}}>
@@ -73,7 +73,7 @@ const HeroSection = () => {
 
             <div>
                 <button 
-                    className="border border-green-400 text-green-500 px-5 py-2 rounded transform transition duration-500 hover:scale-110"
+                    className="border border-green-400 bg-green-900 text-zinc-300 px-5 py-2 rounded transform transition duration-500 hover:scale-110"
                     onClick={handleContact}
                 >
                     Get in Touch
