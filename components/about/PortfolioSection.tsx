@@ -53,7 +53,7 @@ const PortfolioSection = () => {
     <div className="w-full grid grid-cols-1 justify-items-center items-center sm:px-36 px-10 bg-slate-100">
       <h1
         id="portfolios"
-        className="text-xl pt-16 pb-8 font-extrabold underline underline-offset-8"
+        className="text-xl pt-16 pb-8 font-extrabold"
       >
         Check on My Work
       </h1>
@@ -64,12 +64,12 @@ const PortfolioSection = () => {
               <Link href={item.url}>
                 <a
                   target="_blank"
-                  className="text-orange-500 text-16 font-bold cursor-pointer transform transition duration-500 hover:scale-110"
+                  className="text-orange-500 text-16 font-bold cursor-pointer transform transition duration-500 hover:scale-110 underline underline-offset-4"
                 >
                   {item.title}
                 </a>
               </Link>
-              <div className="flex gap-1 my-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 my-5">
                 <Image
                   src={item.src1}
                   width={500}
@@ -88,11 +88,13 @@ const PortfolioSection = () => {
                 <ToolOutlined /> Tech Stack
               </div>
               <div className="flex flex-wrap rounded-lg gap-1">
+                <span>Frontend: </span>
                 {item.clientTags.map((tag, i) => (
                   <Tag key={i} color="geekblue">
                     {tag}
                   </Tag>
                 ))}
+                <span>Backend: </span>
                 {item.serverTags.map((tag, i) => (
                   <Tag key={i} color="volcano">
                     {tag}
