@@ -1,6 +1,9 @@
 import { PRIMARY_COLOR } from "utils/constants";
-import { Timeline, Tag } from 'antd';
+import Timeline from 'antd/lib/timeline/Timeline'
+import Tag from 'antd/lib/tag';
+import Button from 'antd/lib/button';
 import GithubOutlined from '@ant-design/icons/GithubOutlined'
+import DownCircleOutlined from '@ant-design/icons/DownCircleOutlined'
 
 const HeroSection = () => {
 
@@ -8,6 +11,11 @@ const HeroSection = () => {
         const emailSubject:string = 'Contact via 60s Idea Training';
         const emailBody:string = "Hi, Hiroki.%0D%0A%0D%0AI am reaching out to you regarding...";
         window.open(`mailto:hirokiseino0116@gmail.com?subject=${emailSubject}&body=${emailBody}`, '_blank');
+    }
+
+    const handleScroll = () => {
+        const portfolioSection = document.getElementById('portfolios');
+        portfolioSection?.scrollIntoView({behavior:'smooth'});
     }
 
     const techStacks = ["Typescript","React.js","Next.js","Express.js","MongoDB","MySQL","REST API","GraphQL","AWS Solutions Architect Associate","Jest","Supertest","Golang","Firebase","ElasticSearch"];
@@ -79,6 +87,14 @@ const HeroSection = () => {
                     Get in Touch
                 </button>
             </div>
+        </div>
+        
+        <div className="sm:absolute sm:bottom-8 bottom-0 text-center text-white">
+            <DownCircleOutlined 
+                className="text-white text-2xl animate-bounce" 
+                onClick={handleScroll} 
+            />
+            <div className="pt-1">See My Projects</div>
         </div>
 
         <div className="absolute bottom-24  -right-10  text-zinc-400 transform rotate-90 sm:block hidden">
