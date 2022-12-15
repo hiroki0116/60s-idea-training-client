@@ -26,13 +26,6 @@ module.exports = {
       },
 
     },
-    fontWeight: {
-      thin: 100,
-      light: 300,
-      medium: 400,
-      bold: 700,
-      extrabold: 900
-    },
     borderColor: (theme) => ({
       ...theme('colors'),
       DEFAULT: theme('#0a2339', 'currentColor'),
@@ -44,15 +37,6 @@ module.exports = {
       0: 0,
       DEFAULT: 1,
       2: 2
-    },
-    maxWidth: {
-      '1/4': '25%',
-      '1/2': '50%',
-      '3/4': '75%',
-      '9/10': '90%',
-      mdMax: '1024px',
-      xxlMax: '1536px',
-      max: '120rem'
     },
     extend: {
       screens: {
