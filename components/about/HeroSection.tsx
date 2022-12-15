@@ -4,6 +4,7 @@ import Tag from 'antd/lib/tag';
 import Button from 'antd/lib/button';
 import GithubOutlined from '@ant-design/icons/GithubOutlined'
 import DownCircleOutlined from '@ant-design/icons/DownCircleOutlined'
+import dayjs from 'dayjs';
 
 const HeroSection = () => {
 
@@ -58,7 +59,7 @@ const HeroSection = () => {
 
                 <Timeline.Item color="#4ade80">
                     <div className="text-zinc-300">Develop a job site with MERN stack</div>
-                    <div className="text-zinc-400 text-sm">2021 Dec - 2022 Current</div>
+                    <div className="text-zinc-400 text-sm">2021 Dec - {dayjs().format("YYYY")} Current</div>
                 </Timeline.Item>
 
                 <Timeline.Item color="gray">
@@ -81,7 +82,7 @@ const HeroSection = () => {
 
             <div>
                 <button 
-                    className="border border-green-400 bg-green-900 text-zinc-300 px-5 py-2 rounded transform transition duration-500 hover:scale-110"
+                    className="border-2 border-green-900  text-green-300 px-5 py-2 rounded transform transition duration-500 hover:scale-110"
                     onClick={handleContact}
                 >
                     Get in Touch
@@ -94,7 +95,7 @@ const HeroSection = () => {
                 className="text-white text-2xl animate-bounce" 
                 onClick={handleScroll} 
             />
-            <div className="pt-1">See My Projects</div>
+            <div className="pt-1">Scroll down and See my work</div>
         </div>
 
         <div className="absolute bottom-24  -right-10  text-zinc-400 transform rotate-90 sm:block hidden">
