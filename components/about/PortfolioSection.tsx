@@ -32,7 +32,7 @@ const PortfolioSection = () => {
       afterwards and brushed up by creating your own note on your dashboard.",
       url: "https://60s-idea-training.vercel.app",
       src1: "https://res.cloudinary.com/sixty-seconds-idea-training-project/image/upload/v1671117710/ApplicationLayout/60s-firstHalf_kun1dn.gif",
-      src2: "https://res.cloudinary.com/sixty-seconds-idea-training-project/image/upload/v1671118236/ApplicationLayout/60s-secondHalf_iv7jkg.gif",
+      src2: "https://res.cloudinary.com/sixty-seconds-idea-training-project/image/upload/v1671152053/ApplicationLayout/60slastHalf_h9de4l.gif",
       clientTags: tagsFirstClient,
       serverTags: tagsFirstServer,
     },
