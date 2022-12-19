@@ -40,7 +40,7 @@ const PortfolioSection = () => {
       title: "Task GO",
       description:
         "This is super simple task manager app. You can keep track of your daily tasks easily.\
-      This was developed to learn Golang with Gin framework.",
+      This was developed to learn Golang with Gin framework. \nThe application will cold start for the first request on Cloud Run.",
       url: "https://go-next-tasks.vercel.app",
       src1: "https://res.cloudinary.com/sixty-seconds-idea-training-project/image/upload/v1671121225/ApplicationLayout/firstHalfTask_eizrqv.gif",
       src2: "https://res.cloudinary.com/sixty-seconds-idea-training-project/image/upload/v1671123366/ApplicationLayout/taskLastHafl_cm5naw.gif",
