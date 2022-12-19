@@ -5,11 +5,13 @@ import FieldTimeOutlined from '@ant-design/icons/FieldTimeOutlined';
 import ProfileOutlined from '@ant-design/icons/ProfileOutlined';
 import ReadOutlined from '@ant-design/icons/ReadOutlined';
 
+const INST_ONE_GIF = "https://res.cloudinary.com/sixty-seconds-idea-training-project/image/upload/v1671117710/ApplicationLayout/60s-firstHalf_kun1dn.gif"
+const INST_TWO_GIF = "https://res.cloudinary.com/sixty-seconds-idea-training-project/image/upload/v1671152053/ApplicationLayout/60slastHalf_h9de4l.gif"
+
 const ThirdSection = () => {
   return (
     <div className="min-h-screen w-full grid sm:grid-cols-2 grid-cols-1 tracking-wider sm:py-20 py-10 gap-10 sm:px-28 px-10" >
         <div className="col-span-1">
-
             <h3 className="sm:text-4xl text-2xl">How it works?</h3>
             <div className="col-span-1 self-center justify-self-center block sm:hidden">
                 <Image src={THIRD_SECTION} alt='Man adding data' width={500} height={350} />
@@ -43,8 +45,9 @@ const ThirdSection = () => {
                 </div>
             </MotionDivWhenView>
         </div>
-        <div className="col-span-1 self-center justify-self-center sm:block hidden">
-            <Image src={THIRD_SECTION} alt='Man adding data' width={500} height={350} />
+        <div className="col-span-1 self-end justify-self-center">
+            <Image src={INST_ONE_GIF} width={600} height={300} alt='gif_1' className='rounded-lg  shadow-lg '/>
+            <Image src={INST_TWO_GIF} width={600} height={300} alt='gif_2' className='rounded-lg shadow-lg'/>
         </div>
     </div>
   )

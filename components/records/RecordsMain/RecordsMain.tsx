@@ -144,7 +144,7 @@ const RecordsMain = () => {
             {loading ? <CenterSpin />
             : (
                 <>
-                    {results.length
+                    {!loading && results?.length
                     ? (
                         <>
                             <div className="sm:mb-3 mb-5 flex sm:justify-center justify-end w-full">
@@ -166,9 +166,9 @@ const RecordsMain = () => {
                                             {result?.isLiked ? <StarFilled /> : <StarOutlined />}
                                         </div>
                                         <div className='absolute top-1 right-0 text-gray-500 text-xs'>
-                                            {dayjs(result.createdAt).fromNow()}
+                                            {dayjs(result?.createdAt).fromNow()}
                                             <Tag color="cyan" style={{borderRadius: "0.5rem",marginLeft:'5px'}} icon={<TagOutlined />}>
-                                                {result.category && result.category.length ? result.category : 'Others'}
+                                                {result?.category && result?.category.length ? result?.category : 'Others'}
                                             </Tag>
                                         </div>
                                         <h3 className='border-l-4 pl-2 text-16 font-bold tracking-wide text-gray-700 my-4 dark:text-green-400'>{result.topicTitle}</h3>

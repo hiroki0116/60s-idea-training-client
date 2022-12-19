@@ -10,6 +10,7 @@ const HeroSection = () => {
           <h3 className='sm:text-4xl text-2xl font-extrabold'>Maximise your <br/>thinking ability, <span className='text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-purple-500 to-gray-500'>now!</span></h3>
           <p className='sm:text-lg text-base font-bold'>Do you know that output training brings you lots of benefits?</p>
           <p className='sm:text-lg text-base font-bold'>It helps your work productivity, study and even your mental health!</p>
+          <p className='sm:text-lg text-base font-bold'>This App will work on your brainstorming exercise in a limited time like pomodoro clock.</p>
         </div>
         <div className='self-center sm:block hidden'>
           <Image src={HERO_IMAGE} alt="Hero Idea image" width={350} height={250} />

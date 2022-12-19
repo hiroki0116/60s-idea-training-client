@@ -1,27 +1,23 @@
+import { useRouter } from 'next/router';
 import DashboardAuthWrapper from 'components/auth/DashboardAuthWrapper'
 import DashboardLayoutWrapper from 'components/Layout/DashboardLayoutWrapper';
 import RecordsDetail from 'components/records/RecordDetail/RecordsDetail';
 import { IIdeas } from 'types/Ideas';
-import { APIWithoutAuth } from 'utils/api';
+import { useFetcher } from 'customHooks/useFetcher';
 
 
-const Records = ({ideaRecord}:{ideaRecord:IIdeas}) => {
+const Records = () => {
+  const router = useRouter();
+  const url = `/ideas/session/${router.query.id}`
+  const { data: ideaRecord, loading } = useFetcher<IIdeas>({url, initialState: undefined})
+  
   return (
     <DashboardLayoutWrapper>
       <DashboardAuthWrapper>
-        <RecordsDetail ideaRecord={ideaRecord} />
+        {ideaRecord && <RecordsDetail ideaRecord={ideaRecord} loading={loading}  />}
       </DashboardAuthWrapper>
     </DashboardLayoutWrapper>
   )
 }
-
-export async function getServerSideProps ({ query }){
-    try {
-      const res = await APIWithoutAuth.get(`/ideas/session/${query.id}`);
-      return { props: {ideaRecord: res.data }};
-    } catch (error) {
-      return { props: {ideaRecord: null }};
-    }
-  };
 
 export default Records;

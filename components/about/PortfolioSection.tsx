@@ -24,7 +24,7 @@ const PortfolioSection = () => {
     {
       title: "60s Idea Training",
       description:
-        "60seconds Idea Training App helps your brainstorming exercise in a limited time.\
+        "60seconds Idea Training App helps your brainstorming exercise in a limited time like pomodoro clock.\
       It is a method that enhances the ability to make quick decisions and increases the \
       quality and speed of thinking. Decide on a topic first, which can be your concerns, \
       doubts, what you learned, challenges and so on. Then, try to come up with 4~5 small \
