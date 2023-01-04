@@ -23,11 +23,11 @@ API.interceptors.request.use(async (config:any) => {
     if (user) {
       const token = await auth.currentUser.getIdToken();
       setCookie('token', token);
-      config.headers = { 'x-auth-token': token };
+      config.headers = { 'Authorization': token };
       return config;
     } else if (isAuth()) {
       const token = getCookie('token');
-      config.headers = { 'x-auth-token': token };
+      config.headers = { 'Authorization': token };
       return config;
     } else {
       // no way to get token

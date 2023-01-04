@@ -1,6 +1,12 @@
-import { Form, Spin, Button, Modal, Input } from 'antd';
-import { AuthContext } from 'context/authContext';
 import { useContext, useState } from 'react';
+// third party
+import Form from 'antd/lib/form';
+import Input from 'antd/lib/input';
+import Spin from 'antd/lib/spin';
+import Button from 'antd/lib/button';
+import Modal from 'antd/lib/modal';
+import message from 'antd/lib/message';
+import { AuthContext } from 'context/authContext';
 import { APIWithoutAuth } from 'utils/api';
 
 const SignUpOrLoginModal = () => {
@@ -34,14 +40,16 @@ const SignUpOrLogin = () => {
     setLoading(true);
     try {
       window.localStorage.setItem('emailForSignIn', formValues.email.toLowerCase());
-      const res = await APIWithoutAuth.get(`/users/?email=${formValues.email.toLowerCase()}`);
+      const {data} = await APIWithoutAuth.get(`/users/?email=${formValues.email.toLowerCase()}`);
       setShowLoginOrRegister(false);
-      if (res.data.success) {
+      if (data.success) {
         setShowLogin(true);
       } else {
         setShowRegister(true);
       }
-    } catch (error) {
+    } catch (error: any) {
+      message.error("Email cannot be found.")
+      setShowRegister(true);
     } finally {
       setLoading(false);
     }

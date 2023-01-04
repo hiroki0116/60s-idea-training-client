@@ -47,8 +47,6 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
   const [attemptCount, setAttemptCount] = useState(1);
   const [passwordLessSentMessage, setPasswordLessSentMessage] = useState('');
 
-  const router = useRouter();
-
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -88,6 +86,7 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
       const { user } = res;
       const idTokenResult = await user.getIdTokenResult();
       const {data} = await APIWithoutAuth.get(`/users/?email=${user.email}`);
+
       setUser(data.data);
       setLoading(false);
       saveUserAndToken(data.data, idTokenResult.token);
@@ -96,7 +95,6 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
       setShowLogin(false)
       Router.push('/dashboard');
     } catch (error: any) {
-      console.log(error);
       if (error.code === 'auth/user-not-found') {
         setShowLogin(false);
         setShowRegister(true);
