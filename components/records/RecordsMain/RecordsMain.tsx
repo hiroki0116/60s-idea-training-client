@@ -25,7 +25,8 @@ const RecordsMain = () => {
     const [createdAtTo, setCreatedAtTo] = useState(dayjs().toISOString());
     const [results, setResults] = useState([]);
     const [dataInfo, setDataInfo] = useState({totalDocs: 0});
-    const [paginate, setPaginate] = useState({ current: 1, pageSize: 9 });
+    const [current, setCurrent] = useState(1);
+    const [pageSize, setPageSize] = useState(9);
     const [sortByRecent, setSortByRecent] = useState(true);
     const [isLiked, setIsLiked] = useState<boolean>(false);
     const { theme,systemTheme } = useTheme();
@@ -36,8 +37,7 @@ const RecordsMain = () => {
     useEffect(() => {
         handleSubmit();
         // eslint-disable-next-line
-      }, [searchInput,paginate, category,createdAtTo, createdAtFrom, sortByRecent, isLiked]);
-
+      }, [searchInput,current, pageSize, category,createdAtTo, createdAtFrom, sortByRecent, isLiked]);
 
     const handleSubmit = async () => {
         try {
@@ -47,26 +47,29 @@ const RecordsMain = () => {
                 category,
                 createdAtFrom,
                 createdAtTo,
-                paginate,
+                current,
+                pageSize,
                 sortByRecent,
                 isLiked
             }
 
             const { data } = await API.post(`/ideas/search`,requestBody, {errorHandle: false});
-            const records = data.sessionRecords.length > 0 ? data.sessionRecords : [];
+            const records = data.data.ideas;
 
             setResults(records);
-            setDataInfo(data.paginationInfo);
+            setDataInfo({totalDocs:data.data.paginateData.pagination.total});
              
         } catch (error:any) {
-            message.error(error.response?.data?.message)
+            console.log(error.message);
+            message.error("Search query is not valid")
         } finally {
             setLoading(false);
         }
     };
 
     const handlePageChange = (page:number, pageSize:number) => {
-        setPaginate({ current: page, pageSize: pageSize });
+        setCurrent(page);
+        setPageSize(pageSize);
         window.scroll(0, 0);
     };
 
@@ -151,9 +154,9 @@ const RecordsMain = () => {
                                 <Pagination
                                     size='small'
                                     total={dataInfo.totalDocs}
-                                    current={paginate.current}
+                                    current={current}
                                     onChange={handlePageChange}
-                                    pageSize={paginate.pageSize}
+                                    pageSize={pageSize}
                                     responsive
                                     pageSizeOptions={['9','18','36','50']}
                                 />
@@ -189,9 +192,9 @@ const RecordsMain = () => {
                                 <Pagination
                                     size="small"
                                     total={dataInfo.totalDocs}
-                                    current={paginate.current}
+                                    current={current}
                                     onChange={handlePageChange}
-                                    pageSize={paginate.pageSize}
+                                    pageSize={pageSize}
                                     responsive
                                     pageSizeOptions={['9','18','36','50']}
                                 />
