@@ -76,18 +76,10 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
       const res = await signInWithEmailAndPassword(auth,email, password);
       const { user } = res;
       const idTokenResult = await user.getIdTokenResult();
-      const getUserRes = await APIWithoutAuth.get(`/users?email=${user.email}`);
-      const userFromDB = await getUserRes.data.user;
-
+      const {data} = await APIWithoutAuth.get(`/users/?email=${user.email}`);
+      setUser(data.data);
       setLoading(false);
-
-      if (!userFromDB) {
-        message.error(getUserRes.data.message);
-        return;
-      }
-
-      setUser(userFromDB);
-      saveUserAndToken(userFromDB, idTokenResult.token);
+      saveUserAndToken(data.data, idTokenResult.token);
       form.resetFields();
       message.success('Login success.');
       setShowLogin(false)

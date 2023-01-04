@@ -1,12 +1,19 @@
 import { useState, useContext, useEffect } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Form, Input, Spin, Divider, Checkbox, Button, Modal, message } from 'antd';
-import { auth } from 'utils/firebase';
+// third party
+import Form from 'antd/lib/form';
+import Input from 'antd/lib/input';
+import Spin from 'antd/lib/spin';
+import Divider from 'antd/lib/divider';
+import Button from 'antd/lib/button';
+import Modal from 'antd/lib/modal';
+import message from 'antd/lib/message';
 import {setPersistence,browserLocalPersistence,signInWithEmailAndPassword } from 'firebase/auth';
-import { AuthContext } from 'context/authContext';
+// utils
+import { auth } from 'utils/firebase';
 import { saveUserAndToken } from 'utils/auth';
 import { APIWithoutAuth } from 'utils/api';
+import { AuthContext } from 'context/authContext';
 
 const RegisterModal = () => {
   const { showRegister, setShowRegister } = useContext(AuthContext);
@@ -49,14 +56,19 @@ const Register = () => {
       form.setFieldsValue({
         email: window.localStorage.getItem('emailForSignIn')
       });
+  // eslint-disable-next-line
   }, [showRegister]);
 
   const checkEmailExists = () => ({
     async validator(_, value) {
       if (value) {
-        const res = await APIWithoutAuth.get(`/users/?email=${value.toLowerCase()}`);
-        if (res.data.success) {
-          return Promise.reject('We found an existing account with this email. Please click Login below.');
+        try {
+          const res = await APIWithoutAuth.get(`/users/?email=${value.toLowerCase()}`, {errorHandle:false});
+          if (res.data.success) {
+            return Promise.reject('We found an existing account with this email. Please click Login below.');
+          } 
+        } catch (error) {
+            return Promise.resolve();
         }
       }
       return Promise.resolve();
@@ -77,22 +89,15 @@ const Register = () => {
         lastName: lastName.trim(),
       };
 
-      const registerRes = await APIWithoutAuth.post('/auth/register/email', {
-        ...userInfo,
-        redirectPath: router.asPath
+      const {data} = await APIWithoutAuth.post('/users/signup', {
+        ...userInfo
       });
-
-      if (!registerRes.data.success) {
-        setLoading(false);
-        message.error(registerRes.data.message);
-        return;
-      }
 
       await setPersistence(auth, browserLocalPersistence);
       const loginRes = await signInWithEmailAndPassword(auth, email.toLowerCase().trim(), password);
       const { user } = loginRes;
       const idTokenResult = await user.getIdTokenResult();
-      const userFromDB = registerRes.data.user;
+      const userFromDB = data.data;
       setUser(userFromDB);
       saveUserAndToken(userFromDB, idTokenResult.token);
 
