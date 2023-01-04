@@ -13,6 +13,7 @@ const barChart = (
     lastMonday: Date
   }) => {
 
+
   let weeklyDates:string[] = [];
   let sessionsData:number[] = [];
   let ideasData:number[] = [];

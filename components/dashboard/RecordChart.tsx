@@ -18,8 +18,8 @@ const BarChart = () => {
   const getWeeklyData = async() => {
     setLoading(true);
     try {
-      const result = await getWeeklyRecords();
-      setWeeklyData(result);
+      const {data} = await getWeeklyRecords();
+      setWeeklyData(data);
     } catch (error:any) {
       await APIWithoutAuth.post('/error-message/', { message: error.message }, { errorHandle:false});
     } finally {
