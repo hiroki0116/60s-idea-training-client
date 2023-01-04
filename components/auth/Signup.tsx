@@ -40,9 +40,6 @@ const Register = () => {
     setUser,
     setShowRegister,
     setShowLogin,
-    afterPath,
-    setAfterPath,
-    ipAddress,
     showRegister,
     setIsApply
   } = useContext(AuthContext);

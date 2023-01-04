@@ -1,10 +1,19 @@
 import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from 'context/authContext';
 import Router, { useRouter } from 'next/router';
-import { Divider, Spin, Input, Form, Checkbox, Button, Modal, message } from 'antd';
 
-import { auth } from 'utils/firebase';
+// third party
+import Divider from 'antd/lib/divider';
+import Button from 'antd/lib/button';
+import Modal from 'antd/lib/modal';
+import message from 'antd/lib/message';
+import Checkbox from 'antd/lib/checkbox';
+import Input from 'antd/lib/input';
+import Form from 'antd/lib/form';
+import Spin from 'antd/lib/spin';
 import {setPersistence,browserLocalPersistence,signInWithEmailAndPassword } from 'firebase/auth';
+// utils
+import { auth } from 'utils/firebase';
 import { saveUserAndToken } from 'utils/auth';
 import { APIWithoutAuth } from 'utils/api';
 // import { handlePasswordLessEmail } from 'services/auth';
@@ -28,7 +37,7 @@ const LoginModal = () => {
 };
 
 const Login = ({ isToggle }: { isToggle?: boolean }) => {
-  const { setShowLogin, setShowRegister, setUser, afterPath, showLogin, setIsApply } = useContext(
+  const { setShowLogin, setShowRegister, setUser, showLogin, setIsApply } = useContext(
     AuthContext
   );
   const [email, setEmail] = useState('');
@@ -55,12 +64,14 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
       email: email.toLowerCase().trim()
     });
     setAttemptCount(1);
+    // eslint-disable-next-line
   }, [email]);
 
   useEffect(() => {
     form.setFieldsValue({
       password
     });
+    // eslint-disable-next-line
   }, [password]);
 
   const handleForgotPassword = () => {
