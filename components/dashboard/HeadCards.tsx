@@ -32,7 +32,7 @@ const HeadCards = () => {
             const result = await getTotalSessionsAndIdeas();
             setTotalIdeasSessions(result);
         } catch (error:any) {
-            await APIWithoutAuth.post('/error-message',{error:error.message});
+            await APIWithoutAuth.post('/error-message/', { message: error.message }, { errorHandle:false});
         } finally {
             setLoadingForTotal(false);
         }
@@ -45,7 +45,7 @@ const HeadCards = () => {
             setTodayIdeas(result?.totalIdeas);
             setTodaySessions(result?.totalSessions);
         } catch (error:any){
-            await APIWithoutAuth.post('/error-message', {error: error.message});
+            await APIWithoutAuth.post('/error-message/', { message: error.message }, { errorHandle:false});
         } finally {
             setLoadingForToday(false);
         }
@@ -57,7 +57,7 @@ const HeadCards = () => {
             const result = await getConsecutiveDays();
             setConsecutiveDays(result.consecutiveDays);
         } catch (error:any) {
-            await APIWithoutAuth.post('/error-message', {error: error.message})
+            await APIWithoutAuth.post('/error-message/', { message: error.message }, { errorHandle:false});
         } finally {
             setLoadingForConsecutiveDays(false)
         }

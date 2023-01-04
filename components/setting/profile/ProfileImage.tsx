@@ -87,7 +87,7 @@ const ProfileImage = () => {
                 200
               );
         } catch (error:any) {
-            await APIWithoutAuth.post('/error-message', { clientError: error.message });
+            await APIWithoutAuth.post('/error-message/', { message: error.message }, { errorHandle:false});
             message.error('Upload error');
         } finally {
             setLoading(false);
@@ -142,7 +142,7 @@ const ProfileImage = () => {
                 200
             );
         } catch (error: any) {
-            await APIWithoutAuth.post('/error-message', { clientError: error.message });
+            await APIWithoutAuth.post('/error-message/', { message: error.message }, { errorHandle:false});
             message.error('Upload error');
             setLoading(false);
         } 

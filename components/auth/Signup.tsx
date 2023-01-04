@@ -104,7 +104,7 @@ const Register = () => {
       router.push('/dashboard');
       return;
     } catch (error: any) {
-      await APIWithoutAuth.post('/error-message', { clientError: error.message });
+      await APIWithoutAuth.post('/error-message/', { message: error.message }, { errorHandle:false});
       setLoading(false);
       message.error('Error in register. Please try again later.');
     }

@@ -74,7 +74,7 @@ const RecordsDetail = ({ ideaRecord, loading }: Props) => {
         { errorHandle: false }
       );
     } catch (error: any) {
-      await APIWithoutAuth.post("/error-message", { error: error.message });
+      await APIWithoutAuth.post('/error-message/', { message: error.message }, { errorHandle:false});
     }
   };
 
@@ -111,7 +111,7 @@ const RecordsDetail = ({ ideaRecord, loading }: Props) => {
         openNotification();
       }
     } catch (error: any) {
-      await APIWithoutAuth.post("/error-message", { error: error.message });
+      await APIWithoutAuth.post('/error-message/', { message: error.message }, { errorHandle:false});
       message.error(error.message);
     }
   };
@@ -126,7 +126,7 @@ const RecordsDetail = ({ ideaRecord, loading }: Props) => {
       );
       setCommentLoading(false);
     } catch (error: any) {
-      await APIWithoutAuth.post("/error-message", { error: error.message });
+      await APIWithoutAuth.post('/error-message/', { message: error.message }, { errorHandle:false});
       message.error(error.message);
     }
   };
@@ -141,7 +141,7 @@ const RecordsDetail = ({ ideaRecord, loading }: Props) => {
         { errorHandle: false }
       );
     } catch (error: any) {
-      await APIWithoutAuth.post("/error-message", { error: error.message });
+      await APIWithoutAuth.post('/error-message/', { message: error.message }, { errorHandle:false});
       message.error(error.message);
     } finally {
       setLikeLoading(false);

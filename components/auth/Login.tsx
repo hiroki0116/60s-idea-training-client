@@ -92,19 +92,19 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
       message.success('Login success.');
       setShowLogin(false)
       Router.push('/dashboard');
-    } catch (err: any) {
-      console.log(err);
-      if (err.code === 'auth/user-not-found') {
+    } catch (error: any) {
+      console.log(error);
+      if (error.code === 'auth/user-not-found') {
         setShowLogin(false);
         setShowRegister(true);
         message.error('We cannot find an account associated with this email. Please register.');
         return;
       }
-      if (err.code === 'auth/too-many-requests') {
-        message.error(err.message);
+      if (error.code === 'auth/too-many-requests') {
+        message.error(error.message);
         return;
       }
-    //   if (err.code === 'auth/wrong-password') {
+    //   if (error.code === 'auth/wrong-password') {
     //     if (attemptCount > 2) {
     //       await handlePasswordLessLogin(email);
     //       window.localStorage.setItem('emailForSignIn', email);
@@ -113,7 +113,7 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
     //     }
     //     setAttemptCount(attemptCount + 1);
     //   }
-      await APIWithoutAuth.post('/error-message', { clientError: err });
+      await APIWithoutAuth.post('/error-message/', { message: error.message }, { errorHandle:false});
       message.error('Incorrect email or password.');
     } finally {
       setLoading(false);

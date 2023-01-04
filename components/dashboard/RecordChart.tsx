@@ -21,7 +21,7 @@ const BarChart = () => {
       const result = await getWeeklyRecords();
       setWeeklyData(result);
     } catch (error:any) {
-      await APIWithoutAuth.post('/error-message', {error: error.message});
+      await APIWithoutAuth.post('/error-message/', { message: error.message }, { errorHandle:false});
     } finally {
       setLoading(false);
     }
