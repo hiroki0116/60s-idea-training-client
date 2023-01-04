@@ -34,9 +34,9 @@ const SignUpOrLogin = () => {
     setLoading(true);
     try {
       window.localStorage.setItem('emailForSignIn', formValues.email.toLowerCase());
-      const res = await APIWithoutAuth.post(`/auth/check/email?email=${formValues.email.toLowerCase()}`);
+      const res = await APIWithoutAuth.get(`/users/?email=${formValues.email.toLowerCase()}`);
       setShowLoginOrRegister(false);
-      if (res.data.exists) {
+      if (res.data.success) {
         setShowLogin(true);
       } else {
         setShowRegister(true);

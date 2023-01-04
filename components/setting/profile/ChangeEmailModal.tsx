@@ -35,14 +35,14 @@ const ChangeEmailModal = ({showChangeEmailModal,setShowChangeEmailModal}:modalPr
 type prop = {setShowChangeEmailModal: (value: boolean) => void;}
 
 const ChangeEmail = ({setShowChangeEmailModal}:prop) => {
-  const { setUser,setShowLoginOrRegister } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const checkEmailExists = () => ({
     async validator(_, value) {
       if (value) {
-        const res = await APIWithoutAuth.post(`/auth/check/email?email=${value.toLowerCase()}`);
-        if (res.data.exists) {
+        const res = await APIWithoutAuth.get(`/users/?email=${value.toLowerCase()}`);
+        if (res.data.success) {
           return Promise.reject('We found an existing account with this email.');
         }
       }

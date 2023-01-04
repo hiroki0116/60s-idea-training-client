@@ -54,8 +54,8 @@ const Register = () => {
   const checkEmailExists = () => ({
     async validator(_, value) {
       if (value) {
-        const res = await APIWithoutAuth.post(`/auth/check/email?email=${value.toLowerCase()}`);
-        if (res.data.exists) {
+        const res = await APIWithoutAuth.get(`/users/?email=${value.toLowerCase()}`);
+        if (res.data.success) {
           return Promise.reject('We found an existing account with this email. Please click Login below.');
         }
       }
