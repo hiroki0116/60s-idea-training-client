@@ -26,7 +26,7 @@ const PreviousIdeaRecords = () => {
         onMouseOver={()=>{setMouseOver(true)}} 
         onMouseLeave={()=>{setMouseOver(false)}}
     >
-        <h2 className={`font-bold text-lg dark:text-green-400 ${mouseOver && 'transition duration-300 ease-out hover:ease-in underline underline-offset-8'}`}>Most Recent Sessions</h2>
+        <h2 className={`font-bold text-lg dark:text-green-400 ${mouseOver && 'transition duration-300 ease-out hover:ease-in underline underline-offset-8'}`}>Most 5 Recent Sessions</h2>
         {!prevSessions?.length ? <Empty description="No Data Yet." /> : prevSessions.map((session) => (
             <div className="relative rounded-xl mb-2 px-5 pt-4 pb-1 bg-white shadow-lg hover:bg-blue-50 cursor-pointer dark:bg-slate-800 hover:dark:bg-slate-700"  key = {session._id}>
                 <Link href={`/records/${session._id}`} >

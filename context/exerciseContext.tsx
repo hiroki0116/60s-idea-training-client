@@ -4,6 +4,7 @@ import { useMutation, useLazyQuery } from '@apollo/client';
 import { GET_MOST_RECENT_IDEA_RECORDS } from 'graphql/queries/ideaRecord';
 import { CREATE_NEW_IDEA_RECORD } from 'graphql/mutations/ideaRecord';
 import { message } from 'antd';
+import { API } from 'utils/api';
 
 export enum stepEnum {
     firstSection = 0,
@@ -63,30 +64,13 @@ export const ExerciseProfileProvider = ({ children }) => {
     const [showFirstSection, setShowFirstSection] = useState<boolean>(true);
     const [showSubmitSection, setShowSubmitSection] = useState<boolean>(false);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
-    const [ getMostRecentIdeaRecords, getMostRecentIdeaRecordsRes] = useLazyQuery(GET_MOST_RECENT_IDEA_RECORDS, { errorPolicy: 'all' });
-
-    const [createNewIdeaRecord, {
-        data: createdRes,
-        loading: createLoading,
-        error: createdError }] = useMutation(CREATE_NEW_IDEA_RECORD)
+    const [loading, setLoading] = useState<boolean>(true);
+    const [createLoading, setCreateLoading] = useState<boolean>(false);
 
     useEffect(() => {
         getMostRecentIdeaRecords();
         // eslint-disable-next-line
     }, []);
-
-    useEffect(()=> {
-        setPrevSessions(getMostRecentIdeaRecordsRes?.data?.getMostRecentIdeaRecords);
-    },[getMostRecentIdeaRecordsRes?.data?.getMostRecentIdeaRecords]);
-
-    useEffect(() => {
-        if (createdRes?.createNewIdeaRecord?._id){
-            setPrevSessions([createdRes.createNewIdeaRecord,...prevSessions])
-            clearSteps();
-        }
-        if(createdError) message.error(`Failed to create new idea record. ${createdError.message}`);
-        // eslint-disable-next-line
-      }, [createdRes, createdError]);
     
     const handleNext = () => {
         setShowFirstSection(false);
@@ -98,12 +82,31 @@ export const ExerciseProfileProvider = ({ children }) => {
         setShowSubmitSection(false);
     }
 
-    const handleSubmit = () => {
-        createNewIdeaRecord({ variables: {
-            topicTitle,
-            category,
-            ideas
-        }});
+    const handleSubmit = async() => {
+        try {
+            setCreateLoading(true)
+            const response = await API.post('/ideas/', {
+                topicTitle: topicTitle,
+                ideas: ideas,
+                category,
+            })
+            if (response.data.success){
+                message.success('New ideas created!')
+                setPrevSessions([response.data.data, ...prevSessions])
+                clearSteps();
+            }
+        } catch (error: any) {
+            message.error(error.message)
+        } finally {
+            setCreateLoading(false)
+        }
+    }
+
+    const getMostRecentIdeaRecords = async () => {
+        setLoading(true);
+        const response = await API.get("/ideas/recent")
+        setPrevSessions(response.data.data);
+        setLoading(false);
     }
 
     const clearSteps = () => {
@@ -122,7 +125,8 @@ export const ExerciseProfileProvider = ({ children }) => {
         ideas,
         setIdeas,
         prevSessions,
-        loadingPrevSessions:getMostRecentIdeaRecordsRes?.loading,
+        // loadingPrevSessions:getMostRecentIdeaRecordsRes?.loading,
+        loadingPrevSessions: loading,
         showFirstSection,
         setShowFirstSection,
         showSubmitSection,
