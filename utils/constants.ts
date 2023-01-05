@@ -37,14 +37,12 @@ export const tagsFirstClient = [
   "Vercel",
 ];
 export const tagsFirstServer = [
-  "Express.js",
-  "TypeScript",
+  "Golang",
+  "Gin Framework",
   "MongoDB",
   "REST API",
-  "GraphQL",
   "Firebase",
-  "Jest",
-  "Super test",
+  "Docker",
   "Heroku",
 ];
 export const tagsSecondClient = [
