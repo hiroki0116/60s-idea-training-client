@@ -1,10 +1,19 @@
 import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from 'context/authContext';
 import Router, { useRouter } from 'next/router';
-import { Divider, Spin, Input, Form, Checkbox, Button, Modal, message } from 'antd';
 
-import { auth } from 'utils/firebase';
+// third party
+import Divider from 'antd/lib/divider';
+import Button from 'antd/lib/button';
+import Modal from 'antd/lib/modal';
+import message from 'antd/lib/message';
+import Checkbox from 'antd/lib/checkbox';
+import Input from 'antd/lib/input';
+import Form from 'antd/lib/form';
+import Spin from 'antd/lib/spin';
 import {setPersistence,browserLocalPersistence,signInWithEmailAndPassword } from 'firebase/auth';
+// utils
+import { auth } from 'utils/firebase';
 import { saveUserAndToken } from 'utils/auth';
 import { APIWithoutAuth } from 'utils/api';
 // import { handlePasswordLessEmail } from 'services/auth';
@@ -28,7 +37,7 @@ const LoginModal = () => {
 };
 
 const Login = ({ isToggle }: { isToggle?: boolean }) => {
-  const { setShowLogin, setShowRegister, setUser, afterPath, showLogin, setIsApply } = useContext(
+  const { setShowLogin, setShowRegister, setUser, showLogin, setIsApply } = useContext(
     AuthContext
   );
   const [email, setEmail] = useState('');
@@ -37,8 +46,6 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
   const [loading, setLoading] = useState(false);
   const [attemptCount, setAttemptCount] = useState(1);
   const [passwordLessSentMessage, setPasswordLessSentMessage] = useState('');
-
-  const router = useRouter();
 
   const [form] = Form.useForm();
 
@@ -55,12 +62,14 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
       email: email.toLowerCase().trim()
     });
     setAttemptCount(1);
+    // eslint-disable-next-line
   }, [email]);
 
   useEffect(() => {
     form.setFieldsValue({
       password
     });
+    // eslint-disable-next-line
   }, [password]);
 
   const handleForgotPassword = () => {
@@ -76,35 +85,27 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
       const res = await signInWithEmailAndPassword(auth,email, password);
       const { user } = res;
       const idTokenResult = await user.getIdTokenResult();
-      const getUserRes = await APIWithoutAuth.get(`/users?email=${user.email}`);
-      const userFromDB = await getUserRes.data.user;
+      const {data} = await APIWithoutAuth.get(`/users/?email=${user.email}`);
 
+      setUser(data.data);
       setLoading(false);
-
-      if (!userFromDB) {
-        message.error(getUserRes.data.message);
-        return;
-      }
-
-      setUser(userFromDB);
-      saveUserAndToken(userFromDB, idTokenResult.token);
+      saveUserAndToken(data.data, idTokenResult.token);
       form.resetFields();
       message.success('Login success.');
       setShowLogin(false)
       Router.push('/dashboard');
-    } catch (err: any) {
-      console.log(err);
-      if (err.code === 'auth/user-not-found') {
+    } catch (error: any) {
+      if (error.code === 'auth/user-not-found') {
         setShowLogin(false);
         setShowRegister(true);
         message.error('We cannot find an account associated with this email. Please register.');
         return;
       }
-      if (err.code === 'auth/too-many-requests') {
-        message.error(err.message);
+      if (error.code === 'auth/too-many-requests') {
+        message.error(error.message);
         return;
       }
-    //   if (err.code === 'auth/wrong-password') {
+    //   if (error.code === 'auth/wrong-password') {
     //     if (attemptCount > 2) {
     //       await handlePasswordLessLogin(email);
     //       window.localStorage.setItem('emailForSignIn', email);
@@ -113,7 +114,7 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
     //     }
     //     setAttemptCount(attemptCount + 1);
     //   }
-      await APIWithoutAuth.post('/error-message', { clientError: err });
+      await APIWithoutAuth.post('/error-message/', { message: error.message }, { errorHandle:false});
       message.error('Incorrect email or password.');
     } finally {
       setLoading(false);

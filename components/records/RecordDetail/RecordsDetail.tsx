@@ -4,7 +4,13 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 
 // Third Party
-import { Tag, Input, message, notification, Select, Spin } from "antd";
+import Tag from 'antd/lib/tag';
+import Input from 'antd/lib/input';
+import message from 'antd/lib/message';
+import notification from 'antd/lib/notification';
+import Select from 'antd/lib/select';
+import Spin from 'antd/lib/spin';
+
 import { Editor } from "@tinymce/tinymce-react";
 import dayjs from "dayjs";
 import { useMutation } from "@apollo/client";
@@ -22,7 +28,7 @@ import { DELETE_IDEA_RECORD } from "graphql/mutations/ideaRecord";
 import MotionDiv from "components/Layout/MotionDiv";
 import CenterSpin from "components/Layout/CenterSpin";
 import ThreeDotsMenu from "./ThreeDotsMenu";
-import { APIWithoutAuth } from "utils/api";
+import { API } from "utils/api";
 import { capitalizeFirst } from "utils/formatter";
 import { CATEGORIES } from "utils/constants";
 import { IIdeas } from "types/Ideas";
@@ -43,38 +49,50 @@ const RecordsDetail = ({ ideaRecord, loading }: Props) => {
   const [isLiked, setIsLiked] = useState<boolean>(ideaRecord?.isLiked);
   const [commentLoading, setCommentLoading] = useState<boolean>(false);
   const [likeLoading, setLikeLoading] = useState<boolean>(false);
+  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
   const { theme, systemTheme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
-  const [deleteIdeaRecord, deleteIdeaRecordRes] =
-    useMutation(DELETE_IDEA_RECORD);
-  const DeleteIdeaRecord = () =>
-    deleteIdeaRecord({ variables: { id: router.query.id.toString() } });
+  // const [deleteIdeaRecord, deleteIdeaRecordRes] = useMutation(DELETE_IDEA_RECORD);
+  // const DeleteIdeaRecord = () => deleteIdeaRecord({ variables: { id: router.query.id.toString() } });
 
+  // useEffect(() => {
+  //   if (deleteIdeaRecordRes?.data?.deleteIdeaRecord) {
+  //     message.success("Successfully Deleted!");
+  //     router.push("/records");
+  //   }
+  //   if (deleteIdeaRecordRes?.error) {
+  //     message.error("Failed to delete idea record.");
+  //   }
+  //   //eslint-disable-next-line
+  // }, [deleteIdeaRecordRes?.data?.deleteIdeaRecord]);
   useEffect(() => {
     updateComment();
     //eslint-disable-next-line
   }, [comment]);
 
   useEffect(() => {
-    if (deleteIdeaRecordRes?.data?.deleteIdeaRecord) {
+      changeViewStatus(ideaRecord._id);
+    // eslint-disable-next-line
+  }, []);
+
+  const handleDelete = async () => {
+    try {
+      setDeleteLoading(true);
+      await API.delete(`/ideas/${ideaRecord._id}`, { errorHandle: false });
       message.success("Successfully Deleted!");
       router.push("/records");
+    } catch (error:any) {
+      message.error(error.message)
+    } finally {
+      setDeleteLoading(false);
     }
-    if (deleteIdeaRecordRes?.error) {
-      message.error("Failed to delete idea record.");
-    }
-    //eslint-disable-next-line
-  }, [deleteIdeaRecordRes?.data?.deleteIdeaRecord]);
+  }
 
   const changeViewStatus = async (id: string) => {
     try {
-      await APIWithoutAuth.patch(
-        `/ideas/${id}`,
-        { viewed: true },
-        { errorHandle: false }
-      );
+      await API.put(`/ideas/${id}`, { viewed: true }, { errorHandle: false });
     } catch (error: any) {
-      await APIWithoutAuth.post("/error-message", { error: error.message });
+      message.error(error.message)
     }
   };
 
@@ -88,21 +106,22 @@ const RecordsDetail = ({ ideaRecord, loading }: Props) => {
 
   const updateTopicTitle = async () => {
     try {
-      await APIWithoutAuth.patch(
+      const { data } = await API.put(
         `/ideas/${ideaRecord._id}`,
         { topicTitle },
         { errorHandle: false }
       );
-      openNotification();
+      if (data.success) {
+        openNotification();
+      }
     } catch (error: any) {
-      await APIWithoutAuth.post("/error-message", { error: error.message });
       message.error(error.message);
     }
   };
 
   const updateCategory = async (category: string) => {
     try {
-      const { data } = await APIWithoutAuth.patch(
+      const { data } = await API.put(
         `/ideas/${ideaRecord._id}`,
         { category },
         { errorHandle: false }
@@ -111,7 +130,6 @@ const RecordsDetail = ({ ideaRecord, loading }: Props) => {
         openNotification();
       }
     } catch (error: any) {
-      await APIWithoutAuth.post("/error-message", { error: error.message });
       message.error(error.message);
     }
   };
@@ -119,14 +137,13 @@ const RecordsDetail = ({ ideaRecord, loading }: Props) => {
   const updateComment = async () => {
     try {
       setCommentLoading(true);
-      await APIWithoutAuth.patch(
+      await API.put(
         `/ideas/${ideaRecord._id}`,
         { comment },
         { errorHandle: false }
       );
       setCommentLoading(false);
     } catch (error: any) {
-      await APIWithoutAuth.post("/error-message", { error: error.message });
       message.error(error.message);
     }
   };
@@ -135,32 +152,26 @@ const RecordsDetail = ({ ideaRecord, loading }: Props) => {
     try {
       setLikeLoading(true);
       setIsLiked(!isLiked);
-      await APIWithoutAuth.patch(
+      await API.put(
         `/ideas/${ideaRecord._id}`,
         { isLiked: !isLiked },
         { errorHandle: false }
       );
     } catch (error: any) {
-      await APIWithoutAuth.post("/error-message", { error: error.message });
       message.error(error.message);
     } finally {
       setLikeLoading(false);
     }
   };
 
-  useEffect(() => {
-    if (router.query.id) {
-      changeViewStatus(router.query.id.toString());
-    }
-    // eslint-disable-next-line
-  }, [router.query]);
 
   if (loading) return <CenterSpin />;
   return (
     <MotionDiv>
       <Link href={"/records"}>
         <a className="text-blue-500 flex items-center gap-1">
-          <LeftOutlined /> <span className="font-extrabold">Back to Records</span>
+          <LeftOutlined />{" "}
+          <span className="font-extrabold">Back to Records</span>
         </a>
       </Link>
       <div className="grid grid-cols-1 bg-white p-5 rounded-xl shadow-lg sm:w-2/3 w-full mx-auto gap-2 relative dark:bg-slate-800">
@@ -181,7 +192,7 @@ const RecordsDetail = ({ ideaRecord, loading }: Props) => {
           )}
         </div>
         <div className="absolute top-2 right-2">
-          <ThreeDotsMenu deleteIdeaRecord={DeleteIdeaRecord} />
+          <ThreeDotsMenu deleteIdeaRecord={handleDelete} />
         </div>
         <Input
           size="large"

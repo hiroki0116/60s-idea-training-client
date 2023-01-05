@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Card } from 'antd';
+import Card from 'antd/lib/card';
+import message from 'antd/lib/message';
 import { getTotalSessionsAndIdeas,getTodaySessionsIdeas,getConsecutiveDays } from 'services/dashboard'
 //Type
 import { ITotalIdeasSessions } from 'types/Ideas';
@@ -32,7 +33,7 @@ const HeadCards = () => {
             const result = await getTotalSessionsAndIdeas();
             setTotalIdeasSessions(result);
         } catch (error:any) {
-            await APIWithoutAuth.post('/error-message',{error:error.message});
+            await APIWithoutAuth.post('/error-message/', { message: error.message }, { errorHandle:false});
         } finally {
             setLoadingForTotal(false);
         }
@@ -45,19 +46,21 @@ const HeadCards = () => {
             setTodayIdeas(result?.totalIdeas);
             setTodaySessions(result?.totalSessions);
         } catch (error:any){
-            await APIWithoutAuth.post('/error-message', {error: error.message});
+            await APIWithoutAuth.post('/error-message/', { message: error.message }, { errorHandle:false});
         } finally {
             setLoadingForToday(false);
         }
     }
 
     const getConsecutive = async() => {
-        setLoadingForConsecutiveDays(true)
         try {
+            setLoadingForConsecutiveDays(true)
             const result = await getConsecutiveDays();
-            setConsecutiveDays(result.consecutiveDays);
+            if (result ){
+                setConsecutiveDays(result);
+            }
         } catch (error:any) {
-            await APIWithoutAuth.post('/error-message', {error: error.message})
+            message.error(error.message);
         } finally {
             setLoadingForConsecutiveDays(false)
         }

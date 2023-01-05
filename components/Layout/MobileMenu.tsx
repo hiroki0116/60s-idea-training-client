@@ -21,7 +21,7 @@ const MobileMenu = () => {
             <>
               <Avatar
                 size="large"
-                src={currAuthUser()?.images[0].url}
+                src={currAuthUser()?.images?.length && currAuthUser()?.images[0].url}
                 alt="user image"
                 style={{marginBottom:'10px'}}
               />

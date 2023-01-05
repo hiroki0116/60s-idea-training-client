@@ -57,7 +57,7 @@ const DashboardLayoutWrapper = ({children}) => {
           <div className="place-items-stretch shadow-lg p-2 rounded-lg bg-white sm:block hidden  dark:bg-slate-800">
             <div className="text-center py-2">
               <div>
-                {user?.images[0]?.url ? (
+                {user?.images?.length && user?.images[0]?.url ? (
                   <Avatar src={user?.images[0]?.url} size={60}/>
                 ) : (
                   <Avatar style={{ backgroundColor: '#f15927' }} size={50}>
