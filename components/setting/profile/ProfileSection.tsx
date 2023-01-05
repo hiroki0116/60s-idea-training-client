@@ -28,7 +28,7 @@ const ProfileSection = () => {
           <div className='text-white font-bold p-5 text-lg tracking-wider'>Profile</div>
         </div>
         <div className="top-20 left-1/2 absolute">
-          <div className="shadow-xl rounded w-20 h-20 relative right-1/2" style={embedImage(user ? user.images[0].url : currAuthUser()?.images[0]?.url)} />
+          <div className="shadow-xl rounded w-20 h-20 relative right-1/2" style={embedImage(user?.images?.length ? user.images[0].url : currAuthUser()?.images?.length && currAuthUser()?.images[0].url)} />
         </div>
         <div className='mt-8 mb-3 grid grid-cols-1 justify-items-center'>
           <div className='text-lg font-bold'>{capitalizeFirst(currAuthUser()?.firstName)} {capitalizeFirst(currAuthUser()?.lastName)}</div>

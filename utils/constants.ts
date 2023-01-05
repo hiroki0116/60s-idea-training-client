@@ -12,6 +12,7 @@ export const MOBILE_MOCKUP =
   "https://res.cloudinary.com/sixty-seconds-idea-training-project/image/upload/v1656770842/ApplicationLayout/smartmockups_l53yk776_spc1jl.jpg";
 export const HERO_IMAGE =
   "https://res.cloudinary.com/sixty-seconds-idea-training-project/image/upload/v1656689463/ApplicationLayout/undraw_Thought_process_re_om58_dzrqpz.png";
+export const DEFAULT_USER_IMAGE = "https://res.cloudinary.com/sixty-seconds-idea-training-project/image/upload/v1656157889/users/default-user-image_LYizIFTei_ioicfh.png"
 export const PRIMARY_COLOR = "#0a2339";
 export const CATEGORIES = [
   "Study",
