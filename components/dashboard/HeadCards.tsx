@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Card } from 'antd';
+import Card from 'antd/lib/card';
+import message from 'antd/lib/message';
 import { getTotalSessionsAndIdeas,getTodaySessionsIdeas,getConsecutiveDays } from 'services/dashboard'
 //Type
 import { ITotalIdeasSessions } from 'types/Ideas';
@@ -52,12 +53,14 @@ const HeadCards = () => {
     }
 
     const getConsecutive = async() => {
-        setLoadingForConsecutiveDays(true)
         try {
+            setLoadingForConsecutiveDays(true)
             const result = await getConsecutiveDays();
-            setConsecutiveDays(result);
+            if (result ){
+                setConsecutiveDays(result);
+            }
         } catch (error:any) {
-            await APIWithoutAuth.post('/error-message/', { message: error.message }, { errorHandle:false});
+            message.error(error.message);
         } finally {
             setLoadingForConsecutiveDays(false)
         }
