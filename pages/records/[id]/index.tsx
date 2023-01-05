@@ -5,16 +5,17 @@ import RecordsDetail from 'components/records/RecordDetail/RecordsDetail';
 import { IIdeas } from 'types/Ideas';
 import { useFetcher } from 'customHooks/useFetcher';
 
+type IIdeaRecord = { data: IIdeas };
 
 const Records = () => {
   const router = useRouter();
-  const url = `/ideas/session/${router.query.id}`
-  const { data: ideaRecord, loading } = useFetcher<IIdeas>({url, initialState: undefined})
+  const url = `/ideas/${router?.query?.id}`
+  const { data: ideaRecord, loading } = useFetcher<IIdeaRecord>({url, initialState: undefined})
   
   return (
     <DashboardLayoutWrapper>
       <DashboardAuthWrapper>
-        {ideaRecord && <RecordsDetail ideaRecord={ideaRecord} loading={loading}  />}
+        {ideaRecord?.data && <RecordsDetail ideaRecord={ideaRecord.data} loading={loading}  />}
       </DashboardAuthWrapper>
     </DashboardLayoutWrapper>
   )
