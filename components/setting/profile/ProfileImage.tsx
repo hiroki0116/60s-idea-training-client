@@ -9,13 +9,10 @@ import UploadOutlined from "@ant-design/icons/UploadOutlined";
 import DeleteFilled from "@ant-design/icons/DeleteFilled";
 //Utils
 import { currAuthUser, setLocalStorage } from "utils/auth";
-import { API, APIWithoutAuth } from "utils/api";
-import { DEFAULT_USER_IMAGE } from 'utils/constants';
-//Types
-import { IPhoto } from "types/Photo";
+import { API } from "utils/api";
+import { DEFAULT_USER_IMAGE } from "utils/constants";
 
 const ProfileImage = () => {
-  const [image, setImage] = useState<IPhoto | null>(null);
   const [dragOver, setDragOver] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
@@ -26,13 +23,13 @@ const ProfileImage = () => {
     try {
       setShowConfirm(false);
       setLoading(true);
-      if (image) {
-        await API.put("/users/images", { public_id: image.public_id });
-      }
-    //Update user in db
-    const response = await API.put(`/users/${currAuthUser()?._id}`, {
-        images: [{ about: `default`, url: DEFAULT_USER_IMAGE}],
-    });
+      await API.put("/users/images", {
+        public_id: currAuthUser().images[0].public_id,
+      });
+      //Update user in db
+      const response = await API.put(`/users/${currAuthUser()?._id}`, {
+        images: [{ about: `default`, url: DEFAULT_USER_IMAGE }],
+      });
       //Update context
       setUser(response.data.data);
       //Update local storage
@@ -61,11 +58,9 @@ const ProfileImage = () => {
         message.error("Please upload JPG or PNG file.");
         return;
       }
-
       const folder = `${process.env.NEXT_PUBLIC_STAGE}/users/user_profile/${
         currAuthUser()._id
       }`;
-
       Resizer.imageFileResizer(
         file,
         500,
@@ -74,36 +69,35 @@ const ProfileImage = () => {
         100,
         0,
         async (uri) => {
-            setLoading(true);
-            const response = await API.post("/users/images", {
-              image: uri,
-              folder,
-            });
-            if (image) {
-              await API.put("/users/images", { public_id: image.public_id });
-            }
-  
-            //Update user in db
-            const userRes = await API.put(`/users/${currAuthUser()?._id}`, {
-              images: [{ about: `profile_image_${currAuthUser()?.firstName}`, url: response.data.data.url}],
-            });
-            //Update context
-            setUser(userRes.data.data);
-            //Update local storage
-            setLocalStorage("user", userRes.data.data);
-            setImage(userRes.data.data.images[0].url);
-            setLoading(false);
+          setLoading(true);
+          const response = await API.post("/users/images", {
+            image: uri,
+            folder,
+          });
+          await API.put("/users/images", {
+            public_id: currAuthUser().images[0].public_id,
+          });
+          //Update user in db
+          const userRes = await API.put(`/users/${currAuthUser()?._id}`, {
+            images: [
+              {
+                about: `profile_image_${currAuthUser()?.firstName}`,
+                url: response.data.data.url,
+                public_id: response.data.data.public_id,
+              },
+            ],
+          });
+          //Update context
+          setUser(userRes.data.data);
+          //Update local storage
+          setLocalStorage("user", userRes.data.data);
+          setLoading(false);
         },
         "base64",
         200,
         200
       );
     } catch (error: any) {
-      await APIWithoutAuth.post(
-        "/error-message/",
-        { message: error.message },
-        { errorHandle: false }
-      );
       message.error("Upload error");
     } finally {
       setLoading(false);
@@ -124,9 +118,9 @@ const ProfileImage = () => {
         return;
       }
 
-      const folder = `${
-        process.env.NEXT_PUBLIC_STAGE
-      }/users/user_profile/${currAuthUser()._id}`;
+      const folder = `${process.env.NEXT_PUBLIC_STAGE}/users/user_profile/${
+        currAuthUser()._id
+      }`;
 
       Resizer.imageFileResizer(
         file,
@@ -141,19 +135,25 @@ const ProfileImage = () => {
             image: uri,
             folder,
           });
-          if (image) {
-            await API.put("/users/images", { public_id: image.public_id });
-          }
+
+          await API.put("/users/images", {
+            public_id: response.data.public_id,
+          });
 
           //Update user in db
           const userRes = await API.put(`/users/${currAuthUser()?._id}`, {
-            images: [{ about: `profile_image_${currAuthUser()?.firstName}`, url: response.data.data.url}],
+            images: [
+              {
+                about: `profile_image_${currAuthUser()?.firstName}`,
+                url: response.data.data.url,
+                public_id: response.data.data.public_id,
+              },
+            ],
           });
           //Update context
           setUser(userRes.data.data);
           //Update local storage
           setLocalStorage("user", userRes.data.data);
-          setImage(response.data.data);
           setLoading(false);
         },
         "base64",
@@ -186,7 +186,9 @@ const ProfileImage = () => {
             <Avatar
               className="mx-2"
               size={120}
-              src={currAuthUser()?.images?.length && currAuthUser()?.images[0].url}
+              src={
+                currAuthUser()?.images?.length && currAuthUser()?.images[0].url
+              }
             />
           </Spin>
         </div>
