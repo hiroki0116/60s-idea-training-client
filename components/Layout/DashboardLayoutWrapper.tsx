@@ -71,7 +71,7 @@ const DashboardLayoutWrapper = ({children}) => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 place-items-stretch rounded-lg bg-white shadow-lg mt-6 p-3 text-gray-400 sticky top-10 sm:block hidden  dark:bg-slate-800">
+          <div className="sm:grid grid-cols-1 place-items-stretch rounded-lg bg-white shadow-lg mt-6 p-3 text-gray-400 sticky top-10 hidden  dark:bg-slate-800">
             {options.map((option, i) => {
               const style = `w-full rounded-lg transition duration-500 ease-in-out text-gray-500 hover:text-gray-800 hover:bg-blue-50 transform hover:-translate-y-1 mx-auto my-2 p-2 hover:scale-110 ${router.pathname === option.href && 'bg-blue-50 text-gray-800'}`;
               return (
