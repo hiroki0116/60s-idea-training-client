@@ -13,11 +13,17 @@
 
 ## Getting Start
 
-Currently Backend repo (API server) is private so that the dashboard will not be available.
-I will open 
+First, clone API server repo (written in Golang) 
+```
+git clone https://github.com/hiroki0116/60s-idea-training-server-version-golang.git
+```
 
+Open up this API server on your local machine and hit the following command in project root directory
 
-However, you can still run this Frontend project on your local machine.
+```
+make run dev
+```
+
 
 ```
 npm run dev
