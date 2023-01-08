@@ -26,8 +26,6 @@ API.interceptors.request.use(async (config:any) => {
       //@ts-ignore
       config.headers = { Authorization: `Bearer ${token}` };
       return config;
-    } else if (isAuth()) {
-      return config;
     } else {
       // no way to get token
       return config;

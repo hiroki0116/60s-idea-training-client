@@ -11,7 +11,9 @@ import Checkbox from 'antd/lib/checkbox';
 import Input from 'antd/lib/input';
 import Form from 'antd/lib/form';
 import Spin from 'antd/lib/spin';
-import {setPersistence,browserLocalPersistence,signInWithEmailAndPassword } from 'firebase/auth';
+import GoogleOutlined from '@ant-design/icons/GoogleOutlined';
+import isEmpty from 'lodash/isEmpty';
+import {setPersistence,browserLocalPersistence,signInWithEmailAndPassword,signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 // utils
 import { auth } from 'utils/firebase';
 import { saveUserAndToken } from 'utils/auth';
@@ -37,17 +39,15 @@ const LoginModal = () => {
 };
 
 const Login = ({ isToggle }: { isToggle?: boolean }) => {
-  const { setShowLogin, setShowRegister, setUser, showLogin, setIsApply } = useContext(
-    AuthContext
-  );
+  const { setShowLogin, setShowRegister, setUser, showLogin, setIsApply } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(false);
   const [loading, setLoading] = useState(false);
   const [attemptCount, setAttemptCount] = useState(1);
   const [passwordLessSentMessage, setPasswordLessSentMessage] = useState('');
-
   const [form] = Form.useForm();
+  const router = useRouter();
 
   useEffect(() => {
     if (showLogin) {
@@ -71,6 +71,43 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
     });
     // eslint-disable-next-line
   }, [password]);
+
+  const provider = new GoogleAuthProvider().setCustomParameters({ prompt: 'select_account' });
+  const signInWithGoogle = () => signInWithPopup(auth,provider)
+  .then(async (result:any)=>{
+    setLoading(true)
+    const user = result.user;
+    const {data} = await APIWithoutAuth.get(`/users/?email=${user.email}`);
+
+    // if user is not in database, create new user
+    if (isEmpty(data.data)) {
+      const {data} = await APIWithoutAuth.post('/users/signup', {
+        email: user.email,
+        firstName: user.displayName,
+        lastName: 'User',
+        firebaseUID: user.uid,
+        images: [{
+          url: user.photoURL,
+          about: 'Google profile image'
+        }]
+      });
+      setUser(data.data);
+      saveUserAndToken(data.data, user.accessToken );
+      message.success('Login success.');
+      setShowLogin(false)
+      router.push('/dashboard');
+      return;
+    }
+    setUser(data.data);
+    setLoading(false);
+    saveUserAndToken(data.data, user.accessToken);
+    message.success('Login success.');
+    setShowLogin(false)
+    router.push('/dashboard');
+  })
+  .catch((error) => {
+    message.error(error.message);
+  })
 
   const handleForgotPassword = () => {
     isToggle && setShowLogin(false);
@@ -98,11 +135,13 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
       if (error.code === 'auth/user-not-found') {
         setShowLogin(false);
         setShowRegister(true);
+        await APIWithoutAuth.post('/error-message/', { message: error.message }, { errorHandle:false});
         message.error('We cannot find an account associated with this email. Please register.');
         return;
       }
       if (error.code === 'auth/too-many-requests') {
         message.error(error.message);
+        await APIWithoutAuth.post('/error-message/', { message: error.message }, { errorHandle:false});
         return;
       }
     //   if (error.code === 'auth/wrong-password') {
@@ -114,7 +153,6 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
     //     }
     //     setAttemptCount(attemptCount + 1);
     //   }
-      await APIWithoutAuth.post('/error-message/', { message: error.message }, { errorHandle:false});
       message.error('Incorrect email or password.');
     } finally {
       setLoading(false);
@@ -197,8 +235,10 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
             disabled={loading}
             data-testid="sign-in-submit"
           >
-            Sign In
+            Log In
           </Button>
+          <div className="text-center text-gray-600">or</div>
+          <Button  icon={<GoogleOutlined />} className="w-full rounded-lg" onClick={signInWithGoogle}>Log in with Google</Button>
         </Form>
         <Divider />
         <div className="flex items-center justify-center">

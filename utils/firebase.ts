@@ -1,5 +1,5 @@
 import {initializeApp} from 'firebase/app';
-import { GoogleAuthProvider,FacebookAuthProvider,initializeAuth,browserLocalPersistence } from "firebase/auth";
+import { getAuth  } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBvgtPfD7CXSarEf7yBFTlpZnUexLTsa2g",
@@ -31,6 +31,5 @@ switch (process.env.NEXT_PUBLIC_STAGE) {
   case 'prod':
     firebaseApp = initializeApp(firebaseConfig_prod);
 }
-export const auth = initializeAuth(firebaseApp,{
-  persistence: browserLocalPersistence
-});
+
+export const auth = getAuth(firebaseApp);
