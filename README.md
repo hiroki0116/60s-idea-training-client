@@ -13,17 +13,27 @@
 
 ## Getting Start
 
-First, clone API server repo (written in Golang) 
+1. First, clone API server repo (written in Golang) 
 ```
 git clone https://github.com/hiroki0116/60s-idea-training-server-version-golang.git
 ```
 
-Open up this API server on your local machine and hit the following command in project root directory
+2. Open up this API server on your local machine and hit the following command in project root directory
 
 ```
 make run dev
 ```
 
+3. Clone this frontend project 
+```
+git clone https://github.com/hiroki0116/60s-idea-training-client.git
+```
+
+4. Open up this front end project and hit the following commands 
+
+```
+npm install
+```
 
 ```
 npm run dev
