@@ -51,7 +51,6 @@ const SignUpOrLogin = () => {
     setLoading(true)
     const user = result.user;
     const {data} = await APIWithoutAuth.get(`/users/?email=${user.email}`);
-    console.log(data.data)
     // if user is not in database, create new user
     if (isEmpty(data.data)) {
       const {data} = await APIWithoutAuth.post('/users/signup', {
@@ -71,12 +70,12 @@ const SignUpOrLogin = () => {
       router.push('/dashboard');
       return;
     }
-    // setUser(data.data);
-    // setLoading(false);
-    // saveUserAndToken(data.data, user.accessToken);
-    // message.success('Login success.');
-    // setShowLogin(false)
-    // router.push('/dashboard');
+    setUser(data.data);
+    setLoading(false);
+    saveUserAndToken(data.data, user.accessToken);
+    message.success('Login success.');
+    setShowLogin(false)
+    router.push('/dashboard');
   })
   .catch((error) => {
     message.error(error.message);
