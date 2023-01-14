@@ -75,7 +75,6 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
       setLoading,
       setShowLogin,
       setUser,
-      saveUserAndToken,
       message,
       router
     }
