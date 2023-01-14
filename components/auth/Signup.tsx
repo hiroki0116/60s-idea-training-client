@@ -9,7 +9,6 @@ import Button from "antd/lib/button";
 import Modal from "antd/lib/modal";
 import message from "antd/lib/message";
 import GoogleOutlined from '@ant-design/icons/GoogleOutlined';
-import isEmpty from 'lodash/isEmpty';
 import {
   setPersistence,
   browserLocalPersistence,
@@ -19,8 +18,8 @@ import {
 import { auth } from "utils/firebase";
 import { saveUserAndToken } from "utils/auth";
 import { APIWithoutAuth } from "utils/api";
+import { signInWithGoogle } from "utils/auth";
 import { AuthContext } from "context/authContext";
-import {signInWithPopup, GoogleAuthProvider} from 'firebase/auth';
 
 
 const RegisterModal = () => {
@@ -80,42 +79,17 @@ const Register = () => {
     },
   });
 
-  const provider = new GoogleAuthProvider().setCustomParameters({ prompt: 'select_account' });
-  const signInWithGoogle = () => signInWithPopup(auth,provider)
-  .then(async (result:any)=>{
-    setLoading(true)
-    const user = result.user;
-    const {data} = await APIWithoutAuth.get(`/users/?email=${user.email}`);
-
-    // if user is not in database, create new user
-    if (isEmpty(data.data)) {
-      const {data} = await APIWithoutAuth.post('/users/signup', {
-        email: user.email,
-        firstName: user.displayName,
-        lastName: 'User',
-        firebaseUID: user.uid,
-        images: [{
-          url: user.photoURL,
-          about: 'Google profile image'
-        }]
-      });
-      setUser(data.data);
-      saveUserAndToken(data.data, user.accessToken );
-      message.success('Login success.');
-      setShowLogin(false)
-      router.push('/dashboard');
-      return;
+  const handleGoogleSignIn = () => {
+    const props = {
+      setLoading,
+      setShowLogin,
+      setUser,
+      message,
+      router
     }
-    setUser(data.data);
-    setLoading(false);
-    saveUserAndToken(data.data, user.accessToken);
-    message.success('Login success.');
-    setShowLogin(false)
-    router.push('/dashboard');
-  })
-  .catch((error) => {
-    message.error(error.message);
-  })
+    signInWithGoogle(props)
+
+  }
 
   const handleSubmit = async (values: any) => {
     try {
@@ -285,7 +259,7 @@ const Register = () => {
         Sign Up
       </Button>
       <div className="text-center text-gray-600">or</div>
-      <Button  icon={<GoogleOutlined />} className="w-full rounded-lg" onClick={signInWithGoogle}>Signup with Google</Button>
+      <Button  icon={<GoogleOutlined />} className="w-full rounded-lg" onClick={handleGoogleSignIn}>Signup with Google</Button>
       <Divider />
     </Form>
   );
