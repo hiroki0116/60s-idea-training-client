@@ -16,7 +16,7 @@ export function useFetcher<T>({
     try {
       setLoading(true);
       const res = await API.get(url, { errorHandle: false });
-      setData(res.data);
+      setData(res.data.data);
     } catch (error) {
       setError(error);
     } finally {

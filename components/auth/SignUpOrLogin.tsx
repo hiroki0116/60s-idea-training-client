@@ -11,7 +11,7 @@ import Divider from 'antd/lib/divider';
 import GoogleOutlined from '@ant-design/icons/GoogleOutlined';
 // utils 
 import { APIWithoutAuth } from 'utils/api';
-import { signInWithGoogle,saveUserAndToken } from 'utils/auth';
+import { signInWithGoogle } from 'utils/auth';
 import { AuthContext } from 'context/authContext';
 
 
