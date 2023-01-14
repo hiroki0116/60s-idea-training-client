@@ -4,18 +4,20 @@ import DashboardLayoutWrapper from 'components/Layout/DashboardLayoutWrapper';
 import RecordsDetail from 'components/records/RecordDetail/RecordsDetail';
 import { IIdeas } from 'types/Ideas';
 import { useFetcher } from 'customHooks/useFetcher';
-
-type IIdeaRecord = { data: IIdeas };
+import CenterSpin from 'components/Layout/CenterSpin';
 
 const Records = () => {
   const router = useRouter();
   const url = `/ideas/${router?.query?.id}`
-  const { data: ideaRecord, loading } = useFetcher<IIdeaRecord>({url, initialState: undefined})
+  const { data: ideaRecord, loading } = useFetcher<IIdeas>({url, initialState: undefined})
   
   return (
     <DashboardLayoutWrapper>
       <DashboardAuthWrapper>
-        {ideaRecord?.data && <RecordsDetail ideaRecord={ideaRecord.data} loading={loading}  />}
+        {loading 
+          ? <CenterSpin />
+          : <RecordsDetail ideaRecord={ideaRecord} loading={loading}  /> 
+        }
       </DashboardAuthWrapper>
     </DashboardLayoutWrapper>
   )

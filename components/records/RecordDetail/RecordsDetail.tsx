@@ -71,7 +71,7 @@ const RecordsDetail = ({ ideaRecord, loading }: Props) => {
   }, [comment]);
 
   useEffect(() => {
-      changeViewStatus(ideaRecord._id);
+      changeViewStatus(ideaRecord?._id);
     // eslint-disable-next-line
   }, []);
 
@@ -164,8 +164,6 @@ const RecordsDetail = ({ ideaRecord, loading }: Props) => {
     }
   };
 
-
-  if (loading) return <CenterSpin />;
   return (
     <MotionDiv>
       <Link href={"/records"}>
