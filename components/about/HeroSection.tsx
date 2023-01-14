@@ -1,7 +1,6 @@
 import { PRIMARY_COLOR } from "utils/constants";
 import Timeline from 'antd/lib/timeline/Timeline'
 import Tag from 'antd/lib/tag';
-import Button from 'antd/lib/button';
 import GithubOutlined from '@ant-design/icons/GithubOutlined'
 import DownCircleOutlined from '@ant-design/icons/DownCircleOutlined'
 import dayjs from 'dayjs';
