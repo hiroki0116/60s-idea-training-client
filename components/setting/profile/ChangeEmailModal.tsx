@@ -1,7 +1,13 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "context/authContext";
 //Third Party
-import { Form, Input, Spin, Button, Modal, Typography, message } from "antd";
+import Form from 'antd/lib/form';
+import Input from 'antd/lib/input';
+import Spin from 'antd/lib/spin';
+import Button from 'antd/lib/button';
+import Modal from 'antd/lib/modal';
+import Typography from "antd/lib/typography";
+import message from 'antd/lib/message';
 //Utils
 import { auth } from "utils/firebase";
 import {

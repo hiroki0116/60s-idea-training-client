@@ -1,5 +1,6 @@
-import { Result, Button } from 'antd';
 import Link from 'next/link';
+import Result from 'antd/lib/result';
+import Button from 'antd/lib/button';
 
 const LoginRequired = () => {
 

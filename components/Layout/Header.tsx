@@ -2,8 +2,11 @@ import { useEffect } from "react";
 import { useTheme } from 'next-themes';
 import { PRIMARY_COLOR } from "utils/constants";
 //Third Party
-import { Badge,Dropdown, Menu,Switch } from "antd";
-import { BellFilled } from "@ant-design/icons";
+import Badge from 'antd/lib/badge';
+import Dropdown from 'antd/lib/dropdown';
+import Menu from 'antd/lib/menu';
+import Switch from 'antd/lib/switch';
+import BellFilled from "@ant-design/icons/BellFilled";
 //Components
 import MobileMenu from 'components/Layout/MobileMenu';
 

@@ -1,8 +1,13 @@
 import { useState, useContext, useRef, useEffect } from 'react';
+// components
 import {ExerciseContext} from 'context/exerciseContext';
 import CountDownTimer from './CountDownTimer';
+// third parties
 import BulbTwoTone from '@ant-design/icons/BulbTwoTone';
-import { Button, Input, Tag, Spin } from 'antd';
+import Button from 'antd/lib/button';
+import Input from 'antd/lib/input';
+import Tag from 'antd/lib/tag';
+import Spin from 'antd/lib/spin';
 const { TextArea } = Input;
 
 const SubmitSection = () => {

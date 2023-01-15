@@ -1,6 +1,5 @@
 import algoliasearch from 'algoliasearch/lite';
-import { Tag } from 'antd';
-import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined'
+import Tag from 'antd/lib/tag';
 import TagOutlined from '@ant-design/icons/TagOutlined'
 import dayjs from 'dayjs';
 
@@ -8,11 +7,9 @@ import {
     InstantSearch,
     SearchBox,
     Hits,
-    Highlight,
     DynamicWidgets,
     RefinementList,
     Configure,
-    SortBy
 } from 'react-instantsearch-hooks-web';
 const AlgoliaSearchMain = () => {
     const searchClient = algoliasearch(process.env.NEXT_PUBLIC_ALGOLIA_APP_ID, process.env.NEXT_PUBLIC_ALGOLIA_API_KEY);

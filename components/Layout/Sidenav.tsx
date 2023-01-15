@@ -1,12 +1,20 @@
-import { useContext } from "react";
-import { AuthContext } from 'context/authContext';
 import Link from "next/link";
-import { Menu, Divider } from "antd";
-import { useRouter } from "next/router";
 import Image from 'next/image';
+import { useRouter } from "next/router";
+import { useContext } from "react";
+// third parties
+import Menu from 'antd/lib/menu';
+import Divider from 'antd/lib/divider';
+import AppstoreFilled from  "@ant-design/icons/AppstoreFilled"
+import LogoutOutlined from  "@ant-design/icons/LogoutOutlined"
+import FireFilled from  "@ant-design/icons/FireFilled"
+import SignalFilled from  "@ant-design/icons/SignalFilled"
+import SettingFilled from  "@ant-design/icons/SettingFilled"
+// utils
 import { LOGO_IMAGE } from "utils/constants";
-import { AppstoreFilled, LogoutOutlined,FireFilled,SignalFilled,SettingFilled } from "@ant-design/icons";
 import { handleLogout } from "utils/auth";
+// context
+import { AuthContext } from 'context/authContext';
 
 const Sidenav = () => {
   const router = useRouter();

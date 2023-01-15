@@ -1,22 +1,23 @@
 import { useEffect, useState } from 'react';
+// third parties
 import Card from 'antd/lib/card';
 import message from 'antd/lib/message';
-import { getTotalSessionsAndIdeas,getTodaySessionsIdeas,getConsecutiveDays } from 'services/dashboard'
-//Type
-import { ITotalIdeasSessions } from 'types/Ideas';
-
-//Icons
+import { motion } from 'framer-motion';
 import AimOutlined from '@ant-design/icons/AimOutlined';
 import LineChartOutlined from '@ant-design/icons/LineChartOutlined';
 import BulbOutlined from '@ant-design/icons/BulbOutlined';
 import CalendarOutlined from '@ant-design/icons/CalendarOutlined';
-import { motion } from 'framer-motion';
+//Type
+import { ITotalIdeasSessions } from 'types/Ideas';
+// utils
 import { fadeInRight } from 'utils/animations';
+import { PRIMARY_COLOR } from 'utils/constants';
+import { APIWithoutAuth } from 'utils/api';
+// services
+import { getTotalSessionsAndIdeas,getTodaySessionsIdeas,getConsecutiveDays } from 'services/dashboard'
 
 
 const { Meta } = Card;
-import { PRIMARY_COLOR } from 'utils/constants';
-import { APIWithoutAuth } from 'utils/api';
 
 const HeadCards = () => {
     const [loadingFotToday, setLoadingForToday] = useState(false);

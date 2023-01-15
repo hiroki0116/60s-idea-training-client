@@ -4,7 +4,9 @@ import { AuthContext } from "context/authContext";
 import ConfirmModal from "components/Layout/ConfirmModal";
 //ThirdParty
 import Resizer from "react-image-file-resizer";
-import { Spin, Avatar, message } from "antd";
+import Spin from 'antd/lib/spin';
+import Avatar from 'antd/lib/avatar';
+import message from 'antd/lib/message';
 import UploadOutlined from "@ant-design/icons/UploadOutlined";
 import DeleteFilled from "@ant-design/icons/DeleteFilled";
 //Utils

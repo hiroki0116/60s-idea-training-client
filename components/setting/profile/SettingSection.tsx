@@ -1,6 +1,7 @@
 import { useState } from 'react';
 //Third Party
-import {Card, Avatar} from 'antd';
+import Card from 'antd/lib/card';
+import Avatar from 'antd/lib/avatar';
 import MailOutlined from '@ant-design/icons/MailOutlined';
 import KeyOutlined from '@ant-design/icons/KeyOutlined';
 //Components

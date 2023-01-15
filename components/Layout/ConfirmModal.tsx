@@ -1,4 +1,5 @@
-import { Modal, Button } from 'antd';
+import Modal from 'antd/lib/modal';
+import Button from 'antd/lib/button';
 
 type props = {
   showConfirm: boolean;

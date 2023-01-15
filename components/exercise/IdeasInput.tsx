@@ -1,7 +1,9 @@
-import { useRef,useEffect } from 'react';
-import { Input,Tag } from 'antd'
-const { TextArea } = Input;
+import { useRef } from 'react';
+// third parties
+import Input from 'antd/lib/input';
+import Tag from 'antd/lib/tag';
 import BulbOutlinded from '@ant-design/icons/BulbOutlined';
+const { TextArea } = Input;
 
 
 const IdeasInput = ({
