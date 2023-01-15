@@ -1,7 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from 'context/authContext';
-import Router, { useRouter } from 'next/router';
-
+import { useRouter } from 'next/router';
 // third party
 import Divider from 'antd/lib/divider';
 import Button from 'antd/lib/button';
@@ -83,7 +82,7 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
 
   const handleForgotPassword = () => {
     isToggle && setShowLogin(false);
-    Router.push('/auth/forgot-password');
+    router.push('/auth/forgot-password');
   };
 
   const handleSubmit = async () => {
@@ -102,7 +101,7 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
       form.resetFields();
       message.success('Login success.');
       setShowLogin(false)
-      Router.push('/dashboard');
+      router.push('/dashboard');
     } catch (error: any) {
       if (error.code === 'auth/user-not-found') {
         setShowLogin(false);

@@ -1,11 +1,15 @@
+import  Image from 'next/image' 
 import { useContext } from 'react';
+import MotionDiv from 'components/Layout/MotionDiv';
 import {ExerciseContext} from 'context/exerciseContext';
+// third parties
 import BulbTwoTone from '@ant-design/icons/BulbTwoTone';
 import TagTwoTone from '@ant-design/icons/TagTwoTone'
-import { AutoComplete,Input, Button } from 'antd';
+import AutoComplete from 'antd/lib/auto-complete'
+import Input from 'antd/lib/input';
+import Button from 'antd/lib/button'
+// utils
 import { IDEA_IMAGE, CATEGORIES } from 'utils/constants'
-import  Image from 'next/image' 
-import MotionDiv from 'components/Layout/MotionDiv';
 
 const FirstSection = () => {
     const { showFirstSection, handleNext, topicTitle, setTopicTitle, category, setCategory } = useContext(ExerciseContext);

@@ -1,11 +1,14 @@
 import { useContext, useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { AuthContext } from 'context/authContext';
-import { Menu, Avatar, Typography, Drawer } from 'antd';
-import { currAuthUser } from 'utils/auth';
+import Menu from 'antd/lib/menu';
+import Avatar from 'antd/lib/avatar';
+import Typography from 'antd/lib/typography';
+import Drawer from 'antd/lib/drawer';
 import _ from 'lodash';
-import { MenuOutlined } from '@ant-design/icons';
+import MenuOutlined from '@ant-design/icons/MenuFoldOutlined';
+// utils
+import { currAuthUser } from 'utils/auth';
 import { handleLogout } from "utils/auth";
 
 

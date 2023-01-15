@@ -2,12 +2,16 @@ import { useState } from 'react';
 //Components
 import LoginRequired from 'components/auth/LoginRequired';
 //Third Party
-import { message, Modal } from 'antd'
+import message from 'antd/lib/message';
+import Modal from 'antd/lib/modal';
+import Spin from 'antd/lib/spin';
+import Form from 'antd/lib/form'
+import Input from 'antd/lib/input';
+import Button from 'antd/lib/button';
 import { updatePassword } from 'firebase/auth';
 //Utils
 import { auth } from 'utils/firebase';
 import { isAuth } from 'utils/auth';
-import { Spin, Form, Input, Button } from 'antd';
 
 
 type modalProps = {

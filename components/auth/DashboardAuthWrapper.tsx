@@ -1,5 +1,5 @@
-import { Spin } from 'antd';
 import { useRouter } from 'next/router';
+import Spin from 'antd/lib/spin';
 import { isAuth } from 'utils/auth';
 import LoginRequired from 'components/auth/LoginRequired';
 

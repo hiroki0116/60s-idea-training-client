@@ -3,8 +3,12 @@ import { AuthContext } from 'context/authContext';
 import Link from 'next/link';
 import router from 'next/router';
 //Third Party
-import { Avatar } from 'antd';
-import { AppstoreFilled, LogoutOutlined,FireFilled,SignalFilled,SettingFilled } from "@ant-design/icons";
+import Avatar from 'antd/lib/avatar'
+import AppstoreFilled from '@ant-design/icons/AppstoreFilled'
+import LogoutOutlined from '@ant-design/icons/LoginOutlined'
+import FireFilled from '@ant-design/icons/FireFilled'
+import SignalFilled from '@ant-design/icons/SignalFilled'
+import SettingFilled from '@ant-design/icons/SettingFilled'
 //Utils
 import { currAuthUser, isAuth } from 'utils/auth';
 import { capitalizeFirst } from 'utils/formatter';

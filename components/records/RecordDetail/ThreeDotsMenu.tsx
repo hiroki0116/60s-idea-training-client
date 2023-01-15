@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Dropdown, Menu, Modal } from 'antd';
+import Dropdown from 'antd/lib/dropdown';
+import Menu from 'antd/lib/menu';
+import Modal from 'antd/lib/modal';
 import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined';
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
 

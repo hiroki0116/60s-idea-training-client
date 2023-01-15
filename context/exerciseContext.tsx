@@ -1,9 +1,6 @@
 import { useState, useEffect, createContext } from 'react';
 import { IIdeas } from 'types/Ideas';
-import { useMutation, useLazyQuery } from '@apollo/client';
-import { GET_MOST_RECENT_IDEA_RECORDS } from 'graphql/queries/ideaRecord';
-import { CREATE_NEW_IDEA_RECORD } from 'graphql/mutations/ideaRecord';
-import { message } from 'antd';
+import message from 'antd/lib/message';
 import { API } from 'utils/api';
 
 export enum stepEnum {

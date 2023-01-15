@@ -1,12 +1,15 @@
 import { useContext } from 'react';
-import {ExerciseContext} from 'context/exerciseContext';
+// components
 import PreviousIdeaRecords from "./PreviousIdeaRecords"
 import FirstSection from "./FirstSection";
 import SubmitSection from "./SubmitSection";
-import { motion } from 'framer-motion';
-import { fadeInRight } from 'utils/animations';
+import {ExerciseContext} from 'context/exerciseContext';
 import { stepEnum } from 'context/exerciseContext';
-import { Steps } from 'antd';
+// third parties
+import { motion } from 'framer-motion';
+import Steps from 'antd/lib/steps';
+// utils
+import { fadeInRight } from 'utils/animations';
 
 const { Step } = Steps;
 

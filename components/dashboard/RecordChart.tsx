@@ -1,9 +1,12 @@
+// third parties
+import Card from 'antd/lib/card'
 import ReactApexChart from "react-apexcharts";
-import Card from 'antd/es/card'
 import barChart from "./config/barChartConfig";
-import { IWeeklyData } from "types/Ideas";
+// components
 import CenterSpin from "components/Layout/CenterSpin";
+// utils
 import { useFetcher } from "customHooks/useFetcher";
+import { IWeeklyData } from "types/Ideas";
 
 const BarChart = () => {
   const {data: data, loading} = useFetcher<IWeeklyData>({url:"/ideas/weekly",initialState:undefined })

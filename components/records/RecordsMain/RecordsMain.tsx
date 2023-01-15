@@ -1,12 +1,17 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link'
 import { useTheme } from 'next-themes';
-
 //Utils
 import {CATEGORIES,DEFAULT_CREATED_AT} from 'utils/constants';
 import { API } from 'utils/api';
 //Third Party
-import { Input, Select, message, Tag, Empty, Pagination, Switch } from 'antd';
+import Input from 'antd/lib/input';
+import Select from 'antd/lib/select';
+import message from 'antd/lib/message';
+import Tag from 'antd/lib/tag';
+import Empty from 'antd/lib/empty';
+import Pagination from 'antd/lib/pagination';
+import Switch from 'antd/lib/switch';
 import TagOutlined from '@ant-design/icons/TagOutlined';
 import StarOutlined from '@ant-design/icons/StarOutlined';
 import StarFilled from '@ant-design/icons/StarFilled';

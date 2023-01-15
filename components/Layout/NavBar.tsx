@@ -1,13 +1,14 @@
+import Link from 'next/link';
+import Image from 'next/image';
 import { useContext } from 'react';
 import { AuthContext } from 'context/authContext';
 import { SignUpOrLoginModal } from 'components/auth/SignUpOrLogin';
 import { LoginModal } from 'components/auth/Login';
 import { RegisterModal } from 'components/auth/Signup';
+// utils
 import { isAuth } from 'utils/auth';
-import Link from 'next/link';
 import { LOGO_IMAGE } from 'utils/constants';
-import Image from 'next/image';
-import { Button } from 'antd';
+import Button from 'antd/lib/button';
 
 
 const NavBar = () => {

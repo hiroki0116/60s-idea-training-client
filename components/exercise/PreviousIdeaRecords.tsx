@@ -1,21 +1,25 @@
+import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { useState,useContext } from 'react';
+// components
 import {ExerciseContext} from 'context/exerciseContext';
 import CenterSpin from 'components/Layout/CenterSpin';
-import { Tag,Empty } from 'antd';
+// third parties
+import Tag from 'antd/lib/tag';
+import Empty from 'antd/lib/empty'
 import TagOutlined from '@ant-design/icons/TagOutlined'
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { motion } from 'framer-motion';
+// utils
 import { fadeInRight } from 'utils/animations';
-import Link from 'next/link';
+dayjs.extend(relativeTime)
 
 const PreviousIdeaRecords = () => {
   const { loadingPrevSessions,prevSessions } = useContext(ExerciseContext);
   const { theme,systemTheme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
   const [ mouseOver, setMouseOver] = useState<Boolean>(false);
-  dayjs.extend(relativeTime)
   if(loadingPrevSessions) return <CenterSpin />
 
   return (
