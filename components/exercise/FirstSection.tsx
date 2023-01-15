@@ -13,14 +13,8 @@ import { IDEA_IMAGE, CATEGORIES } from 'utils/constants'
 
 const FirstSection = () => {
     const { showFirstSection, handleNext, topicTitle, setTopicTitle, category, setCategory } = useContext(ExerciseContext);
-
-    const handleChange = (value) => {
-        setCategory(value);
-    }
-
-    const handleSelect = (value) => {
-        setCategory(value);
-    }
+    const handleChange = (value) => setCategory(value);
+    const handleSelect = (value) => setCategory(value);
 
   return (
     showFirstSection ? (

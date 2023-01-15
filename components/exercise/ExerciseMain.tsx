@@ -1,6 +1,7 @@
 import { useContext } from 'react';
+import dynamic from 'next/dynamic';
 // components
-import PreviousIdeaRecords from "./PreviousIdeaRecords"
+const PreviousIdeaRecords = dynamic(()=>import('./PreviousIdeaRecords'))
 import FirstSection from "./FirstSection";
 import SubmitSection from "./SubmitSection";
 import {ExerciseContext} from 'context/exerciseContext';
