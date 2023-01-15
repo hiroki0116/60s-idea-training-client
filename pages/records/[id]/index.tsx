@@ -16,7 +16,7 @@ const Records = () => {
       <DashboardAuthWrapper>
         {loading 
           ? <CenterSpin />
-          : <RecordsDetail ideaRecord={ideaRecord} loading={loading}  /> 
+          : <RecordsDetail ideaRecord={ideaRecord}  /> 
         }
       </DashboardAuthWrapper>
     </DashboardLayoutWrapper>
