@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import router from "next/router";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 
@@ -23,25 +22,18 @@ import FileTextTwoTone from "@ant-design/icons/FileTextTwoTone";
 import LeftOutlined from "@ant-design/icons/LeftOutlined";
 import StarOutlined from "@ant-design/icons/StarOutlined";
 import StarFilled from "@ant-design/icons/StarFilled";
-import { DELETE_IDEA_RECORD } from "graphql/mutations/ideaRecord";
 // App
 import MotionDiv from "components/Layout/MotionDiv";
-import CenterSpin from "components/Layout/CenterSpin";
 import ThreeDotsMenu from "./ThreeDotsMenu";
 import { API } from "utils/api";
 import { capitalizeFirst } from "utils/formatter";
 import { CATEGORIES } from "utils/constants";
 import { IIdeas } from "types/Ideas";
+import CenterSpin from "components/Layout/CenterSpin";
 
 const { Option } = Select;
 
-type Props = {
-  ideaRecord: IIdeas;
-  loading: boolean;
-  error?: any;
-};
-
-const RecordsDetail = ({ ideaRecord, loading }: Props) => {
+const RecordsDetail = ({ ideaRecord }: {ideaRecord:IIdeas}) => {
   const [topicTitle, setTopicTitle] = useState<string>(
     ideaRecord?.topicTitle || ""
   );
@@ -74,19 +66,6 @@ const RecordsDetail = ({ ideaRecord, loading }: Props) => {
       changeViewStatus(ideaRecord?._id);
     // eslint-disable-next-line
   }, []);
-
-  const handleDelete = async () => {
-    try {
-      setDeleteLoading(true);
-      await API.delete(`/ideas/${ideaRecord._id}`, { errorHandle: false });
-      message.success("Successfully Deleted!");
-      router.push("/records");
-    } catch (error:any) {
-      message.error(error.message)
-    } finally {
-      setDeleteLoading(false);
-    }
-  }
 
   const changeViewStatus = async (id: string) => {
     try {
@@ -164,6 +143,7 @@ const RecordsDetail = ({ ideaRecord, loading }: Props) => {
     }
   };
 
+  if(deleteLoading) return <CenterSpin />
   return (
     <MotionDiv>
       <Link href={"/records"}>
@@ -190,7 +170,7 @@ const RecordsDetail = ({ ideaRecord, loading }: Props) => {
           )}
         </div>
         <div className="absolute top-2 right-2">
-          <ThreeDotsMenu deleteIdeaRecord={handleDelete} />
+          <ThreeDotsMenu ideaRecordId={ideaRecord?._id} setDeleteLoading={setDeleteLoading}/>
         </div>
         <Input
           size="large"
