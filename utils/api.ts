@@ -42,18 +42,12 @@ const errorResponseHandler = (error:any) => {
     // if has response show the error
     if (error.response) {
       const status = error.response.status;
-      if (status === 403) {
-        const user = error.response.data.extras;
-        return user && !user.verified ? Router.push(`/auth/verify-email`) : Router.push('/403');
-      } else if (status === 404) {
-        return Router.push('/404');
+      if (status === 404) {
+        return Router.push('/error/404');
       } else if (status === 500) {
-        return Router.push('/500');
-      } else if (status === 400) {
-        return Router.push('/400');
-      } else if (status === 401) {
-          auth.signOut();
-          logoutToHomePage();
+        return Router.push('/error/500');
+      } else if (status === 401 || status == 403) {
+        return Router.push('/403');
       } else {
         console.error(error.response.data.message);
         return Promise.reject(error);
