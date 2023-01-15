@@ -258,8 +258,6 @@ const RecordsDetail = ({ ideaRecord }: {ideaRecord:IIdeas}) => {
                 content_style: `.mce-content-body[data-mce-placeholder]:not(.mce-visualblocks)::before {//color: rgba(34,47,62,.7); color: #d4d4d4;}`,
                 height: 320,
                 menubar: true,
-                block_formats:
-                  "Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3; Header 4=h4",
                 contextmenu: "copy paste",
                 toolbar:
                   "undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat |  copy paste",
