@@ -1,12 +1,9 @@
-import dynamic from 'next/dynamic';
-const NavBar = dynamic(()=> import('components/Layout/NavBar'));
+import dynamic from "next/dynamic";
+const NavBar = dynamic(() => import("components/layout/NavBar"));
 // const NavBarMobile = dynamic(()=>import('components/Layout/NavBarMobile'));
 
 const CustomNavBar = () => {
+  return <NavBar />;
+};
 
-  return (
-      <NavBar />
-  )
-}
-
-export default CustomNavBar
+export default CustomNavBar;

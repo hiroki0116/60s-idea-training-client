@@ -1,7 +1,6 @@
-import DashboardAuthWrapper from 'components/auth/DashboardAuthWrapper'
-import DashboardLayoutWrapper from 'components/Layout/DashboardLayoutWrapper';
-import RecordsMain from 'components/records/RecordsMain/RecordsMain';
-
+import DashboardAuthWrapper from "components/auth/DashboardAuthWrapper";
+import DashboardLayoutWrapper from "components/layout/DashboardLayoutWrapper";
+import RecordsMain from "components/records/RecordsMain/RecordsMain";
 
 const records = () => {
   return (
@@ -10,7 +9,7 @@ const records = () => {
         <RecordsMain />
       </DashboardAuthWrapper>
     </DashboardLayoutWrapper>
-  )
-}
+  );
+};
 
-export default records
+export default records;

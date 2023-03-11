@@ -3,12 +3,12 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 
 // Third Party
-import Tag from 'antd/lib/tag';
-import Input from 'antd/lib/input';
-import message from 'antd/lib/message';
-import notification from 'antd/lib/notification';
-import Select from 'antd/lib/select';
-import Spin from 'antd/lib/spin';
+import Tag from "antd/lib/tag";
+import Input from "antd/lib/input";
+import message from "antd/lib/message";
+import notification from "antd/lib/notification";
+import Select from "antd/lib/select";
+import Spin from "antd/lib/spin";
 
 import { Editor } from "@tinymce/tinymce-react";
 import dayjs from "dayjs";
@@ -23,17 +23,17 @@ import LeftOutlined from "@ant-design/icons/LeftOutlined";
 import StarOutlined from "@ant-design/icons/StarOutlined";
 import StarFilled from "@ant-design/icons/StarFilled";
 // App
-import MotionDiv from "components/Layout/MotionDiv";
+import MotionDiv from "components/layout/MotionDiv";
 import ThreeDotsMenu from "./ThreeDotsMenu";
 import { API } from "utils/api";
 import { capitalizeFirst } from "utils/formatter";
 import { CATEGORIES } from "utils/constants";
 import { IIdeas } from "types/Ideas";
-import CenterSpin from "components/Layout/CenterSpin";
+import CenterSpin from "components/layout/CenterSpin";
 
 const { Option } = Select;
 
-const RecordsDetail = ({ ideaRecord }: {ideaRecord:IIdeas}) => {
+const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
   const [topicTitle, setTopicTitle] = useState<string>(
     ideaRecord?.topicTitle || ""
   );
@@ -63,7 +63,7 @@ const RecordsDetail = ({ ideaRecord }: {ideaRecord:IIdeas}) => {
   }, [comment]);
 
   useEffect(() => {
-      changeViewStatus(ideaRecord?._id);
+    changeViewStatus(ideaRecord?._id);
     // eslint-disable-next-line
   }, []);
 
@@ -71,7 +71,7 @@ const RecordsDetail = ({ ideaRecord }: {ideaRecord:IIdeas}) => {
     try {
       await API.put(`/ideas/${id}`, { viewed: true }, { errorHandle: false });
     } catch (error: any) {
-      message.error(error.message)
+      message.error(error.message);
     }
   };
 
@@ -143,7 +143,7 @@ const RecordsDetail = ({ ideaRecord }: {ideaRecord:IIdeas}) => {
     }
   };
 
-  if(deleteLoading) return <CenterSpin />
+  if (deleteLoading) return <CenterSpin />;
   return (
     <MotionDiv>
       <Link href={"/records"}>
@@ -170,7 +170,10 @@ const RecordsDetail = ({ ideaRecord }: {ideaRecord:IIdeas}) => {
           )}
         </div>
         <div className="absolute top-2 right-2">
-          <ThreeDotsMenu ideaRecordId={ideaRecord?._id} setDeleteLoading={setDeleteLoading}/>
+          <ThreeDotsMenu
+            ideaRecordId={ideaRecord?._id}
+            setDeleteLoading={setDeleteLoading}
+          />
         </div>
         <Input
           size="large"

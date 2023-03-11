@@ -1,8 +1,10 @@
-import dynamic from 'next/dynamic'
-import DashboardAuthWrapper from 'components/auth/DashboardAuthWrapper'
-import DashboardLayoutWrapper from 'components/Layout/DashboardLayoutWrapper';
-import HeadCards from 'components/dashboard/HeadCards';
-const RecordChart = dynamic(()=> import('components/dashboard/RecordChart'),{ssr:false})
+import dynamic from "next/dynamic";
+import DashboardAuthWrapper from "components/auth/DashboardAuthWrapper";
+import DashboardLayoutWrapper from "components/layout/DashboardLayoutWrapper";
+import HeadCards from "components/dashboard/HeadCards";
+const RecordChart = dynamic(() => import("components/dashboard/RecordChart"), {
+  ssr: false,
+});
 
 const dashboard = () => {
   return (
@@ -12,7 +14,7 @@ const dashboard = () => {
         <RecordChart />
       </DashboardAuthWrapper>
     </DashboardLayoutWrapper>
-  )
-}
+  );
+};
 
-export default dashboard
+export default dashboard;

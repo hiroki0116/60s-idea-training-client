@@ -1,5 +1,5 @@
 import Image from "next/image";
-import MotionDivWhenView from "components/Layout/MotionDivWhenView";
+import MotionDivWhenView from "components/layout/MotionDivWhenView";
 import { THIRD_SECTION } from "utils/constants";
 import FieldTimeOutlined from "@ant-design/icons/FieldTimeOutlined";
 import ProfileOutlined from "@ant-design/icons/ProfileOutlined";

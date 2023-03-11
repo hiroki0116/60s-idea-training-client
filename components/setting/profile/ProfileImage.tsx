@@ -1,12 +1,12 @@
 import { useState, useContext } from "react";
 //Components
 import { AuthContext } from "context/authContext";
-import ConfirmModal from "components/Layout/ConfirmModal";
+import ConfirmModal from "components/layout/ConfirmModal";
 //ThirdParty
 import Resizer from "react-image-file-resizer";
-import Spin from 'antd/lib/spin';
-import Avatar from 'antd/lib/avatar';
-import message from 'antd/lib/message';
+import Spin from "antd/lib/spin";
+import Avatar from "antd/lib/avatar";
+import message from "antd/lib/message";
 import UploadOutlined from "@ant-design/icons/UploadOutlined";
 import DeleteFilled from "@ant-design/icons/DeleteFilled";
 //Utils
