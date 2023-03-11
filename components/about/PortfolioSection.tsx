@@ -50,60 +50,59 @@ const PortfolioSection = () => {
   ];
 
   return (
-    <div className="w-full grid grid-cols-1 justify-items-center items-center sm:px-36 px-10 bg-slate-100">
-      <h1
-        id="portfolios"
-        className="text-xl pt-16 pb-8 font-extrabold"
-      >
-        Check on My Work
-      </h1>
-      <div className="grid sm:grid-cols-2 grid-cols-1 gap-5 mb-10">
-        {contents.map((item, index) => (
-          <div className="flex flex-col w-full" key={index}>
-            <div className="text-left bg-blue-100 rounded-lg shadow-lg px-8 py-3">
-              <Link href={item.url}>
-                <a
-                  target="_blank"
-                  className="text-orange-500 text-16 font-bold cursor-pointer transform transition duration-500 hover:scale-110 underline underline-offset-4"
-                >
-                  {item.title}
-                </a>
-              </Link>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 my-5">
-                <Image
-                  src={item.src1}
-                  width={500}
-                  height={300}
-                  alt={item.title}
-                />
-                <Image
-                  src={item.src2}
-                  width={500}
-                  height={300}
-                  alt={item.title}
-                />
-              </div>
-              <div className="mt-2 text-gray-700">{item.description}</div>
-              <div className="py-3 underline underline-offset-4">
-                <ToolOutlined /> Tech Stack
-              </div>
-              <div className="flex flex-wrap rounded-lg gap-1">
-                <span>Frontend: </span>
-                {item.clientTags.map((tag, i) => (
-                  <Tag key={i} color="geekblue">
-                    {tag}
-                  </Tag>
-                ))}
-                <span>Backend: </span>
-                {item.serverTags.map((tag, i) => (
-                  <Tag key={i} color="volcano">
-                    {tag}
-                  </Tag>
-                ))}
+    <div className="bg-slate-100">
+      <div className="grid grid-cols-1 justify-items-center items-center sm:max-w-6xl sm:mx-auto px-5 sm:px-5 md:px-5 lg:px-5 xl:px-0 ">
+        <h1 id="portfolios" className="text-xl pt-16 pb-8 font-extrabold">
+          Check on My Work
+        </h1>
+        <div className="grid sm:grid-cols-2 grid-cols-1 gap-5 mb-10">
+          {contents.map((item, index) => (
+            <div className="flex flex-col w-full" key={index}>
+              <div className="text-left bg-blue-100 rounded-lg shadow-lg px-8 py-3">
+                <Link href={item.url}>
+                  <a
+                    target="_blank"
+                    className="text-orange-500 text-16 font-bold cursor-pointer transform transition duration-500 hover:scale-110 underline underline-offset-4"
+                  >
+                    {item.title}
+                  </a>
+                </Link>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 my-5">
+                  <Image
+                    src={item.src1}
+                    width={500}
+                    height={300}
+                    alt={item.title}
+                  />
+                  <Image
+                    src={item.src2}
+                    width={500}
+                    height={300}
+                    alt={item.title}
+                  />
+                </div>
+                <div className="mt-2 text-gray-700">{item.description}</div>
+                <div className="py-3 underline underline-offset-4">
+                  <ToolOutlined /> Tech Stack
+                </div>
+                <div className="flex flex-wrap rounded-lg gap-1">
+                  <span>Frontend: </span>
+                  {item.clientTags.map((tag, i) => (
+                    <Tag key={i} color="geekblue">
+                      {tag}
+                    </Tag>
+                  ))}
+                  <span>Backend: </span>
+                  {item.serverTags.map((tag, i) => (
+                    <Tag key={i} color="volcano">
+                      {tag}
+                    </Tag>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
