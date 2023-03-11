@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
-import Hero from "components/homepage/HeroSection";
+import Hero from "features/landing/components/HeroSection";
 import CustomNavBar from "components/layout/CustomNavBar";
-import SecondSection from "components/homepage/SecondSection";
-import ThirdSection from "components/homepage/ThirdSection";
-import HomePageFooter from "components/homepage/HomePageFooter";
+import SecondSection from "features/landing/components/SecondSection";
+import ThirdSection from "features/landing/components/ThirdSection";
+import HomePageFooter from "features/landing/components/HomePageFooter";
 
 const Home: NextPage = () => {
   return (

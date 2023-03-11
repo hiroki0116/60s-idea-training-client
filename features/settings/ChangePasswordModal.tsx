@@ -1,26 +1,27 @@
-import { useState } from 'react';
+import { useState } from "react";
 //Components
-import LoginRequired from 'components/auth/LoginRequired';
+import LoginRequired from "features/auth/components/LoginRequired";
 //Third Party
-import message from 'antd/lib/message';
-import Modal from 'antd/lib/modal';
-import Spin from 'antd/lib/spin';
-import Form from 'antd/lib/form'
-import Input from 'antd/lib/input';
-import Button from 'antd/lib/button';
-import { updatePassword } from 'firebase/auth';
+import message from "antd/lib/message";
+import Modal from "antd/lib/modal";
+import Spin from "antd/lib/spin";
+import Form from "antd/lib/form";
+import Input from "antd/lib/input";
+import Button from "antd/lib/button";
+import { updatePassword } from "firebase/auth";
 //Utils
-import { auth } from 'utils/firebase';
-import { isAuth } from 'utils/auth';
-
+import { auth } from "utils/firebase";
+import { isAuth } from "utils/auth";
 
 type modalProps = {
   showChangePasswordModal: boolean;
-  setShowChangePasswordModal:(value: boolean) => void;
-}
+  setShowChangePasswordModal: (value: boolean) => void;
+};
 
-const ChangePasswordModal = ({showChangePasswordModal, setShowChangePasswordModal}: modalProps) => {
-  
+const ChangePasswordModal = ({
+  showChangePasswordModal,
+  setShowChangePasswordModal,
+}: modalProps) => {
   return (
     <Modal
       visible={showChangePasswordModal}
@@ -38,9 +39,13 @@ const ChangePasswordModal = ({showChangePasswordModal, setShowChangePasswordModa
   );
 };
 
-const ChangePassword = ({ setShowChangePasswordModal}: {setShowChangePasswordModal:(boolean) => void}) => {
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+const ChangePassword = ({
+  setShowChangePasswordModal,
+}: {
+  setShowChangePasswordModal: (boolean) => void;
+}) => {
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
@@ -49,10 +54,10 @@ const ChangePassword = ({ setShowChangePasswordModal}: {setShowChangePasswordMod
       await updatePassword(auth.currentUser, password);
       setLoading(false);
       setShowChangePasswordModal(false);
-      message.success('Password update success.');
+      message.success("Password update success.");
     } catch (err) {
       setLoading(false);
-      message.error('Please login again. Your session has been expired.');
+      message.error("Please login again. Your session has been expired.");
     }
   };
 
@@ -70,16 +75,16 @@ const ChangePassword = ({ setShowChangePasswordModal}: {setShowChangePasswordMod
       </Form.Item>
       <Form.Item
         name="confirmPassword"
-        dependencies={['password']}
+        dependencies={["password"]}
         rules={[
           ({ getFieldValue }) => ({
             validator(rule, value) {
-              if (getFieldValue('password') === value) {
+              if (getFieldValue("password") === value) {
                 return Promise.resolve();
               }
-              return Promise.reject('Password is not identical.');
-            }
-          })
+              return Promise.reject("Password is not identical.");
+            },
+          }),
         ]}
       >
         <Input.Password
@@ -91,21 +96,24 @@ const ChangePassword = ({ setShowChangePasswordModal}: {setShowChangePasswordMod
           required
         />
       </Form.Item>
-      <Button type="primary" htmlType="submit" className="w-full rounded" disabled={loading}>
+      <Button
+        type="primary"
+        htmlType="submit"
+        className="w-full rounded"
+        disabled={loading}
+      >
         Submit
       </Button>
     </Form>
-  )
+  );
 
   return isAuth() ? (
     <Spin spinning={loading}>
-      <div className="p-6">
-        {passwordChangeForm()}
-      </div>
+      <div className="p-6">{passwordChangeForm()}</div>
     </Spin>
   ) : (
     <LoginRequired />
   );
 };
 
-export { ChangePasswordModal }
+export { ChangePasswordModal };

@@ -1,9 +1,9 @@
 // third parties
 import Card from "antd/lib/card";
 import ReactApexChart from "react-apexcharts";
-import barChart from "./config/barChartConfig";
+import barChart from "../utils/barChartConfig";
 // components
-import CenterSpin from "components/layout/CenterSpin";
+import CenterSpin from "components/elements/CenterSpin";
 // utils
 import { useFetcher } from "customHooks/useFetcher";
 import { IWeeklyData } from "types/Ideas";

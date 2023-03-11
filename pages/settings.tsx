@@ -1,7 +1,7 @@
 import React from "react";
-import DashboardAuthWrapper from "components/auth/DashboardAuthWrapper";
-import DashboardLayoutWrapper from "components/layout/DashboardLayoutWrapper";
-import SettingMain from "components/setting/SettingMain";
+import DashboardAuthWrapper from "features/auth/components/DashboardAuthWrapper";
+import DashboardLayoutWrapper from "features/dashboard/components/DashboardLayoutWrapper";
+import SettingMain from "features/settings/SettingMain";
 
 const settings = () => {
   return (

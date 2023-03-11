@@ -1,9 +1,9 @@
 import CustomNavBar from "components/layout/CustomNavBar";
-import HeroSection from "components/about/HeroSection";
-import PortfolioSection from "components/about/PortfolioSection";
-import HomePageFooter from "components/homepage/HomePageFooter";
+import HeroSection from "features/portfolio/components/HeroSection";
+import PortfolioSection from "features/portfolio/components/PortfolioSection";
+import HomePageFooter from "features/landing/components/HomePageFooter";
 
-const about = () => {
+const Portfolio = () => {
   return (
     <>
       <CustomNavBar />
@@ -14,4 +14,4 @@ const about = () => {
   );
 };
 
-export default about;
+export default Portfolio;

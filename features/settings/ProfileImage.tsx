@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 //Components
 import { AuthContext } from "context/authContext";
-import ConfirmModal from "components/layout/ConfirmModal";
+import ConfirmModal from "components/elements/ConfirmModal";
 //ThirdParty
 import Resizer from "react-image-file-resizer";
 import Spin from "antd/lib/spin";

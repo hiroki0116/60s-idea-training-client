@@ -3,7 +3,7 @@ import { useTheme } from "next-themes";
 import { useState, useContext } from "react";
 // components
 import { ExerciseContext } from "context/exerciseContext";
-import CenterSpin from "components/layout/CenterSpin";
+import CenterSpin from "components/elements/CenterSpin";
 // third parties
 import Tag from "antd/lib/tag";
 import Empty from "antd/lib/empty";

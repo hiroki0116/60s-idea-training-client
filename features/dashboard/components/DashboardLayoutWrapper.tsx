@@ -15,10 +15,10 @@ import { capitalizeFirst } from "utils/formatter";
 import { handleLogout } from "utils/auth";
 import { IUser } from "types/User";
 //Components
-import LoginRequired from "components/auth/LoginRequired";
+import LoginRequired from "features/auth/components/LoginRequired";
 import Header from "components/layout/Header";
 import Footer from "components/layout/Footer";
-import CenterSpin from "./CenterSpin";
+import CenterSpin from "../../../components/elements/CenterSpin";
 
 const DashboardLayoutWrapper = ({ children }) => {
   const [user, setUserInfo] = useState<IUser | undefined>(undefined);

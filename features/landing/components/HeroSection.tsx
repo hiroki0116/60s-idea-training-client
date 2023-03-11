@@ -16,13 +16,11 @@ const HeroSection = () => {
               now!
             </span>
           </h3>
-          <p className="sm:text-lg text-base font-bold">
+          <p className="sm:text-lg text-base font-bold leading-8 tracking-wide">
             Do you know that output training brings you lots of benefits?
-          </p>
-          <p className="sm:text-lg text-base font-bold">
+            <br />
             It helps your work productivity, study and even your mental health!
-          </p>
-          <p className="sm:text-lg text-base font-bold">
+            <br />
             This App will work on your brainstorming exercise in a limited time
             like pomodoro clock.
           </p>

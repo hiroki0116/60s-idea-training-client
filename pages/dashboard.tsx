@@ -1,10 +1,13 @@
 import dynamic from "next/dynamic";
-import DashboardAuthWrapper from "components/auth/DashboardAuthWrapper";
-import DashboardLayoutWrapper from "components/layout/DashboardLayoutWrapper";
-import HeadCards from "components/dashboard/HeadCards";
-const RecordChart = dynamic(() => import("components/dashboard/RecordChart"), {
-  ssr: false,
-});
+import DashboardAuthWrapper from "features/auth/components/DashboardAuthWrapper";
+import DashboardLayoutWrapper from "features/dashboard/components/DashboardLayoutWrapper";
+import HeadCards from "features/dashboard/components/HeadCards";
+const RecordChart = dynamic(
+  () => import("features/dashboard/components/RecordChart"),
+  {
+    ssr: false,
+  }
+);
 
 const dashboard = () => {
   return (

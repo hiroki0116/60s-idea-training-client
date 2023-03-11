@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
-import DashboardAuthWrapper from "components/auth/DashboardAuthWrapper";
-import DashboardLayoutWrapper from "components/layout/DashboardLayoutWrapper";
-import RecordsDetail from "components/records/RecordDetail/RecordsDetail";
+import DashboardAuthWrapper from "features/auth/components/DashboardAuthWrapper";
+import DashboardLayoutWrapper from "features/dashboard/components/DashboardLayoutWrapper";
+import RecordsDetail from "features/records/components/recordDetail/RecordsDetail";
 import { IIdeas } from "types/Ideas";
 import { useFetcher } from "customHooks/useFetcher";
-import CenterSpin from "components/layout/CenterSpin";
+import CenterSpin from "components/elements/CenterSpin";
 
 const Records = () => {
   const router = useRouter();

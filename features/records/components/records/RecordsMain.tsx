@@ -19,8 +19,8 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 //Components
 import MotionDiv from "components/layout/MotionDiv";
-import CenterSpin from "components/layout/CenterSpin";
-import DatePicker from "components/layout/DatePicker";
+import CenterSpin from "components/elements/CenterSpin";
+import DatePicker from "components/elements/DatePicker";
 
 const RecordsMain = () => {
   const [loading, setLoading] = useState<boolean>(false);

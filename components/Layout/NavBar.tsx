@@ -2,9 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useContext } from "react";
 import { AuthContext } from "context/authContext";
-import { SignUpOrLoginModal } from "components/auth/SignUpOrLogin";
-import { LoginModal } from "components/auth/Login";
-import { RegisterModal } from "components/auth/Signup";
+import { SignUpOrLoginModal } from "features/auth/components/SignUpOrLogin";
+import { LoginModal } from "features/auth/components/Login";
+import { RegisterModal } from "features/auth/components/Signup";
 // utils
 import { isAuth } from "utils/auth";
 import { LOGO_IMAGE } from "utils/constants";

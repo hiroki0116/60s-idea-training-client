@@ -1,6 +1,6 @@
-import DashboardAuthWrapper from "components/auth/DashboardAuthWrapper";
-import DashboardLayoutWrapper from "components/layout/DashboardLayoutWrapper";
-import RecordsMain from "components/records/RecordsMain/RecordsMain";
+import DashboardAuthWrapper from "features/auth/components/DashboardAuthWrapper";
+import DashboardLayoutWrapper from "features/dashboard/components/DashboardLayoutWrapper";
+import RecordsMain from "features/records/components/records/RecordsMain";
 
 const records = () => {
   return (
