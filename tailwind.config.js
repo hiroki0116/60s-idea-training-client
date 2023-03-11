@@ -1,75 +1,79 @@
-const colors = require('tailwindcss/colors');
-const defaultTheme = require("tailwindcss/defaultTheme")
+const colors = require("tailwindcss/colors");
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
-  darkMode: 'class',
+  darkMode: "class",
   purge: {
-    enabled: process.env.NEXT_PUBLIC_STAGE !== 'dev',
-    content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
-    safelist: ['bg-purple-500', 'bg-gray-500', 'bg-yellow-500', 'bg-pink-500']
+    enabled: process.env.NEXT_PUBLIC_STAGE !== "dev",
+    content: [
+      "./pages/**/*.{js,ts,jsx,tsx}",
+      "./components/**/*.{js,ts,jsx,tsx}",
+    ],
   },
   variants: {
     extend: {
-      backgroundColor: ['active'],
-      ringColor: ['hover'],
-      opacity: ['disabled'],
-      zIndex: ['hover']
-    }
+      backgroundColor: ["active"],
+      ringColor: ["hover"],
+      opacity: ["disabled"],
+      zIndex: ["hover"],
+    },
   },
   future: {
-    removeDeprecatedGapUtilities: true
+    removeDeprecatedGapUtilities: true,
   },
   theme: {
     extend: {
       fontFamily: {
-        "Fredoka": ["Fredoka", ...defaultTheme.fontFamily.sans],
+        Fredoka: ["Fredoka", ...defaultTheme.fontFamily.sans],
       },
-
     },
     borderColor: (theme) => ({
-      ...theme('colors'),
-      DEFAULT: theme('#0a2339', 'currentColor'),
-      primary: '#d9d9d9',
-      secondary: '#f15927',
-      danger: '#e3342f'
+      ...theme("colors"),
+      DEFAULT: theme("#0a2339", "currentColor"),
+      primary: "#d9d9d9",
+      secondary: "#f15927",
+      danger: "#e3342f",
     }),
-    flexGrow: {
-      0: 0,
-      DEFAULT: 1,
-      2: 2
-    },
     extend: {
-      screens: {
-        xxs: '300px',
-        xs: '350px'
-      },
-      boxShadow: {
-        'outer-md': '0 4px 6px 6px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-        'ss-orange-md': '0 0 0 2px rgb(241 89 39 / 20%)'
-      },
       fontSize: {
-        sm: ['12px', '16px'],
-        base: ['16px', '18px'],
-        lg: ['20px', '24px'],
-        xl: ['24px', '28px'],
-        16: ['16px', '20px']
+        xs: "10px",
+        sm: "14px",
+        base: "16px",
+        lg: "18px",
+        xl: "20px",
+        "2xl": "24px",
+        "3xl": "30px",
+        "4xl": "36px",
+        "5xl": "48px",
+        "6xl": "60px",
       },
-      backgroundColor: ['group-hover'],
+      fontWeight: {
+        hairline: 100,
+        "extra-light": 100,
+        thin: 200,
+        light: 300,
+        normal: 400,
+        medium: 500,
+        semibold: 600,
+        bold: 700,
+        extrabold: 900,
+      },
+      backgroundColor: ["group-hover"],
       animation: {
-        bounceLeft: 'bounceLeft 1s infinite'
+        bounceLeft: "bounceLeft 1s infinite",
       },
       keyframes: {
         bounceLeft: {
-          '0%, 100%': {
-            transform: 'translateX(-25%)',
-            animationTimingFunction: 'cubic-bezier(0.8, 0, 1, 1)'
+          "0%, 100%": {
+            transform: "translateX(-25%)",
+            animationTimingFunction: "cubic-bezier(0.8, 0, 1, 1)",
           },
-          '50%': {
-            transform: 'translateX(0)',
-            animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)'
-          }
-        }
-      }
-    }
-  }
+          "50%": {
+            transform: "translateX(0)",
+            animationTimingFunction: "cubic-bezier(0, 0, 0.2, 1)",
+          },
+        },
+      },
+    },
+  },
 };
