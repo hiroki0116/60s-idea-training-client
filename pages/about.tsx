@@ -1,4 +1,4 @@
-import CustomNavBar from "components/layout/NavBar";
+import CustomNavBar from "components/layouts/NavBar";
 import HeroSection from "features/portfolio/components/HeroSection";
 import PortfolioSection from "features/portfolio/components/PortfolioSection";
 import HomePageFooter from "features/landing/components/HomePageFooter";

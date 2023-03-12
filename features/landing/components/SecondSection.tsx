@@ -1,4 +1,4 @@
-import MotionDivWhenView from "components/layout/MotionDivWhenView";
+import MotionDivWhenView from "components/layouts/MotionDivWhenView";
 import { PRIMARY_COLOR } from "utils/constants";
 import LineChartOutlined from "@ant-design/icons/LineChartOutlined";
 import HeartOutlined from "@ant-design/icons/HeartOutlined";

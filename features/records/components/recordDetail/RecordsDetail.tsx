@@ -23,7 +23,7 @@ import LeftOutlined from "@ant-design/icons/LeftOutlined";
 import StarOutlined from "@ant-design/icons/StarOutlined";
 import StarFilled from "@ant-design/icons/StarFilled";
 // App
-import MotionDiv from "components/layout/MotionDiv";
+import MotionDiv from "components/layouts/MotionDiv";
 import ThreeDotsMenu from "./ThreeDotsMenu";
 import { API } from "api-client/api-client";
 import { capitalizeFirst } from "utils/formatter";

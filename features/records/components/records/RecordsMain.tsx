@@ -18,7 +18,7 @@ import StarFilled from "@ant-design/icons/StarFilled";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 //Components
-import MotionDiv from "components/layout/MotionDiv";
+import MotionDiv from "components/layouts/MotionDiv";
 import CenterSpin from "components/elements/CenterSpin";
 import DatePicker from "components/elements/DatePicker";
 

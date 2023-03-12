@@ -16,8 +16,8 @@ import { handleLogout } from "utils/auth";
 import { IUser } from "api-client/models/User";
 //Components
 import LoginRequired from "features/auth/components/LoginRequired";
-import Header from "components/layout/Header";
-import Footer from "components/layout/Footer";
+import Header from "components/layouts/Header";
+import Footer from "components/layouts/Footer";
 import CenterSpin from "../../../components/elements/CenterSpin";
 
 const DashboardLayoutWrapper = ({ children }) => {
