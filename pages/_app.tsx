@@ -7,7 +7,7 @@ import { createApolloClient } from "utils/apolloClient";
 // css
 import "tailwindcss/tailwind.css";
 import "styles/globals.css";
-import "../styles/custom-antd.css";
+import "styles/custom-antd.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
