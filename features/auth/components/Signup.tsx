@@ -8,7 +8,7 @@ import Divider from "antd/lib/divider";
 import Button from "antd/lib/button";
 import Modal from "antd/lib/modal";
 import message from "antd/lib/message";
-import GoogleOutlined from '@ant-design/icons/GoogleOutlined';
+import GoogleOutlined from "@ant-design/icons/GoogleOutlined";
 import {
   setPersistence,
   browserLocalPersistence,
@@ -17,10 +17,9 @@ import {
 // utils
 import { auth } from "utils/firebase";
 import { saveUserAndToken } from "utils/auth";
-import { APIWithoutAuth } from "utils/api";
+import { APIWithoutAuth } from "api-client/api-client";
 import { signInWithGoogle } from "utils/auth";
-import { AuthContext } from "context/authContext";
-
+import { AuthContext } from "features/auth/stores/context/authContext";
 
 const RegisterModal = () => {
   const { showRegister, setShowRegister } = useContext(AuthContext);
@@ -85,11 +84,10 @@ const Register = () => {
       setShowLogin,
       setUser,
       message,
-      router
-    }
-    signInWithGoogle(props)
-
-  }
+      router,
+    };
+    signInWithGoogle(props);
+  };
 
   const handleSubmit = async (values: any) => {
     try {
@@ -259,7 +257,13 @@ const Register = () => {
         Sign Up
       </Button>
       <div className="text-center text-gray-600">or</div>
-      <Button  icon={<GoogleOutlined />} className="w-full rounded-lg" onClick={handleGoogleSignIn}>Signup with Google</Button>
+      <Button
+        icon={<GoogleOutlined />}
+        className="w-full rounded-lg"
+        onClick={handleGoogleSignIn}
+      >
+        Signup with Google
+      </Button>
       <Divider />
     </Form>
   );

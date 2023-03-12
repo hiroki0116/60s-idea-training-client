@@ -3,7 +3,7 @@ import DashboardAuthWrapper from "features/auth/components/DashboardAuthWrapper"
 import DashboardLayoutWrapper from "features/dashboard/components/DashboardLayoutWrapper";
 import RecordsDetail from "features/records/components/recordDetail/RecordsDetail";
 import { IIdeas } from "types/Ideas";
-import { useFetcher } from "customHooks/useFetcher";
+import { useFetcher } from "hooks/useFetcher";
 import CenterSpin from "components/elements/CenterSpin";
 
 const Records = () => {

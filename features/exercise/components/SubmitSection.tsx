@@ -1,6 +1,6 @@
 import { useState, useContext, useRef, useEffect } from "react";
 // components
-import { ExerciseContext } from "context/exerciseContext";
+import { ExerciseContext } from "features/exercise/stores/context/exerciseContext";
 import CountDownTimer from "./CountDownTimer";
 // third parties
 import BulbTwoTone from "@ant-design/icons/BulbTwoTone";

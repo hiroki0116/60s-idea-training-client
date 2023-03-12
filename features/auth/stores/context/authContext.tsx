@@ -1,7 +1,7 @@
-import { useState, useEffect, createContext } from 'react';
+import { useState, useEffect, createContext } from "react";
 
-import { setCookie } from 'utils/auth';
-import { auth } from '../utils/firebase';
+import { setCookie } from "utils/auth";
+import { auth } from "../../../../utils/firebase";
 
 type AuthContent = {
   user: any;
@@ -31,42 +31,45 @@ const initialState = {
   setShowRegister: () => {},
   showLoginOrRegister: false,
   setShowLoginOrRegister: () => {},
-  afterPath: '',
+  afterPath: "",
   setAfterPath: () => {},
   tokenRefreshed: false,
-  ipAddress: '',
+  ipAddress: "",
   isApply: false,
   setIsApply: () => {},
   isClickContactHirerContext: false,
-  setIsClickContactHirerContext: () => {}
+  setIsClickContactHirerContext: () => {},
 };
 
 export const AuthContext = createContext<AuthContent>(initialState);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState<any>(null);
-  const [showLoginOrRegister, setShowLoginOrRegister] = useState<boolean>(false);
+  const [showLoginOrRegister, setShowLoginOrRegister] =
+    useState<boolean>(false);
   const [showLogin, setShowLogin] = useState<boolean>(false);
   const [showRegister, setShowRegister] = useState<boolean>(false);
-  const [afterPath, setAfterPath] = useState('');
+  const [afterPath, setAfterPath] = useState("");
   const [tokenRefreshed, setTokenRefreshed] = useState(false);
-  const [ipAddress, setIpAddress] = useState('');
+  const [ipAddress, setIpAddress] = useState("");
   const [isApply, setIsApply] = useState(false);
-  const [isClickContactHirerContext, setIsClickContactHirerContext] = useState(false);
+  const [isClickContactHirerContext, setIsClickContactHirerContext] =
+    useState(false);
 
   useEffect(() => {
     const unsubscribe = auth.onIdTokenChanged(async (user) => {
       if (user) {
         const token = await user.getIdToken();
-        setCookie('token', token);
+        setCookie("token", token);
         setTokenRefreshed(true);
       }
     });
     return () => unsubscribe();
   }, []);
-  
+
   useEffect(() => {
-    if (showLoginOrRegister && (showLogin || showRegister)) setShowLoginOrRegister(false);
+    if (showLoginOrRegister && (showLogin || showRegister))
+      setShowLoginOrRegister(false);
   }, [showLoginOrRegister, showLogin, showRegister]);
 
   const value = {
@@ -85,7 +88,7 @@ export const AuthProvider = ({ children }) => {
     isApply,
     setIsApply,
     isClickContactHirerContext,
-    setIsClickContactHirerContext
+    setIsClickContactHirerContext,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -4,8 +4,8 @@ import dynamic from "next/dynamic";
 const PreviousIdeaRecords = dynamic(() => import("./PreviousIdeaRecords"));
 import FirstSection from "./FirstSection";
 import SubmitSection from "./SubmitSection";
-import { ExerciseContext } from "context/exerciseContext";
-import { stepEnum } from "context/exerciseContext";
+import { ExerciseContext } from "features/exercise/stores/context/exerciseContext";
+import { stepEnum } from "features/exercise/stores/context/exerciseContext";
 // third parties
 import { motion } from "framer-motion";
 import Steps from "antd/lib/steps";

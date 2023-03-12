@@ -1,6 +1,6 @@
 import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
-import { AuthProvider } from "context/authContext";
+import { AuthProvider } from "features/auth/stores/context/authContext";
 import Head from "components/layout/Head";
 import { ApolloProvider } from "@apollo/client";
 import { createApolloClient } from "utils/apolloClient";

@@ -5,7 +5,7 @@ import barChart from "../utils/barChartConfig";
 // components
 import CenterSpin from "components/elements/CenterSpin";
 // utils
-import { useFetcher } from "customHooks/useFetcher";
+import { useFetcher } from "hooks/useFetcher";
 import { IWeeklyData } from "types/Ideas";
 
 const BarChart = () => {

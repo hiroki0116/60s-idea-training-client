@@ -1,4 +1,4 @@
-import { ExerciseProfileProvider } from "context/exerciseContext";
+import { ExerciseProfileProvider } from "features/exercise/stores/context/exerciseContext";
 import DashboardAuthWrapper from "features/auth/components/DashboardAuthWrapper";
 import DashboardLayoutWrapper from "features/dashboard/components/DashboardLayoutWrapper";
 import ExerciseMain from "features/exercise/components/ExerciseMain";

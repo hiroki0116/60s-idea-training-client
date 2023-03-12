@@ -25,7 +25,7 @@ import StarFilled from "@ant-design/icons/StarFilled";
 // App
 import MotionDiv from "components/layout/MotionDiv";
 import ThreeDotsMenu from "./ThreeDotsMenu";
-import { API } from "utils/api";
+import { API } from "api-client/api-client";
 import { capitalizeFirst } from "utils/formatter";
 import { CATEGORIES } from "utils/constants";
 import { IIdeas } from "types/Ideas";

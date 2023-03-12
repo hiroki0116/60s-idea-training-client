@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useState, useContext } from "react";
 // components
-import { ExerciseContext } from "context/exerciseContext";
+import { ExerciseContext } from "features/exercise/stores/context/exerciseContext";
 import CenterSpin from "components/elements/CenterSpin";
 // third parties
 import Tag from "antd/lib/tag";

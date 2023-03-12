@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 //Utils
 import { CATEGORIES, DEFAULT_CREATED_AT } from "utils/constants";
-import { API } from "utils/api";
+import { API } from "api-client/api-client";
 //Third Party
 import Input from "antd/lib/input";
 import Select from "antd/lib/select";

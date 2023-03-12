@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 //Components
-import { AuthContext } from "context/authContext";
+import { AuthContext } from "features/auth/stores/context/authContext";
 import ConfirmModal from "components/elements/ConfirmModal";
 //ThirdParty
 import Resizer from "react-image-file-resizer";
@@ -11,7 +11,7 @@ import UploadOutlined from "@ant-design/icons/UploadOutlined";
 import DeleteFilled from "@ant-design/icons/DeleteFilled";
 //Utils
 import { currAuthUser, setLocalStorage } from "utils/auth";
-import { API } from "utils/api";
+import { API } from "api-client/api-client";
 import { DEFAULT_USER_IMAGE } from "utils/constants";
 
 const ProfileImage = () => {

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useContext } from "react";
 import MotionDiv from "components/layout/MotionDiv";
-import { ExerciseContext } from "context/exerciseContext";
+import { ExerciseContext } from "features/exercise/stores/context/exerciseContext";
 // third parties
 import BulbTwoTone from "@ant-design/icons/BulbTwoTone";
 import TagTwoTone from "@ant-design/icons/TagTwoTone";

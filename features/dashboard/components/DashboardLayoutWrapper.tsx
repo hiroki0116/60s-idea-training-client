@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { AuthContext } from "context/authContext";
+import { AuthContext } from "features/auth/stores/context/authContext";
 import Link from "next/link";
 import router from "next/router";
 //Third Party

@@ -1,13 +1,13 @@
 import { useState, useContext } from "react";
-import { AuthContext } from "context/authContext";
+import { AuthContext } from "features/auth/stores/context/authContext";
 //Third Party
-import Form from 'antd/lib/form';
-import Input from 'antd/lib/input';
-import Spin from 'antd/lib/spin';
-import Button from 'antd/lib/button';
-import Modal from 'antd/lib/modal';
+import Form from "antd/lib/form";
+import Input from "antd/lib/input";
+import Spin from "antd/lib/spin";
+import Button from "antd/lib/button";
+import Modal from "antd/lib/modal";
 import Typography from "antd/lib/typography";
-import message from 'antd/lib/message';
+import message from "antd/lib/message";
 //Utils
 import { auth } from "utils/firebase";
 import {
@@ -17,7 +17,7 @@ import {
   browserLocalPersistence,
 } from "firebase/auth";
 import { currAuthUser, saveUserAndToken } from "utils/auth";
-import { APIWithoutAuth, API } from "utils/api";
+import { APIWithoutAuth, API } from "api-client/api-client";
 
 type modalProps = {
   showChangeEmailModal: boolean;

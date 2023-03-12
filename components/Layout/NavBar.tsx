@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useContext } from "react";
-import { AuthContext } from "context/authContext";
+import { AuthContext } from "features/auth/stores/context/authContext";
 import { SignUpOrLoginModal } from "features/auth/components/SignUpOrLogin";
 import { LoginModal } from "features/auth/components/Login";
 import { RegisterModal } from "features/auth/components/Signup";
