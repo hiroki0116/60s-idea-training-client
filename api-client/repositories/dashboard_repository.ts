@@ -1,41 +1,40 @@
 import { API } from "api-client/api-client";
+import { TotalSessions, WeeklyData } from "features/dashboard/types/dashboard";
 
-export const getTotalSessionsAndIdeas = async () => {
-  try {
-    const { data } = await API.get(`/ideas/total/all`, { errorHandle: false });
-    return data.data[0];
-  } catch (error: any) {
-    return { success: false, message: error.message };
-  }
+type DashboardRepository = {
+  getTotalSessionsAndIdeas: () => Promise<TotalSessions>;
+  getTodaySessionsIdeas: () => Promise<TotalSessions>;
+  getWeeklyRecords: () => Promise<WeeklyData>;
+  getConsecutiveDays: () => Promise<number>;
 };
 
-export const getTodaySessionsIdeas = async () => {
-  try {
-    const { data } = await API.get("/ideas/total/today", {
-      errorHandle: false,
-    });
-    return data.data[0];
-  } catch (error: any) {
-    return { success: false, message: error.message };
-  }
+const getTotalSessionsAndIdeas = async (): Promise<TotalSessions> => {
+  const { data } = await API.get(`/ideas/total/all`, { errorHandle: false });
+  return data.data[0];
 };
 
-export const getWeeklyRecords = async () => {
-  try {
-    const { data } = await API.get("/ideas/weekly", { errorHandle: false });
-    return data;
-  } catch (error: any) {
-    return { success: false, message: error.message };
-  }
+const getTodaySessionsIdeas = async (): Promise<TotalSessions> => {
+  const { data } = await API.get("/ideas/total/today", {
+    errorHandle: false,
+  });
+  return data.data[0];
 };
 
-export const getConsecutiveDays = async () => {
-  try {
-    const { data } = await API.get("/ideas/total/consecutive", {
-      errorHandle: false,
-    });
-    return data.data;
-  } catch (error: any) {
-    return { success: false, message: error.message };
-  }
+const getWeeklyRecords = async (): Promise<WeeklyData> => {
+  const { data } = await API.get("/ideas/weekly", { errorHandle: false });
+  return data.data;
+};
+
+const getConsecutiveDays = async (): Promise<number> => {
+  const { data } = await API.get("/ideas/total/consecutive", {
+    errorHandle: false,
+  });
+  return data.data;
+};
+
+export const dashboardRepository: DashboardRepository = {
+  getTotalSessionsAndIdeas,
+  getTodaySessionsIdeas,
+  getWeeklyRecords,
+  getConsecutiveDays,
 };

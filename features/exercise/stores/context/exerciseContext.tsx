@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext } from "react";
-import { IIdeas } from "types/Ideas";
+import { IIdeas } from "api-client/models/Ideas";
 import message from "antd/lib/message";
 import { API } from "api-client/api-client";
 

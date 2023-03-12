@@ -13,7 +13,7 @@ import SettingFilled from "@ant-design/icons/SettingFilled";
 import { currAuthUser, isAuth } from "utils/auth";
 import { capitalizeFirst } from "utils/formatter";
 import { handleLogout } from "utils/auth";
-import { IUser } from "types/User";
+import { IUser } from "api-client/models/User";
 //Components
 import LoginRequired from "features/auth/components/LoginRequired";
 import Header from "components/layout/Header";
@@ -54,7 +54,8 @@ const DashboardLayoutWrapper = ({ children }) => {
     },
   ];
 
-  return user ? (
+  if (!user) return <CenterSpin />;
+  return (
     <div className="grid sm:grid-cols-7 grid-cols-1 w-full gap-6 p-5 bg-slate-100 dark:bg-slate-900 dark:text-green-500 min-h-screen">
       <div>
         <div className="place-items-stretch shadow-lg p-2 rounded-lg bg-white sm:block hidden  dark:bg-slate-800">
@@ -69,7 +70,7 @@ const DashboardLayoutWrapper = ({ children }) => {
               )}
             </div>
             <div className="font-bold text-gray-500 text-base mt-2">
-              Welcome, {capitalizeFirst(user?.firstName)}!
+              Welcome, {capitalizeFirst(user?.firstName || "")}!
             </div>
           </div>
         </div>
@@ -120,8 +121,6 @@ const DashboardLayoutWrapper = ({ children }) => {
         <Footer />
       </div>
     </div>
-  ) : (
-    <CenterSpin />
   );
 };
 

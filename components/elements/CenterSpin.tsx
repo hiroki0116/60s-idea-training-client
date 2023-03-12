@@ -1,9 +1,13 @@
 import Spin from "antd/lib/spin";
 
-const CenterSpin = () => {
+const CenterSpin = ({
+  size = "default",
+}: {
+  size?: "default" | "small" | "large" | undefined;
+}) => {
   return (
-    <div className="flex items-center justify-center">
-      <Spin size="large" />
+    <div className="flex justify-center">
+      <Spin size={size} />
     </div>
   );
 };

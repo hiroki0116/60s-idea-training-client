@@ -4,15 +4,10 @@ import ReactApexChart from "react-apexcharts";
 import barChart from "../utils/barChartConfig";
 // components
 import CenterSpin from "components/elements/CenterSpin";
-// utils
-import { useFetcher } from "hooks/useFetcher";
-import { IWeeklyData } from "types/Ideas";
+import useFetchWeekly from "../hooks/useFetchWeekly";
 
 const BarChart = () => {
-  const { data: data, loading } = useFetcher<IWeeklyData>({
-    url: "/ideas/weekly",
-    initialState: undefined,
-  });
+  const { weeklyData, loading } = useFetchWeekly();
   return (
     <>
       <Card
@@ -26,13 +21,13 @@ const BarChart = () => {
           WEEKLY ACHIEVEMENTS
         </div>
 
-        {!data ? (
+        {!weeklyData ? (
           <CenterSpin />
         ) : (
           <ReactApexChart
             className="w-full d"
-            options={barChart(data)}
-            series={barChart(data).series}
+            options={barChart(weeklyData)}
+            series={barChart(weeklyData).series}
             type="bar"
             height={350}
             width={"100%"}

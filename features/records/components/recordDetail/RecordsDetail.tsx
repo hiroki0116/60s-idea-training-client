@@ -28,7 +28,7 @@ import ThreeDotsMenu from "./ThreeDotsMenu";
 import { API } from "api-client/api-client";
 import { capitalizeFirst } from "utils/formatter";
 import { CATEGORIES } from "utils/constants";
-import { IIdeas } from "types/Ideas";
+import { IIdeas } from "api-client/models/Ideas";
 import CenterSpin from "components/elements/CenterSpin";
 
 const { Option } = Select;

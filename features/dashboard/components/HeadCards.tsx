@@ -1,102 +1,23 @@
-import { useEffect, useState } from "react";
 // third parties
 import Card from "antd/lib/card";
-import message from "antd/lib/message";
 import { motion } from "framer-motion";
 import AimOutlined from "@ant-design/icons/AimOutlined";
 import LineChartOutlined from "@ant-design/icons/LineChartOutlined";
 import BulbOutlined from "@ant-design/icons/BulbOutlined";
 import CalendarOutlined from "@ant-design/icons/CalendarOutlined";
-//Type
-import { ITotalIdeasSessions } from "types/Ideas";
 // utils
 import { fadeInRight } from "utils/animations";
 import { PRIMARY_COLOR } from "utils/constants";
-import { APIWithoutAuth } from "api-client/api-client";
 // services
-import {
-  getTotalSessionsAndIdeas,
-  getTodaySessionsIdeas,
-  getConsecutiveDays,
-} from "api-client/repositories/dashboard_repository";
-
+import useFetchTotalSessions from "../hooks/useFetchTotalSessions";
+import useFetchToday from "../hooks/useFetchToday";
+import useFetchConsecutive from "../hooks/useFetchConsecutive";
 const { Meta } = Card;
 
 const HeadCards = () => {
-  const [loadingFotToday, setLoadingForToday] = useState(false);
-  const [loadingForTotal, setLoadingForTotal] = useState(false);
-  const [loadingForConsecutiveDays, setLoadingForConsecutiveDays] =
-    useState(false);
-  const [totalIdeasSessions, setTotalIdeasSessions] = useState<
-    ITotalIdeasSessions | undefined
-  >(undefined);
-  const [todaySessions, setTodaySessions] = useState<number | undefined>(
-    undefined
-  );
-  const [todayIdeas, setTodayIdeas] = useState<number | undefined>(undefined);
-  const [consecutiveDays, setConsecutiveDays] = useState<number | undefined>(
-    undefined
-  );
-
-  const getSessionsIdeasCount = async () => {
-    setLoadingForTotal(true);
-    try {
-      const result = await getTotalSessionsAndIdeas();
-      setTotalIdeasSessions(result);
-    } catch (error: any) {
-      await APIWithoutAuth.post(
-        "/error-message/",
-        { message: error.message },
-        { errorHandle: false }
-      );
-    } finally {
-      setLoadingForTotal(false);
-    }
-  };
-
-  const getTodayData = async () => {
-    setLoadingForToday(true);
-    try {
-      const result = await getTodaySessionsIdeas();
-      setTodayIdeas(result?.totalIdeas);
-      setTodaySessions(result?.totalSessions);
-    } catch (error: any) {
-      await APIWithoutAuth.post(
-        "/error-message/",
-        { message: error.message },
-        { errorHandle: false }
-      );
-    } finally {
-      setLoadingForToday(false);
-    }
-  };
-
-  const getConsecutive = async () => {
-    try {
-      setLoadingForConsecutiveDays(true);
-      const result = await getConsecutiveDays();
-      if (result) {
-        setConsecutiveDays(result);
-      }
-    } catch (error: any) {
-      message.error(error.message);
-    } finally {
-      setLoadingForConsecutiveDays(false);
-    }
-  };
-
-  const executePromiseAll = async () => {
-    await Promise.all([
-      getSessionsIdeasCount(),
-      getTodayData(),
-      getConsecutive(),
-    ]);
-  };
-
-  useEffect(() => {
-    executePromiseAll();
-    //eslint-disable-next-line
-  }, []);
+  const { totalIdeasSessions, loadingForTotal } = useFetchTotalSessions();
+  const { todayIdeas, todaySessions, loadingForToday } = useFetchToday();
+  const { consecutiveDays, loadingForConsecutiveDays } = useFetchConsecutive();
 
   return (
     <>
@@ -111,7 +32,7 @@ const HeadCards = () => {
           style={{ borderRadius: "1rem" }}
           hoverable
           className="shadow-lg overflow-hidden dark:bg-slate-800"
-          loading={loadingFotToday}
+          loading={loadingForToday}
         >
           <Meta
             description={

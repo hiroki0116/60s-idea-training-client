@@ -8,7 +8,7 @@ import {
   GoogleAuthProvider,
   signInWithCustomToken,
 } from "firebase/auth";
-import { IUser } from "types/User";
+import { IUser } from "api-client/models/User";
 // utils
 import isEmpty from "lodash/isEmpty";
 // types

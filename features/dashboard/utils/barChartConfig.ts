@@ -1,25 +1,21 @@
 import { ApexOptions } from "apexcharts";
 import dayjs from "dayjs";
-import _ from 'lodash';
-import { IWeeklyIdeasSessions } from "types/Ideas";
+import _ from "lodash";
+import { IWeeklyIdeasSessions } from "api-client/models/Ideas";
 
+const barChart = ({
+  weeklyRecords,
+  lastMonday,
+}: {
+  weeklyRecords: IWeeklyIdeasSessions[];
+  lastMonday: Date;
+}) => {
+  let weeklyDates: string[] = [];
+  let sessionsData: number[] = [];
+  let ideasData: number[] = [];
 
-const barChart = (
-  { 
-    weeklyRecords,
-    lastMonday 
-  } : {
-    weeklyRecords:IWeeklyIdeasSessions[],
-    lastMonday: Date
-  }) => {
-
-
-  let weeklyDates:string[] = [];
-  let sessionsData:number[] = [];
-  let ideasData:number[] = [];
-
-  for(let i = 0; i < 7; i++){
-    weeklyDates.push(dayjs(lastMonday).add(i,'days').format('YYYY-MM-DD'));
+  for (let i = 0; i < 7; i++) {
+    weeklyDates.push(dayjs(lastMonday).add(i, "days").format("YYYY-MM-DD"));
   }
 
   weeklyDates.forEach((day) => {
@@ -32,76 +28,76 @@ const barChart = (
     }
   });
 
-    
-  const options:ApexOptions = { 
-    series: [{
-      name: 'Sessions',
-      data: sessionsData
-    }, {
-      name: 'Ideas',
-      data: ideasData
-    }],
-          
+  const options: ApexOptions = {
+    series: [
+      {
+        name: "Sessions",
+        data: sessionsData,
+      },
+      {
+        name: "Ideas",
+        data: ideasData,
+      },
+    ],
+
     chart: {
-      type: 'bar',
+      type: "bar",
       height: 350,
       toolbar: {
-        show:true
-      }
+        show: true,
+      },
     },
 
     plotOptions: {
       bar: {
-        columnWidth: '55%',
-        borderRadius: 5
+        columnWidth: "55%",
+        borderRadius: 5,
       },
     },
 
     dataLabels: {
-      enabled: false
+      enabled: false,
     },
 
     stroke: {
       show: true,
       width: 2,
-      colors: ['transparent']
+      colors: ["transparent"],
     },
-
 
     xaxis: {
       categories: weeklyDates,
       labels: {
-        formatter: function(val) {
-          return dayjs(val).format('ddd DD MMM')
+        formatter: function (val) {
+          return dayjs(val).format("ddd DD MMM");
         },
-        style:{
-          fontSize:'14px',
-          fontWeight:700
-        }
-      }
+        style: {
+          fontSize: "14px",
+          fontWeight: 700,
+        },
+      },
     },
 
     fill: {
-      opacity: 1
+      opacity: 1,
     },
 
     legend: {
-      position: 'top',
-      offsetY: 20
+      position: "top",
+      offsetY: 20,
     },
     yaxis: [
       {
         labels: {
-          formatter: function(val) {
+          formatter: function (val) {
             return val.toFixed(0);
-          }
-        }
-      }
-    ]
-  }
-
+          },
+        },
+      },
+    ],
+  };
 
   return options;
-}
+};
 
 export default barChart;

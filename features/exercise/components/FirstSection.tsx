@@ -8,6 +8,7 @@ import TagTwoTone from "@ant-design/icons/TagTwoTone";
 import AutoComplete from "antd/lib/auto-complete";
 import Input from "antd/lib/input";
 import Button from "antd/lib/button";
+
 // utils
 import { IDEA_IMAGE, CATEGORIES } from "utils/constants";
 
@@ -59,7 +60,7 @@ const FirstSection = () => {
       </div>
       <div className="mt-5 self-center">
         <AutoComplete
-          dataSource={CATEGORIES}
+          options={CATEGORIES}
           onChange={handleChange}
           onSelect={handleSelect}
           allowClear

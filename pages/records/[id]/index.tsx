@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import DashboardAuthWrapper from "features/auth/components/DashboardAuthWrapper";
 import DashboardLayoutWrapper from "features/dashboard/components/DashboardLayoutWrapper";
 import RecordsDetail from "features/records/components/recordDetail/RecordsDetail";
-import { IIdeas } from "types/Ideas";
+import { IIdeas } from "api-client/models/Ideas";
 import { useFetcher } from "hooks/useFetcher";
 import CenterSpin from "components/elements/CenterSpin";
 
