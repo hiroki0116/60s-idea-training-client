@@ -8,7 +8,7 @@ import Menu from "antd/lib/menu";
 import Switch from "antd/lib/switch";
 import BellFilled from "@ant-design/icons/BellFilled";
 //Components
-import MobileMenu from "components/layout/MobileMenu";
+import MobileMenu from "./MobileMenu";
 
 const Header = ({ pathname }) => {
   const { setTheme, theme, systemTheme } = useTheme();
