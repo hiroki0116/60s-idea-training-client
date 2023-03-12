@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Hero from "features/landing/components/HeroSection";
-import CustomNavBar from "components/layout/CustomNavBar";
+import CustomNavBar from "components/layout/NavBar";
 import SecondSection from "features/landing/components/SecondSection";
 import ThirdSection from "features/landing/components/ThirdSection";
 import HomePageFooter from "features/landing/components/HomePageFooter";
