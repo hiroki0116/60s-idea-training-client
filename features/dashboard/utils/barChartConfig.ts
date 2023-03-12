@@ -1,13 +1,13 @@
 import { ApexOptions } from "apexcharts";
 import dayjs from "dayjs";
 import _ from "lodash";
-import { IWeeklyIdeasSessions } from "api-client/models/Ideas";
+import { WeeklyIdeasSessions } from "../types/dashboard";
 
 const barChart = ({
   weeklyRecords,
   lastMonday,
 }: {
-  weeklyRecords: IWeeklyIdeasSessions[];
+  weeklyRecords: WeeklyIdeasSessions[];
   lastMonday: Date;
 }) => {
   let weeklyDates: string[] = [];
