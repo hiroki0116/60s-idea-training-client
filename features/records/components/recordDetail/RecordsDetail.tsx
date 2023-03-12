@@ -86,7 +86,7 @@ const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
   const updateTopicTitle = async () => {
     try {
       const { data } = await API.put(
-        `/ideas/${ideaRecord._id}`,
+        `/ideas/${ideaRecord?._id}`,
         { topicTitle },
         { errorHandle: false }
       );
@@ -101,7 +101,7 @@ const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
   const updateCategory = async (category: string) => {
     try {
       const { data } = await API.put(
-        `/ideas/${ideaRecord._id}`,
+        `/ideas/${ideaRecord?._id}`,
         { category },
         { errorHandle: false }
       );
@@ -117,7 +117,7 @@ const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
     try {
       setCommentLoading(true);
       await API.put(
-        `/ideas/${ideaRecord._id}`,
+        `/ideas/${ideaRecord?._id}`,
         { comment },
         { errorHandle: false }
       );
@@ -132,7 +132,7 @@ const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
       setLikeLoading(true);
       setIsLiked(!isLiked);
       await API.put(
-        `/ideas/${ideaRecord._id}`,
+        `/ideas/${ideaRecord?._id}`,
         { isLiked: !isLiked },
         { errorHandle: false }
       );
@@ -196,7 +196,7 @@ const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
           <FieldTimeOutlined className="text-base dark:text-green-400" />
           <span className="dark:text-green-400">Created</span>
           <div className="ml-10 text-gray-800 dark:text-green-400">
-            {dayjs(ideaRecord.createdAt).format("MMMM D YYYY h:mm A")}
+            {dayjs(ideaRecord?.createdAt).format("MMMM D YYYY h:mm A")}
           </div>
         </div>
         <div className="flex items-center gap-2 text-gray-500 dark:text-green-400">
@@ -205,17 +205,17 @@ const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
           <div className="">
             <Select
               bordered={false}
-              defaultValue={ideaRecord.category || "Other"}
+              defaultValue={ideaRecord?.category || "Other"}
               style={{ marginLeft: "1rem" }}
               onChange={(value) => updateCategory(value)}
             >
-              {CATEGORIES.map((cate) => (
-                <Option value={cate} key={cate}>
+              {CATEGORIES.map((cate, key) => (
+                <Option value={cate.value} key={key}>
                   <Tag
                     color={currentTheme === "dark" ? "green" : "cyan"}
                     style={{ borderRadius: "0.5rem" }}
                   >
-                    {cate}
+                    {cate.value}
                   </Tag>
                 </Option>
               ))}
@@ -233,7 +233,7 @@ const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
             </h3>
           </div>
           <div className="px-3">
-            {ideaRecord.ideas.map((idea, index) => (
+            {ideaRecord?.ideas?.map((idea, index) => (
               <div key={index} className="tracking-wide">
                 {index + 1}. {capitalizeFirst(idea)}
               </div>
@@ -265,7 +265,7 @@ const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
                 toolbar:
                   "undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat |  copy paste",
               }}
-              initialValue={ideaRecord.comment || ""}
+              initialValue={ideaRecord?.comment || ""}
               value={comment}
               onEditorChange={(v) => {
                 setComment(v);

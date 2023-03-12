@@ -116,8 +116,8 @@ const RecordsMain = () => {
               value={category}
             >
               {CATEGORIES.map((cate, key) => (
-                <Select.Option value={cate} key={key}>
-                  {cate}
+                <Select.Option value={cate.value} key={key}>
+                  {cate.value}
                 </Select.Option>
               ))}
             </Select>
