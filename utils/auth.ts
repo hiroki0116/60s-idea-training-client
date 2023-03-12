@@ -1,14 +1,14 @@
 import { NextRouter } from "next/router";
 import cookie from "js-cookie";
 import Router from "next/router";
-import { API, APIWithoutAuth } from "./api";
+import { API, APIWithoutAuth } from "../api-client/api-client";
 import { auth } from "utils/firebase";
 import {
   signInWithPopup,
   GoogleAuthProvider,
   signInWithCustomToken,
 } from "firebase/auth";
-import { IUser } from "types/User";
+import { IUser } from "api-client/models/User";
 // utils
 import isEmpty from "lodash/isEmpty";
 // types

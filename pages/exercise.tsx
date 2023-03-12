@@ -1,7 +1,7 @@
-import { ExerciseProfileProvider } from 'context/exerciseContext';
-import DashboardAuthWrapper from 'components/auth/DashboardAuthWrapper';
-import DashboardLayoutWrapper from 'components/Layout/DashboardLayoutWrapper';
-import ExerciseMain from 'components/exercise/ExerciseMain';
+import { ExerciseProfileProvider } from "features/exercise/stores/context/exerciseContext";
+import DashboardAuthWrapper from "features/auth/components/DashboardAuthWrapper";
+import DashboardLayoutWrapper from "features/dashboard/components/DashboardLayoutWrapper";
+import ExerciseMain from "features/exercise/components/ExerciseMain";
 
 const exersize = () => {
   return (
@@ -12,7 +12,7 @@ const exersize = () => {
         </DashboardAuthWrapper>
       </DashboardLayoutWrapper>
     </ExerciseProfileProvider>
-  )
-}
+  );
+};
 
 export default exersize;
