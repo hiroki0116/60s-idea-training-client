@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 //Utils
 import { CATEGORIES, DEFAULT_CREATED_AT } from "utils/constants";
-import { API } from "api-client/api-client";
 //Third Party
 import Input from "antd/lib/input";
 import Select from "antd/lib/select";
@@ -21,6 +20,8 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import MotionDiv from "components/layouts/MotionDiv";
 import CenterSpin from "components/elements/CenterSpin";
 import DatePicker from "components/elements/DatePicker";
+import { recordsRepository } from "features/records/repositories/repository_records";
+import { IIdeas } from "api-client/models/Ideas";
 
 const RecordsMain = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -30,7 +31,7 @@ const RecordsMain = () => {
     dayjs(DEFAULT_CREATED_AT).toISOString()
   );
   const [createdAtTo, setCreatedAtTo] = useState(dayjs().toISOString());
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<IIdeas[]>();
   const [dataInfo, setDataInfo] = useState({ totalDocs: 0 });
   const [current, setCurrent] = useState(1);
   const [pageSize, setPageSize] = useState(9);
@@ -68,13 +69,12 @@ const RecordsMain = () => {
         isLiked,
       };
 
-      const { data } = await API.post(`/ideas/search`, requestBody, {
-        errorHandle: false,
+      const { ideas, totalDocs } = await recordsRepository.searchRecords({
+        requestBody,
       });
-      const records = data.data.ideas;
 
-      setResults(records);
-      setDataInfo({ totalDocs: data.data.paginateData.pagination.total });
+      setResults(ideas);
+      setDataInfo({ totalDocs });
     } catch (error: any) {
       console.log(error.message);
       message.error("Search query is not valid");
