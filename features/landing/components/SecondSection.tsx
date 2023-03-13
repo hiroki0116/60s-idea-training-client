@@ -1,12 +1,13 @@
 import MotionDivWhenView from "components/layouts/MotionDivWhenView";
 import { PRIMARY_COLOR } from "utils/constants";
+// third party
 import LineChartOutlined from "@ant-design/icons/LineChartOutlined";
 import HeartOutlined from "@ant-design/icons/HeartOutlined";
 import HighlightOutlined from "@ant-design/icons/HighlightOutlined";
+// types
+import { Content } from "features/landing/types/Content";
 
 const SecondSection = () => {
-  type Content = { title: string; body: string; icon: any };
-
   const contents: Content[] = [
     {
       title: "Better thinking availability",
