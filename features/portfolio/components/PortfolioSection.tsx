@@ -1,23 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
+// third party
 import Tag from "antd/lib/tag";
 import ToolOutlined from "@ant-design/icons/lib/icons/ToolOutlined";
+// utils
 import {
   tagsFirstClient,
   tagsFirstServer,
   tagsSecondClient,
   tagsSecondServer,
 } from "utils/constants";
-
-type Portfolio = {
-  title: string;
-  description: string;
-  src1: string;
-  src2: string;
-  url: string;
-  clientTags: string[];
-  serverTags: string[];
-};
+// types
+import { Portfolio } from "../types/Portfolio";
 
 const PortfolioSection = () => {
   const contents: Portfolio[] = [
