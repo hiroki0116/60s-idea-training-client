@@ -1,25 +1,13 @@
 import { API } from "api-client/api-client";
 
 type RecordRepository = {
-  updateComment: ({
-    comment,
-    id,
-  }: {
-    comment: string;
-    id: string;
-  }) => Promise<void>;
+  updateRecord: (id: string, reqBody: any) => Promise<void>;
 };
 
-const updateComment = async ({
-  comment,
-  id,
-}: {
-  comment: string;
-  id: string;
-}) => {
-  await API.put(`/ideas/${id}`, { comment });
+const updateRecord = async (id: string, reqBody): Promise<void> => {
+  await API.put(`/ideas/${id}`, { ...reqBody }, { errorHandle: false });
 };
 
 export const recordRepository: RecordRepository = {
-  updateComment,
+  updateRecord,
 };

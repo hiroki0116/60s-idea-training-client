@@ -14,7 +14,7 @@ export const useUpdateComment = ({
   const updateComment = async () => {
     try {
       setCommentLoading(true);
-      await recordRepository.updateComment({ comment, id });
+      await recordRepository.updateRecord(id, { comment: comment });
       setCommentLoading(false);
     } catch (error: any) {
       message.error(error.message);
