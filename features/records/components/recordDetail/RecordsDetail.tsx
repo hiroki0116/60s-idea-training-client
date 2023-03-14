@@ -9,11 +9,8 @@ import message from "antd/lib/message";
 import notification from "antd/lib/notification";
 import Select from "antd/lib/select";
 import Spin from "antd/lib/spin";
-
 import { Editor } from "@tinymce/tinymce-react";
 import dayjs from "dayjs";
-import { useMutation } from "@apollo/client";
-
 // Icons
 import FieldTimeOutlined from "@ant-design/icons/FieldTimeOutlined";
 import TagOutlined from "@ant-design/icons/TagOutlined";
@@ -30,6 +27,7 @@ import { capitalizeFirst } from "utils/formatter";
 import { CATEGORIES } from "utils/constants";
 import { IIdeas } from "api-client/models/Ideas";
 import CenterSpin from "components/elements/CenterSpin";
+import { useUpdateComment } from "features/records/hooks/useUpdateComment";
 
 const { Option } = Select;
 
@@ -39,28 +37,12 @@ const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
   );
   const [comment, setComment] = useState<string>(ideaRecord?.comment || "");
   const [isLiked, setIsLiked] = useState<boolean>(ideaRecord?.isLiked);
-  const [commentLoading, setCommentLoading] = useState<boolean>(false);
   const [likeLoading, setLikeLoading] = useState<boolean>(false);
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+  // hooks
   const { theme, systemTheme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
-  // const [deleteIdeaRecord, deleteIdeaRecordRes] = useMutation(DELETE_IDEA_RECORD);
-  // const DeleteIdeaRecord = () => deleteIdeaRecord({ variables: { id: router.query.id.toString() } });
-
-  // useEffect(() => {
-  //   if (deleteIdeaRecordRes?.data?.deleteIdeaRecord) {
-  //     message.success("Successfully Deleted!");
-  //     router.push("/records");
-  //   }
-  //   if (deleteIdeaRecordRes?.error) {
-  //     message.error("Failed to delete idea record.");
-  //   }
-  //   //eslint-disable-next-line
-  // }, [deleteIdeaRecordRes?.data?.deleteIdeaRecord]);
-  useEffect(() => {
-    updateComment();
-    //eslint-disable-next-line
-  }, [comment]);
+  const { commentLoading } = useUpdateComment({ comment, id: ideaRecord._id });
 
   useEffect(() => {
     changeViewStatus(ideaRecord?._id);
@@ -108,20 +90,6 @@ const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
       if (data.success) {
         openNotification();
       }
-    } catch (error: any) {
-      message.error(error.message);
-    }
-  };
-
-  const updateComment = async () => {
-    try {
-      setCommentLoading(true);
-      await API.put(
-        `/ideas/${ideaRecord?._id}`,
-        { comment },
-        { errorHandle: false }
-      );
-      setCommentLoading(false);
     } catch (error: any) {
       message.error(error.message);
     }

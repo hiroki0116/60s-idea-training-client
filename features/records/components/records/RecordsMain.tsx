@@ -36,6 +36,7 @@ const RecordsMain = () => {
   );
   // hooks
   const { theme, systemTheme } = useTheme();
+  const currentTheme = theme === "system" ? systemTheme : theme;
   const { results, dataInfo, loading, handleSubmit } = useSubmit({
     searchInput,
     category,
@@ -46,7 +47,6 @@ const RecordsMain = () => {
     sortByRecent,
     isLiked,
   });
-  const currentTheme = theme === "system" ? systemTheme : theme;
 
   const handlePageChange = (page: number, pageSize: number) => {
     setCurrent(page);
