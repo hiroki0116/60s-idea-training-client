@@ -5,8 +5,8 @@ import Avatar from "antd/lib/avatar";
 import MailOutlined from "@ant-design/icons/MailOutlined";
 import KeyOutlined from "@ant-design/icons/KeyOutlined";
 //Components
-import { ChangeEmailModal } from "features/settings/ChangeEmailModal";
-import { ChangePasswordModal } from "features/settings/ChangePasswordModal";
+import { ChangeEmailModal } from "features/settings/components/ChangeEmailModal";
+import { ChangePasswordModal } from "features/settings/components/ChangePasswordModal";
 
 const { Meta } = Card;
 

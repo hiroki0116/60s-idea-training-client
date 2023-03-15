@@ -2,16 +2,14 @@ import { useState } from "react";
 //Components
 import LoginRequired from "features/auth/components/LoginRequired";
 //Third Party
-import message from "antd/lib/message";
 import Modal from "antd/lib/modal";
 import Spin from "antd/lib/spin";
 import Form from "antd/lib/form";
 import Input from "antd/lib/input";
 import Button from "antd/lib/button";
-import { updatePassword } from "firebase/auth";
 //Utils
-import { auth } from "utils/firebase";
 import { isAuth } from "utils/auth";
+import useUpdatePassword from "../hooks/useUpdatePassword";
 
 type modalProps = {
   showChangePasswordModal: boolean;
@@ -44,22 +42,10 @@ const ChangePassword = ({
 }: {
   setShowChangePasswordModal: (boolean) => void;
 }) => {
-  const [password, setPassword] = useState("");
+  const { password, setPassword, handleSubmit, loading } = useUpdatePassword(
+    setShowChangePasswordModal
+  );
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async () => {
-    setLoading(true);
-    try {
-      await updatePassword(auth.currentUser, password);
-      setLoading(false);
-      setShowChangePasswordModal(false);
-      message.success("Password update success.");
-    } catch (err) {
-      setLoading(false);
-      message.error("Please login again. Your session has been expired.");
-    }
-  };
 
   const passwordChangeForm = () => (
     <Form className="w-full" onFinish={handleSubmit}>

@@ -3,7 +3,7 @@ export const LOGO_IMAGE =
 export const IDEA_IMAGE =
   "https://res.cloudinary.com/sixty-seconds-idea-training-project/image/upload/v1656157908/ApplicationLayout/firstSection_hxlmob.png";
 export const SETTING_BACKGROUND =
-  "https://res.cloudinary.com/sixty-seconds-idea-training-project/image/upload/v1656157908/ApplicationLayout/background-profile_ficstp.jpg";
+  "https://res.cloudinary.com/sixty-seconds-idea-training-project/image/upload/v1678879717/17545_ljz2jk.jpg";
 export const DESKTOP_MOCKUP =
   "https://res.cloudinary.com/sixty-seconds-idea-training-project/image/upload/v1656679224/ApplicationLayout/smartmockups_l52g0zcm_um3kcs.jpg";
 export const THIRD_SECTION =

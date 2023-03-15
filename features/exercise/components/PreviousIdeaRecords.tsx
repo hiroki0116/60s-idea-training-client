@@ -3,7 +3,6 @@ import { useTheme } from "next-themes";
 import { useState, useContext } from "react";
 // components
 import { ExerciseContext } from "features/exercise/stores/context/exerciseContext";
-import CenterSpin from "components/elements/CenterSpin";
 // third parties
 import Tag from "antd/lib/tag";
 import Empty from "antd/lib/empty";
@@ -13,6 +12,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { motion } from "framer-motion";
 // utils
 import { fadeInRight } from "utils/animations";
+import CenterSpin from "components/elements/CenterSpin";
 dayjs.extend(relativeTime);
 
 const PreviousIdeaRecords = () => {
@@ -20,7 +20,6 @@ const PreviousIdeaRecords = () => {
   const { theme, systemTheme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
   const [mouseOver, setMouseOver] = useState<Boolean>(false);
-  if (loadingPrevSessions) return <CenterSpin />;
 
   return (
     <motion.div
@@ -42,7 +41,9 @@ const PreviousIdeaRecords = () => {
       >
         Most 5 Recent Sessions
       </h2>
-      {!prevSessions?.length ? (
+      {loadingPrevSessions ? (
+        <CenterSpin />
+      ) : !prevSessions?.length ? (
         <Empty description="No Data Yet." />
       ) : (
         prevSessions.map((session) => (
@@ -85,7 +86,6 @@ const PreviousIdeaRecords = () => {
           </div>
         ))
       )}
-      {/* TO DO 'set Load more */}
       <div className="flex justify-center">
         <div className="mt-3 border-b w-1/3" />
       </div>

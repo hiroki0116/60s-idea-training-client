@@ -89,7 +89,7 @@ export const getCookie = (key: string, req?: any) => {
   return cookie.get(key);
 };
 
-export const setLocalStorage = (key: string, value: string) => {
+export const setLocalStorage = (key: string, value: IUser) => {
   if (typeof window) {
     localStorage.setItem(key, JSON.stringify(value));
   }

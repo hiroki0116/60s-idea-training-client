@@ -1,19 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-
 // Third Party
 import Tag from "antd/lib/tag";
 import Input from "antd/lib/input";
 import message from "antd/lib/message";
-import notification from "antd/lib/notification";
 import Select from "antd/lib/select";
 import Spin from "antd/lib/spin";
-
 import { Editor } from "@tinymce/tinymce-react";
 import dayjs from "dayjs";
-import { useMutation } from "@apollo/client";
-
 // Icons
 import FieldTimeOutlined from "@ant-design/icons/FieldTimeOutlined";
 import TagOutlined from "@ant-design/icons/TagOutlined";
@@ -25,74 +20,38 @@ import StarFilled from "@ant-design/icons/StarFilled";
 // App
 import MotionDiv from "components/layouts/MotionDiv";
 import ThreeDotsMenu from "./ThreeDotsMenu";
-import { API } from "api-client/api-client";
 import { capitalizeFirst } from "utils/formatter";
 import { CATEGORIES } from "utils/constants";
 import { IIdeas } from "api-client/models/Ideas";
 import CenterSpin from "components/elements/CenterSpin";
+import { useUpdateComment } from "features/records/hooks/useUpdateComment";
+import { useViewStatus } from "features/records/hooks/useViewStatus";
+// utils
+import { openNotification } from "features/records/utils/antdNotification";
+import { recordRepository } from "api-client/repositories/record_repository";
 
 const { Option } = Select;
 
 const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
+  const [comment, setComment] = useState<string>(ideaRecord?.comment || "");
+  const [isLiked, setIsLiked] = useState<boolean>(ideaRecord?.isLiked);
+  const [likeLoading, setLikeLoading] = useState<boolean>(false);
+  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
   const [topicTitle, setTopicTitle] = useState<string>(
     ideaRecord?.topicTitle || ""
   );
-  const [comment, setComment] = useState<string>(ideaRecord?.comment || "");
-  const [isLiked, setIsLiked] = useState<boolean>(ideaRecord?.isLiked);
-  const [commentLoading, setCommentLoading] = useState<boolean>(false);
-  const [likeLoading, setLikeLoading] = useState<boolean>(false);
-  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+  // hooks
+  useViewStatus(ideaRecord?._id);
   const { theme, systemTheme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
-  // const [deleteIdeaRecord, deleteIdeaRecordRes] = useMutation(DELETE_IDEA_RECORD);
-  // const DeleteIdeaRecord = () => deleteIdeaRecord({ variables: { id: router.query.id.toString() } });
-
-  // useEffect(() => {
-  //   if (deleteIdeaRecordRes?.data?.deleteIdeaRecord) {
-  //     message.success("Successfully Deleted!");
-  //     router.push("/records");
-  //   }
-  //   if (deleteIdeaRecordRes?.error) {
-  //     message.error("Failed to delete idea record.");
-  //   }
-  //   //eslint-disable-next-line
-  // }, [deleteIdeaRecordRes?.data?.deleteIdeaRecord]);
-  useEffect(() => {
-    updateComment();
-    //eslint-disable-next-line
-  }, [comment]);
-
-  useEffect(() => {
-    changeViewStatus(ideaRecord?._id);
-    // eslint-disable-next-line
-  }, []);
-
-  const changeViewStatus = async (id: string) => {
-    try {
-      await API.put(`/ideas/${id}`, { viewed: true }, { errorHandle: false });
-    } catch (error: any) {
-      message.error(error.message);
-    }
-  };
-
-  const openNotification = () => {
-    notification.success({
-      message: `Successfully updated!`,
-      duration: 2.5,
-      placement: "bottomRight",
-    });
-  };
-
+  const { commentLoading } = useUpdateComment({ comment, id: ideaRecord?._id });
+  // handlers
   const updateTopicTitle = async () => {
     try {
-      const { data } = await API.put(
-        `/ideas/${ideaRecord?._id}`,
-        { topicTitle },
-        { errorHandle: false }
-      );
-      if (data.success) {
-        openNotification();
-      }
+      await recordRepository.updateRecord(ideaRecord?._id, {
+        topicTitle: topicTitle,
+      });
+      openNotification();
     } catch (error: any) {
       message.error(error.message);
     }
@@ -100,28 +59,10 @@ const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
 
   const updateCategory = async (category: string) => {
     try {
-      const { data } = await API.put(
-        `/ideas/${ideaRecord?._id}`,
-        { category },
-        { errorHandle: false }
-      );
-      if (data.success) {
-        openNotification();
-      }
-    } catch (error: any) {
-      message.error(error.message);
-    }
-  };
-
-  const updateComment = async () => {
-    try {
-      setCommentLoading(true);
-      await API.put(
-        `/ideas/${ideaRecord?._id}`,
-        { comment },
-        { errorHandle: false }
-      );
-      setCommentLoading(false);
+      await recordRepository.updateRecord(ideaRecord?._id, {
+        category: category,
+      });
+      openNotification();
     } catch (error: any) {
       message.error(error.message);
     }
@@ -131,11 +72,9 @@ const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
     try {
       setLikeLoading(true);
       setIsLiked(!isLiked);
-      await API.put(
-        `/ideas/${ideaRecord?._id}`,
-        { isLiked: !isLiked },
-        { errorHandle: false }
-      );
+      await recordRepository.updateRecord(ideaRecord?._id, {
+        isLiked: !isLiked,
+      });
     } catch (error: any) {
       message.error(error.message);
     } finally {

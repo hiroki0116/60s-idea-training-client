@@ -11,8 +11,8 @@ import UploadOutlined from "@ant-design/icons/UploadOutlined";
 import DeleteFilled from "@ant-design/icons/DeleteFilled";
 //Utils
 import { currAuthUser, setLocalStorage } from "utils/auth";
-import { API } from "api-client/api-client";
 import { DEFAULT_USER_IMAGE } from "utils/constants";
+import { userRespository } from "api-client/repositories/user_repository";
 
 const ProfileImage = () => {
   const [dragOver, setDragOver] = useState(false);
@@ -25,17 +25,16 @@ const ProfileImage = () => {
     try {
       setShowConfirm(false);
       setLoading(true);
-      await API.put("/users/images", {
-        public_id: currAuthUser().images[0].public_id,
-      });
-      //Update user in db
-      const response = await API.put(`/users/${currAuthUser()?._id}`, {
+      // update in cloudinary
+      await userRespository.updateProfileImage(
+        currAuthUser()?.images[0]?.public_id
+      );
+      // update user in db
+      const response = await userRespository.updateUser(currAuthUser()?._id, {
         images: [{ about: `default`, url: DEFAULT_USER_IMAGE }],
       });
-      //Update context
-      setUser(response.data.data);
-      //Update local storage
-      setLocalStorage("user", response.data.data);
+      setUser(response);
+      setLocalStorage("user", response);
     } catch (error: any) {
       message.error(error.message);
     } finally {
@@ -60,9 +59,9 @@ const ProfileImage = () => {
         message.error("Please upload JPG or PNG file.");
         return;
       }
-      const folder = `${process.env.NEXT_PUBLIC_STAGE}/users/user_profile/${
-        currAuthUser()._id
-      }`;
+      const cloudinaryFolder = `${
+        process.env.NEXT_PUBLIC_STAGE
+      }/users/user_profile/${currAuthUser()._id}`;
       Resizer.imageFileResizer(
         file,
         500,
@@ -72,27 +71,30 @@ const ProfileImage = () => {
         0,
         async (uri) => {
           setLoading(true);
-          const response = await API.post("/users/images", {
-            image: uri,
-            folder,
-          });
-          await API.put("/users/images", {
-            public_id: currAuthUser().images[0].public_id,
-          });
+          const response = await userRespository.createProfileImage(
+            uri,
+            cloudinaryFolder
+          );
+          await userRespository.updateProfileImage(
+            currAuthUser().images[0].public_id
+          );
           //Update user in db
-          const userRes = await API.put(`/users/${currAuthUser()?._id}`, {
-            images: [
-              {
-                about: `profile_image_${currAuthUser()?.firstName}`,
-                url: response.data.data.url,
-                public_id: response.data.data.public_id,
-              },
-            ],
-          });
+          const userRes = await userRespository.updateUser(
+            currAuthUser()?._id,
+            {
+              images: [
+                {
+                  about: `profile_image_${currAuthUser()?.firstName}`,
+                  url: response.url,
+                  public_id: response.public_id,
+                },
+              ],
+            }
+          );
           //Update context
-          setUser(userRes.data.data);
+          setUser(userRes);
           //Update local storage
-          setLocalStorage("user", userRes.data.data);
+          setLocalStorage("user", userRes);
           setLoading(false);
         },
         "base64",
@@ -120,9 +122,9 @@ const ProfileImage = () => {
         return;
       }
 
-      const folder = `${process.env.NEXT_PUBLIC_STAGE}/users/user_profile/${
-        currAuthUser()._id
-      }`;
+      const cloudinaryFolder = `${
+        process.env.NEXT_PUBLIC_STAGE
+      }/users/user_profile/${currAuthUser()?._id}`;
 
       Resizer.imageFileResizer(
         file,
@@ -133,29 +135,26 @@ const ProfileImage = () => {
         0,
         async (uri) => {
           setLoading(true);
-          const response = await API.post("/users/images", {
-            image: uri,
-            folder,
-          });
-
-          await API.put("/users/images", {
-            public_id: response.data.public_id,
-          });
-
-          //Update user in db
-          const userRes = await API.put(`/users/${currAuthUser()?._id}`, {
-            images: [
-              {
-                about: `profile_image_${currAuthUser()?.firstName}`,
-                url: response.data.data.url,
-                public_id: response.data.data.public_id,
-              },
-            ],
-          });
-          //Update context
-          setUser(userRes.data.data);
-          //Update local storage
-          setLocalStorage("user", userRes.data.data);
+          const response = await userRespository.createProfileImage(
+            uri,
+            cloudinaryFolder
+          );
+          await userRespository.updateProfileImage(response.public_id);
+          // update user in db
+          const userRes = await userRespository.updateUser(
+            currAuthUser()?._id,
+            {
+              images: [
+                {
+                  about: `profile_image_${currAuthUser()?.firstName}`,
+                  url: response.url,
+                  public_id: response.public_id,
+                },
+              ],
+            }
+          );
+          setUser(userRes);
+          setLocalStorage("user", userRes);
           setLoading(false);
         },
         "base64",

@@ -6,7 +6,7 @@ const CenterSpin = ({
   size?: "default" | "small" | "large" | undefined;
 }) => {
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center items-center">
       <Spin size={size} />
     </div>
   );

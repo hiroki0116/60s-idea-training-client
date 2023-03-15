@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
-import Link from "next/link";
 import { useTheme } from "next-themes";
+import { useState } from "react";
+import Link from "next/link";
 //Utils
 import { CATEGORIES, DEFAULT_CREATED_AT } from "utils/constants";
 //Third Party
 import Input from "antd/lib/input";
 import Select from "antd/lib/select";
-import message from "antd/lib/message";
 import Tag from "antd/lib/tag";
 import Empty from "antd/lib/empty";
 import Pagination from "antd/lib/pagination";
@@ -20,68 +19,34 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import MotionDiv from "components/layouts/MotionDiv";
 import CenterSpin from "components/elements/CenterSpin";
 import DatePicker from "components/elements/DatePicker";
-import { recordsRepository } from "features/records/repositories/repository_records";
-import { IIdeas } from "api-client/models/Ideas";
+//Hooks
+import { useSubmit } from "features/records/hooks/useSubmit";
+dayjs.extend(relativeTime);
 
 const RecordsMain = () => {
-  const [loading, setLoading] = useState<boolean>(false);
   const [searchInput, setSearchInput] = useState<string>("");
   const [category, setCategory] = useState<string | undefined>(undefined);
-  const [createdAtFrom, setCreatedAtFrom] = useState(
-    dayjs(DEFAULT_CREATED_AT).toISOString()
-  );
-  const [createdAtTo, setCreatedAtTo] = useState(dayjs().toISOString());
-  const [results, setResults] = useState<IIdeas[]>();
-  const [dataInfo, setDataInfo] = useState({ totalDocs: 0 });
   const [current, setCurrent] = useState(1);
   const [pageSize, setPageSize] = useState(9);
   const [sortByRecent, setSortByRecent] = useState(true);
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [createdAtTo, setCreatedAtTo] = useState(dayjs().toISOString());
+  const [createdAtFrom, setCreatedAtFrom] = useState<string>(
+    dayjs(DEFAULT_CREATED_AT).toISOString()
+  );
+  // hooks
   const { theme, systemTheme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
-  dayjs.extend(relativeTime);
-
-  useEffect(() => {
-    handleSubmit();
-    // eslint-disable-next-line
-  }, [
+  const { results, dataInfo, loading, handleSubmit } = useSubmit({
     searchInput,
+    category,
+    createdAtFrom,
+    createdAtTo,
     current,
     pageSize,
-    category,
-    createdAtTo,
-    createdAtFrom,
     sortByRecent,
     isLiked,
-  ]);
-
-  const handleSubmit = async () => {
-    try {
-      setLoading(true);
-      const requestBody = {
-        searchInput: searchInput.trim(),
-        category,
-        createdAtFrom,
-        createdAtTo,
-        current,
-        pageSize,
-        sortByRecent,
-        isLiked,
-      };
-
-      const { ideas, totalDocs } = await recordsRepository.searchRecords({
-        requestBody,
-      });
-
-      setResults(ideas);
-      setDataInfo({ totalDocs });
-    } catch (error: any) {
-      console.log(error.message);
-      message.error("Search query is not valid");
-    } finally {
-      setLoading(false);
-    }
-  };
+  });
 
   const handlePageChange = (page: number, pageSize: number) => {
     setCurrent(page);
