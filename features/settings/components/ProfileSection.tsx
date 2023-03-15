@@ -8,8 +8,8 @@ import { SETTING_BACKGROUND } from "utils/constants";
 import { capitalizeFirst } from "utils/formatter";
 //Components
 import MotionDiv from "components/layouts/MotionDiv";
-import ProfileImage from "features/settings/ProfileImage";
-import SettingSection from "features/settings/SettingSection";
+import ProfileImage from "features/settings/components/ProfileImage";
+import SettingSection from "features/settings/components/SettingSection";
 
 const ProfileSection = () => {
   const { user } = useContext(AuthContext);
