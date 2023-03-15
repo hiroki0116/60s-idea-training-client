@@ -13,6 +13,8 @@ import DeleteFilled from "@ant-design/icons/DeleteFilled";
 import { currAuthUser, setLocalStorage } from "utils/auth";
 import { API } from "api-client/api-client";
 import { DEFAULT_USER_IMAGE } from "utils/constants";
+import { imageRepository } from "api-client/repositories/image_repository";
+import { userRespository } from "api-client/repositories/user_repository";
 
 const ProfileImage = () => {
   const [dragOver, setDragOver] = useState(false);
@@ -25,17 +27,16 @@ const ProfileImage = () => {
     try {
       setShowConfirm(false);
       setLoading(true);
-      await API.put("/users/images", {
-        public_id: currAuthUser().images[0].public_id,
-      });
-      //Update user in db
-      const response = await API.put(`/users/${currAuthUser()?._id}`, {
+      // update in cloudinary
+      await imageRepository.updateProfileImage();
+      // update user in db
+      const data = await userRespository.updateUser(currAuthUser()?._id, {
         images: [{ about: `default`, url: DEFAULT_USER_IMAGE }],
       });
       //Update context
-      setUser(response.data.data);
+      setUser(data);
       //Update local storage
-      setLocalStorage("user", response.data.data);
+      setLocalStorage("user", String(data));
     } catch (error: any) {
       message.error(error.message);
     } finally {
