@@ -11,36 +11,16 @@ import UploadOutlined from "@ant-design/icons/UploadOutlined";
 import DeleteFilled from "@ant-design/icons/DeleteFilled";
 //Utils
 import { currAuthUser, setLocalStorage } from "utils/auth";
-import { DEFAULT_USER_IMAGE } from "utils/constants";
 import { userRespository } from "api-client/repositories/user_repository";
+import { useDeleteProfileImage } from "../hooks/useDeleteProfileImage";
 
 const ProfileImage = () => {
   const [dragOver, setDragOver] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [showConfirm, setShowConfirm] = useState<boolean>(false);
   const [showDelete, setShowDelete] = useState<boolean>(false);
   const { setUser } = useContext(AuthContext);
-
-  const handleDeleteAvatar = async () => {
-    try {
-      setShowConfirm(false);
-      setLoading(true);
-      // update in cloudinary
-      await userRespository.updateProfileImage(
-        currAuthUser()?.images[0]?.public_id
-      );
-      // update user in db
-      const response = await userRespository.updateUser(currAuthUser()?._id, {
-        images: [{ about: `default`, url: DEFAULT_USER_IMAGE }],
-      });
-      setUser(response);
-      setLocalStorage("user", response);
-    } catch (error: any) {
-      message.error(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { showConfirm, setShowConfirm, deleteLoading, handleDeleteAvatar } =
+    useDeleteProfileImage();
 
   const onDragLeave = () => setDragOver(false);
   const onDragOver = (e: React.SyntheticEvent) => {
@@ -48,69 +28,19 @@ const ProfileImage = () => {
     setDragOver(true);
   };
   const onDrop = async (e: any) => {
-    try {
-      e.preventDefault();
-      setLoading(true);
-      setDragOver(false);
-      const file = e?.dataTransfer?.files[0];
-      const isJpgOrPng =
-        file.type === "image/jpeg" || file.type === "image/png";
-      if (!isJpgOrPng) {
-        message.error("Please upload JPG or PNG file.");
-        return;
-      }
-      const cloudinaryFolder = `${
-        process.env.NEXT_PUBLIC_STAGE
-      }/users/user_profile/${currAuthUser()._id}`;
-      Resizer.imageFileResizer(
-        file,
-        500,
-        500,
-        "JPEG",
-        100,
-        0,
-        async (uri) => {
-          setLoading(true);
-          const response = await userRespository.createProfileImage(
-            uri,
-            cloudinaryFolder
-          );
-          await userRespository.updateProfileImage(
-            currAuthUser().images[0].public_id
-          );
-          //Update user in db
-          const userRes = await userRespository.updateUser(
-            currAuthUser()?._id,
-            {
-              images: [
-                {
-                  about: `profile_image_${currAuthUser()?.firstName}`,
-                  url: response.url,
-                  public_id: response.public_id,
-                },
-              ],
-            }
-          );
-          //Update context
-          setUser(userRes);
-          //Update local storage
-          setLocalStorage("user", userRes);
-          setLoading(false);
-        },
-        "base64",
-        200,
-        200
-      );
-    } catch (error: any) {
-      message.error("Upload error");
-    } finally {
-      setLoading(false);
-    }
+    e.preventDefault();
+    setDragOver(false);
+    const file = e?.dataTransfer?.files[0];
+    await handleChangeAvatar(file);
   };
 
-  const handleChangeAvatar = async (e: any) => {
+  const inputChangeAvatar = async (e: any) => {
+    const file = e.target.files[0];
+    await handleChangeAvatar(file);
+  };
+
+  const handleChangeAvatar = async (file: any): Promise<void> => {
     try {
-      const file = e.target.files[0];
       const isJpgOrPng =
         file.type === "image/jpeg" || file.type === "image/png";
       if (!isJpgOrPng) {
@@ -178,7 +108,7 @@ const ProfileImage = () => {
           onMouseEnter={() => setShowDelete(true)}
           onMouseLeave={() => setShowDelete(false)}
         >
-          <Spin spinning={loading}>
+          <Spin spinning={loading || deleteLoading}>
             <DeleteFilled
               hidden={!showDelete}
               onClick={() => setShowConfirm(true)}
@@ -198,7 +128,7 @@ const ProfileImage = () => {
             dragOver ? "bg-blue-50 border" : "border-dashed"
           }`}
         >
-          <Spin spinning={loading}>
+          <Spin spinning={loading || deleteLoading}>
             <label
               htmlFor="file_upload"
               onDragOver={onDragOver}
@@ -215,7 +145,7 @@ const ProfileImage = () => {
                     type="file"
                     id="file_upload"
                     accept=".png, .jpg"
-                    onChange={handleChangeAvatar}
+                    onChange={inputChangeAvatar}
                   />
                 </div>
               </div>
