@@ -1,7 +1,7 @@
 import { useState, useContext, Dispatch, SetStateAction } from "react";
 import { AuthContext } from "features/auth/stores/context/authContext";
 import { DEFAULT_USER_IMAGE } from "utils/constants";
-import { currAuthUser, setLocalStorage } from "utils/auth";
+import { currAuthUser, setLocalStorage } from "utils/auth_functions";
 import { userRespository } from "api-client/repositories/user_repository";
 import message from "antd/lib/message";
 

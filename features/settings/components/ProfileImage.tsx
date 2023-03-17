@@ -10,7 +10,7 @@ import message from "antd/lib/message";
 import UploadOutlined from "@ant-design/icons/UploadOutlined";
 import DeleteFilled from "@ant-design/icons/DeleteFilled";
 //Utils
-import { currAuthUser, setLocalStorage } from "utils/auth";
+import { currAuthUser, setLocalStorage } from "utils/auth_functions";
 import { userRespository } from "api-client/repositories/user_repository";
 import { useDeleteProfileImage } from "../hooks/useDeleteProfileImage";
 

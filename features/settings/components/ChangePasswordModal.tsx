@@ -8,7 +8,7 @@ import Form from "antd/lib/form";
 import Input from "antd/lib/input";
 import Button from "antd/lib/button";
 //Utils
-import { isAuth } from "utils/auth";
+import { isAuth } from "utils/auth_functions";
 import useUpdatePassword from "../hooks/useUpdatePassword";
 
 type modalProps = {

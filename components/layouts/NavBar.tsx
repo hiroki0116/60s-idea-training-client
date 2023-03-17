@@ -6,7 +6,7 @@ import { SignUpOrLoginModal } from "features/auth/components/SignUpOrLogin";
 import { LoginModal } from "features/auth/components/Login";
 import { RegisterModal } from "features/auth/components/Signup";
 // utils
-import { isAuth } from "utils/auth";
+import { isAuth } from "utils/auth_functions";
 import { LOGO_IMAGE } from "utils/constants";
 import Button from "antd/lib/button";
 

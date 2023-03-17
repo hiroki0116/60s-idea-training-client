@@ -8,8 +8,8 @@ import Drawer from "antd/lib/drawer";
 import _ from "lodash";
 import MenuOutlined from "@ant-design/icons/MenuFoldOutlined";
 // utils
-import { currAuthUser } from "utils/auth";
-import { handleLogout } from "utils/auth";
+import { currAuthUser } from "utils/auth_functions";
+import { handleLogout } from "utils/auth_functions";
 
 const MobileMenu = () => {
   const { setUser } = useContext(AuthContext);

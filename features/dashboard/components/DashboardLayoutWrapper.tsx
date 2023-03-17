@@ -10,9 +10,9 @@ import FireFilled from "@ant-design/icons/FireFilled";
 import SignalFilled from "@ant-design/icons/SignalFilled";
 import SettingFilled from "@ant-design/icons/SettingFilled";
 //Utils
-import { currAuthUser, isAuth } from "utils/auth";
+import { currAuthUser, isAuth } from "utils/auth_functions";
 import { capitalizeFirst } from "utils/formatter";
-import { handleLogout } from "utils/auth";
+import { handleLogout } from "utils/auth_functions";
 import { IUser } from "api-client/models/User";
 //Components
 import LoginRequired from "features/auth/components/LoginRequired";

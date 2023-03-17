@@ -9,14 +9,14 @@ import Modal from "antd/lib/modal";
 import Typography from "antd/lib/typography";
 import message from "antd/lib/message";
 //Utils
-import { auth } from "utils/firebase";
+import { auth } from "config/firebase";
 import {
   signInWithEmailAndPassword,
   updateEmail,
   setPersistence,
   browserLocalPersistence,
 } from "firebase/auth";
-import { currAuthUser, saveUserAndToken } from "utils/auth";
+import { currAuthUser, saveUserAndToken } from "utils/auth_functions";
 import { APIWithoutAuth, API } from "api-client/api-client";
 
 type modalProps = {

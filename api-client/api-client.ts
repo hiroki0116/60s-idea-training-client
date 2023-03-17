@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import Router from "next/router";
-import { getCookie, setCookie, isAuth } from "../utils/auth";
+import { getCookie, setCookie, isAuth } from "../utils/auth_functions";
 
 declare module "axios" {
   export interface AxiosRequestConfig {

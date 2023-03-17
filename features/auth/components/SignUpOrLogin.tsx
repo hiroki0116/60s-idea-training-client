@@ -11,7 +11,7 @@ import Divider from "antd/lib/divider";
 import GoogleOutlined from "@ant-design/icons/GoogleOutlined";
 // utils
 import { APIWithoutAuth } from "api-client/api-client";
-import { signInWithGoogle } from "utils/auth";
+import { signInWithGoogle } from "utils/auth_functions";
 import { AuthContext } from "features/auth/stores/context/authContext";
 
 const SignUpOrLoginModal = () => {
