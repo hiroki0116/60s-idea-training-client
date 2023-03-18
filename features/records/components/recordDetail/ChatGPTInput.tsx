@@ -21,7 +21,7 @@ const ChatGPTInput = ({
     try {
       setLoading(true);
       const { result } = await getGPTData(input);
-      setComment(comment + "\n\n" + result);
+      setComment(comment + "\n" + result);
       setInput("");
     } catch (error) {
       message.error("Failed to fetch GPT response");
@@ -87,7 +87,7 @@ const getGPTData = async (input: string): Promise<{ result: string }> => {
       model: "text-davinci-003",
       prompt: generatePrompt(input),
       temperature: 0.8,
-      max_tokens: 200,
+      max_tokens: 400,
     });
     return { result: completion.data.choices[0].text };
   } catch (error: any) {
