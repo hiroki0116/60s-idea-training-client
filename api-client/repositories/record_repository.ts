@@ -3,12 +3,18 @@ import { IIdeas } from "api-client/models/Ideas";
 import { SearchReqBody } from "features/records/types/Records";
 
 type RecordRepository = {
+  getRecord: (id: string) => Promise<IIdeas>;
   updateRecord: (id: string, reqBody: any) => Promise<void>;
   searchRecords: ({
     requestBody,
   }: {
     requestBody: SearchReqBody;
   }) => Promise<{ ideas: IIdeas[]; totalDocs: number }>;
+};
+
+const getRecord = async (id: string): Promise<IIdeas> => {
+  const { data } = await API.get(`/ideas/${id}`);
+  return data.data;
 };
 
 const updateRecord = async (id: string, reqBody): Promise<void> => {
@@ -30,6 +36,7 @@ const searchRecords = async ({
 };
 
 export const recordRepository: RecordRepository = {
+  getRecord,
   updateRecord,
   searchRecords,
 };

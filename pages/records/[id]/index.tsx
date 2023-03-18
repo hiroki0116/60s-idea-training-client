@@ -1,19 +1,11 @@
-import { useRouter } from "next/router";
 import DashboardAuthWrapper from "features/auth/components/DashboardAuthWrapper";
 import DashboardLayoutWrapper from "features/dashboard/components/DashboardLayoutWrapper";
 import RecordsDetail from "features/records/components/recordDetail/RecordsDetail";
-import { IIdeas } from "api-client/models/Ideas";
-import { useFetcher } from "hooks/useFetcher";
 import CenterSpin from "components/elements/CenterSpin";
+import { useFetchRecord } from "features/records/hooks/useFetchRecord";
 
 const Records = () => {
-  const router = useRouter();
-  const url = `/ideas/${router?.query?.id}`;
-  const { data: ideaRecord, loading } = useFetcher<IIdeas>({
-    url,
-    initialState: undefined,
-  });
-
+  const { loading, ideaRecord } = useFetchRecord();
   return (
     <DashboardLayoutWrapper>
       <DashboardAuthWrapper>

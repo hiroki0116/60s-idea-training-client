@@ -22,7 +22,7 @@ export const useUpdateComment = ({
   };
 
   useEffect(() => {
-    updateComment();
+    if (comment) updateComment();
     //eslint-disable-next-line
   }, [comment]);
 
