@@ -1,10 +1,12 @@
 // third parties
 import Card from "antd/lib/card";
+import Statistic from "antd/lib/statistic";
 import { motion } from "framer-motion";
 import AimOutlined from "@ant-design/icons/AimOutlined";
 import LineChartOutlined from "@ant-design/icons/LineChartOutlined";
 import BulbOutlined from "@ant-design/icons/BulbOutlined";
 import CalendarOutlined from "@ant-design/icons/CalendarOutlined";
+import CountUp from "react-countup";
 // utils
 import { fadeInRight } from "utils/animations";
 import { PRIMARY_COLOR } from "utils/constants";
@@ -13,6 +15,7 @@ import useFetchTotalSessions from "../hooks/useFetchTotalSessions";
 import useFetchToday from "../hooks/useFetchToday";
 import useFetchConsecutive from "../hooks/useFetchConsecutive";
 const { Meta } = Card;
+const formatter = (value: number) => <CountUp end={value} separator="," />;
 
 const HeadCards = () => {
   const { totalIdeasSessions, loadingForTotal } = useFetchTotalSessions();
@@ -46,14 +49,20 @@ const HeadCards = () => {
                   <div className="flex flex-row w-full gap-4 justify-evenly pt-1">
                     <div className="flex flex-col text-center">
                       <div className="sm:text-3xl text-lg font-bold text-gray-800 dark:text-green-400">
-                        {todaySessions || 0}
+                        <Statistic
+                          value={todaySessions || 0}
+                          formatter={formatter}
+                        />
                       </div>
-                      <span className="text-xs text-gray-400">Sessions</span>
+                      <span className="text-sm text-gray-400">Sessions</span>
                     </div>
                     <div className="border-l-[1.5px] text-gray-400" />
                     <div className="flex flex-col text-center">
                       <div className="sm:text-3xl text-lg font-bold text-gray-800 dark:text-green-400">
-                        {todayIdeas || 0}
+                        <Statistic
+                          value={todayIdeas || 0}
+                          formatter={formatter}
+                        />
                       </div>
                       <span className="text-sm text-gray-400">Ideas</span>
                     </div>
@@ -87,7 +96,10 @@ const HeadCards = () => {
                   </div>
                   <div className="flex flex-col text-center pt-1">
                     <div className="sm:text-3xl text-lg font-bold text-gray-800 dark:text-green-400">
-                      {totalIdeasSessions?.totalSessions || 0}{" "}
+                      <Statistic
+                        value={totalIdeasSessions?.totalSessions || 0}
+                        formatter={formatter}
+                      />
                     </div>
                     <span className="text-sm text-gray-400">Sessions</span>
                   </div>
@@ -120,7 +132,10 @@ const HeadCards = () => {
                   </div>
                   <div className="flex flex-col text-center pt-1">
                     <div className="sm:text-3xl text-lg font-bold text-gray-800 dark:text-green-400">
-                      {totalIdeasSessions?.totalIdeas || 0}
+                      <Statistic
+                        value={totalIdeasSessions?.totalIdeas || 0}
+                        formatter={formatter}
+                      />
                     </div>
                     <span className="text-sm text-gray-400">Ideas</span>
                   </div>
@@ -153,7 +168,10 @@ const HeadCards = () => {
                   </div>
                   <div className="flex flex-col text-center pt-1">
                     <div className="sm:text-3xl text-lg font-bold text-gray-800 dark:text-green-400">
-                      {consecutiveDays || 0}
+                      <Statistic
+                        value={consecutiveDays || 0}
+                        formatter={formatter}
+                      />
                     </div>
                     <span className="text-sm text-gray-400">Days</span>
                   </div>
