@@ -29,6 +29,7 @@ import { useViewStatus } from "features/records/hooks/useViewStatus";
 // utils
 import { openNotification } from "features/records/utils/antdNotification";
 import { recordRepository } from "api-client/repositories/record_repository";
+import ChatGPTInput from "./ChatGPTInput";
 
 const { Option } = Select;
 
@@ -180,7 +181,7 @@ const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
           </div>
         </div>
         <div className="rounded-lg shadow-lg p-5 bg-slate-50 mt-3 dark:bg-slate-900">
-          <div className="flex gap-2 mb-1 relative">
+          <div className="flex gap-2 relative">
             <FileTextTwoTone className="text-base" />
             <h3 className="text-base font-bold tracking-widest dark:text-green-400">
               NOTES
@@ -191,6 +192,7 @@ const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
               </div>
             ) : null}
           </div>
+          <ChatGPTInput comment={comment} setComment={setComment} />
           <div className="grid grid-cols-1">
             <Editor
               apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}

@@ -12,7 +12,7 @@ export const useViewStatus = (id: string) => {
   };
 
   useEffect(() => {
-    changeViewStatus(id);
+    if (id) changeViewStatus(id);
     // eslint-disable-next-line
   }, [id]);
 };
