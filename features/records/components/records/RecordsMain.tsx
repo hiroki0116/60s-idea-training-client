@@ -4,7 +4,7 @@ import Link from "next/link";
 //Utils
 import { CATEGORIES, DEFAULT_CREATED_AT } from "utils/constants";
 //Third Party
-import Input from "antd/lib/input";
+import AutoComplete from "antd/lib/auto-complete";
 import Select from "antd/lib/select";
 import Tag from "antd/lib/tag";
 import Empty from "antd/lib/empty";
@@ -47,6 +47,9 @@ const RecordsMain = () => {
     sortByRecent,
     isLiked,
   });
+  const options = results?.map((result) => {
+    return { value: result.topicTitle };
+  });
 
   const handlePageChange = (page: number, pageSize: number) => {
     setCurrent(page);
@@ -63,13 +66,12 @@ const RecordsMain = () => {
         <div className="sm:flex sm:justify-around grid grid-cols-2 gap-3 w-full py-3">
           <div className="sm:w-2/6">
             <div>Keyword</div>
-            <Input.Search
-              onPressEnter={() => handleSubmit()}
-              placeholder="Search data"
-              onChange={(e) => setSearchInput(e.target.value)}
-              onSearch={() => handleSubmit()}
+            <AutoComplete
               value={searchInput}
+              options={options}
               allowClear
+              onChange={(text) => setSearchInput(text || "")}
+              style={{ width: "100%" }}
             />
           </div>
           <div className="sm:w-1/6 w-full">
