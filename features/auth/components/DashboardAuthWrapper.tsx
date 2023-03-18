@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import Spin from "antd/lib/spin";
-import { isAuth } from "utils/auth";
+import { isAuth } from "utils/auth_functions";
 import LoginRequired from "features/auth/components/LoginRequired";
 
 const DashboardAuthWrapper = ({ children }) => {

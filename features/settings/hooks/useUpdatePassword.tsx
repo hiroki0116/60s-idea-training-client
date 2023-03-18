@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { updatePassword } from "firebase/auth";
-import { auth } from "utils/firebase";
+import { auth } from "config/firebase";
 import message from "antd/lib/message";
 
 const useUpdatePassword = (

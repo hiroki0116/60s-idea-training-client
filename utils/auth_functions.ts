@@ -2,7 +2,7 @@ import { NextRouter } from "next/router";
 import cookie from "js-cookie";
 import Router from "next/router";
 import { API, APIWithoutAuth } from "../api-client/api-client";
-import { auth } from "utils/firebase";
+import { auth } from "config/firebase";
 import {
   signInWithPopup,
   GoogleAuthProvider,

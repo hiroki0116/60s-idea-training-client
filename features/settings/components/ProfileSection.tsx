@@ -3,7 +3,7 @@ import { AuthContext } from "features/auth/stores/context/authContext";
 //ThirdParty
 import EnvironmentOutlined from "@ant-design/icons/EnvironmentOutlined";
 //Utils
-import { currAuthUser } from "utils/auth";
+import { currAuthUser } from "utils/auth_functions";
 import { SETTING_BACKGROUND } from "utils/constants";
 import { capitalizeFirst } from "utils/formatter";
 //Components

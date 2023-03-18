@@ -17,10 +17,10 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 // utils
-import { auth } from "utils/firebase";
-import { saveUserAndToken } from "utils/auth";
+import { auth } from "config/firebase";
+import { saveUserAndToken } from "utils/auth_functions";
 import { APIWithoutAuth } from "api-client/api-client";
-import { signInWithGoogle } from "utils/auth";
+import { signInWithGoogle } from "utils/auth_functions";
 
 const LoginModal = () => {
   const { showLogin, setShowLogin } = useContext(AuthContext);

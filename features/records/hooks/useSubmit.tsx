@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { recordsRepository } from "../repositories/repository_records";
+import { recordRepository } from "api-client/repositories/record_repository";
 import { IIdeas } from "api-client/models/Ideas";
 import message from "antd/lib/message";
 
@@ -45,7 +45,7 @@ export const useSubmit = ({
         isLiked,
       };
 
-      const { ideas, totalDocs } = await recordsRepository.searchRecords({
+      const { ideas, totalDocs } = await recordRepository.searchRecords({
         requestBody,
       });
 

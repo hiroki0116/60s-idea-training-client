@@ -1,7 +1,7 @@
 import { useState, useEffect, createContext } from "react";
 
-import { setCookie } from "utils/auth";
-import { auth } from "../../../../utils/firebase";
+import { setCookie } from "utils/auth_functions";
+import { auth } from "../../../../config/firebase";
 
 type AuthContent = {
   user: any;

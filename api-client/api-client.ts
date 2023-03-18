@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import Router from "next/router";
-import { getCookie, setCookie, isAuth } from "../utils/auth";
+import { getCookie, setCookie, isAuth } from "../utils/auth_functions";
 
 declare module "axios" {
   export interface AxiosRequestConfig {
@@ -48,7 +48,7 @@ const errorResponseHandler = (error: any) => {
     } else if (status === 500) {
       return Router.push("/error/500");
     } else if (status === 401 || status == 403) {
-      return Router.push("/403");
+      return Router.push("/error/403");
     } else {
       console.error(error.response.data.message);
       return Promise.reject(error);

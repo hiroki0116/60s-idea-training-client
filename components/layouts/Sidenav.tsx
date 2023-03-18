@@ -12,7 +12,7 @@ import SignalFilled from "@ant-design/icons/SignalFilled";
 import SettingFilled from "@ant-design/icons/SettingFilled";
 // utils
 import { LOGO_IMAGE } from "utils/constants";
-import { handleLogout } from "utils/auth";
+import { handleLogout } from "utils/auth_functions";
 // context
 import { AuthContext } from "features/auth/stores/context/authContext";
 
