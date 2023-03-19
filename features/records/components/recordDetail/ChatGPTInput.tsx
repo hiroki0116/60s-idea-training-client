@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Button from "antd/lib/button";
 import Input from "antd/lib/input";
-import { Configuration, OpenAIApi } from "openai";
 import message from "antd/lib/message";
+import ExperimentOutlined from "@ant-design/icons/ExperimentOutlined";
+import { Configuration, OpenAIApi } from "openai";
+
 import CenterSpin from "components/elements/CenterSpin";
 
 const ChatGPTInput = ({
@@ -58,6 +60,7 @@ const ChatGPTInput = ({
             setShow(true);
           }}
           disabled={loading}
+          icon={<ExperimentOutlined />}
         >
           Ask AI for HELP
         </Button>
