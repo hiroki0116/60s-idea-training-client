@@ -58,7 +58,6 @@ const RecordsMain = () => {
     window.scroll(0, 0);
   };
 
-  if (loading) return <CenterSpin />;
   return (
     <MotionDiv>
       {/* Filter section */}
@@ -120,117 +119,123 @@ const RecordsMain = () => {
 
       {/* Results table */}
       <div className="grid grid-cols-1 p-6 w-full bg-white rounded-lg h-full shadow my-5 relative dark:bg-slate-800">
-        <div className="absolute sm:top-5 top-6 left-6">
-          <Switch
-            checked={sortByRecent}
-            onChange={() => setSortByRecent(!sortByRecent)}
-            checkedChildren="Recent"
-            unCheckedChildren="Older"
-          />
-        </div>
-        <div
-          className="flex flex-col place-items-center absolute sm:top-4 top-6 md:left-32 left-24 sm:text-lg text-xl cursor-pointer transform transition duration-500 hover:scale-110"
-          onClick={() => {
-            setIsLiked(!isLiked);
-          }}
-        >
-          {isLiked ? <StarFilled /> : <StarOutlined />}{" "}
-          <div className="text-xs sm:block hidden">Favorites</div>
-        </div>
-        <>
-          {!loading && results?.length ? (
-            <>
-              <div className="sm:mb-3 mb-5 flex sm:justify-center justify-end w-full">
-                <Pagination
-                  size="small"
-                  total={dataInfo.totalDocs}
-                  current={current}
-                  onChange={handlePageChange}
-                  pageSize={pageSize}
-                  responsive
-                  pageSizeOptions={["9", "18", "36", "50"]}
-                />
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-5 w-full">
-                {results.map((result) => (
-                  <Link key={result._id} href={`/records/${result._id}`}>
-                    <div
-                      className={`relative rounded-xl mb-2 p-5 shadow-lg border border-purple-100  hover:bg-purple-50 cursor-pointer dark:bg-slate-900 hover:dark:bg-slate-700 dark:border-none ${
-                        result.viewed ? "bg-white" : "bg-blue-50"
-                      }`}
-                      style={{ minHeight: "200px" }}
-                    >
-                      <div className="absolute top-1 left-4 text-base cursor-pointer">
-                        {result?.isLiked ? <StarFilled /> : <StarOutlined />}
-                      </div>
-                      <div className="absolute top-1 right-0 text-gray-500 text-xs">
-                        {dayjs(result?.createdAt).fromNow()}
-                        <Tag
-                          color="cyan"
-                          style={{
-                            borderRadius: "0.5rem",
-                            marginLeft: "5px",
-                          }}
-                          icon={<TagOutlined />}
-                        >
-                          {result?.category && result?.category.length
-                            ? result?.category
-                            : "Others"}
-                        </Tag>
-                      </div>
-                      <h3 className="border-l-4 pl-2 text-16 font-bold tracking-wide text-gray-700 my-4 dark:text-green-400">
-                        {result.topicTitle}
-                      </h3>
-                      {result.ideas.map((idea, index) => (
-                        <div
-                          key={index}
-                          className="mb-1 whitespace-pre-wrap break-normal"
-                        >
+        {loading ? (
+          <CenterSpin />
+        ) : (
+          <>
+            <div className="absolute sm:top-5 top-6 left-6">
+              <Switch
+                checked={sortByRecent}
+                onChange={() => setSortByRecent(!sortByRecent)}
+                checkedChildren="Recent"
+                unCheckedChildren="Older"
+              />
+            </div>
+            <div
+              className="flex flex-col place-items-center absolute sm:top-4 top-6 md:left-32 left-24 sm:text-lg text-xl cursor-pointer transform transition duration-500 hover:scale-110"
+              onClick={() => {
+                setIsLiked(!isLiked);
+              }}
+            >
+              {isLiked ? <StarFilled /> : <StarOutlined />}{" "}
+              <div className="text-xs sm:block hidden">Favorites</div>
+            </div>
+            {!loading && results?.length ? (
+              <>
+                <div className="sm:mb-3 mb-5 flex sm:justify-center justify-end w-full">
+                  <Pagination
+                    size="small"
+                    total={dataInfo.totalDocs}
+                    current={current}
+                    onChange={handlePageChange}
+                    pageSize={pageSize}
+                    responsive
+                    pageSizeOptions={["9", "18", "36", "50"]}
+                  />
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-5 w-full">
+                  {results.map((result) => (
+                    <Link key={result._id} href={`/records/${result._id}`}>
+                      <div
+                        className={`relative rounded-xl mb-2 p-5 shadow-lg border border-purple-100  hover:bg-purple-50 cursor-pointer dark:bg-slate-900 hover:dark:bg-slate-700 dark:border-none ${
+                          result.viewed ? "bg-white" : "bg-blue-50"
+                        }`}
+                        style={{ minHeight: "200px" }}
+                      >
+                        <div className="absolute top-1 left-4 text-base cursor-pointer">
+                          {result?.isLiked ? <StarFilled /> : <StarOutlined />}
+                        </div>
+                        <div className="absolute top-1 right-0 text-gray-500 text-xs">
+                          {dayjs(result?.createdAt).fromNow()}
                           <Tag
-                            color={currentTheme === "dark" ? "green" : "purple"}
+                            color="cyan"
                             style={{
                               borderRadius: "0.5rem",
-                              overflowWrap: "normal",
-                              wordBreak: "normal",
-                              whiteSpace: "normal",
+                              marginLeft: "5px",
                             }}
+                            icon={<TagOutlined />}
                           >
-                            - {idea}
+                            {result?.category && result?.category.length
+                              ? result?.category
+                              : "Others"}
                           </Tag>
                         </div>
-                      ))}
-                      {result.viewed ? (
-                        <div className="absolute bottom-1 right-2 text-xs text-red-400 uppercase">
-                          Viewed
-                        </div>
-                      ) : null}
-                    </div>
-                  </Link>
-                ))}
-              </div>
-              <div className="mt-3 flex justify-center">
-                <Pagination
-                  size="small"
-                  total={dataInfo.totalDocs}
-                  current={current}
-                  onChange={handlePageChange}
-                  pageSize={pageSize}
-                  responsive
-                  pageSizeOptions={["9", "18", "36", "50"]}
-                />
-              </div>
-            </>
-          ) : (
-            <Empty
-              description={
-                <div className="font-bold">
-                  No data yet. <br />
-                  Start your first exercise!
+                        <h3 className="border-l-4 pl-2 text-16 font-bold tracking-wide text-gray-700 my-4 dark:text-green-400">
+                          {result.topicTitle}
+                        </h3>
+                        {result.ideas.map((idea, index) => (
+                          <div
+                            key={index}
+                            className="mb-1 whitespace-pre-wrap break-normal"
+                          >
+                            <Tag
+                              color={
+                                currentTheme === "dark" ? "green" : "purple"
+                              }
+                              style={{
+                                borderRadius: "0.5rem",
+                                overflowWrap: "normal",
+                                wordBreak: "normal",
+                                whiteSpace: "normal",
+                              }}
+                            >
+                              - {idea}
+                            </Tag>
+                          </div>
+                        ))}
+                        {result.viewed ? (
+                          <div className="absolute bottom-1 right-2 text-xs text-red-400 uppercase">
+                            Viewed
+                          </div>
+                        ) : null}
+                      </div>
+                    </Link>
+                  ))}
                 </div>
-              }
-            />
-          )}
-        </>
+                <div className="mt-3 flex justify-center">
+                  <Pagination
+                    size="small"
+                    total={dataInfo.totalDocs}
+                    current={current}
+                    onChange={handlePageChange}
+                    pageSize={pageSize}
+                    responsive
+                    pageSizeOptions={["9", "18", "36", "50"]}
+                  />
+                </div>
+              </>
+            ) : (
+              <Empty
+                description={
+                  <div className="font-bold">
+                    No data yet. <br />
+                    Start your first exercise!
+                  </div>
+                }
+              />
+            )}
+          </>
+        )}
       </div>
     </MotionDiv>
   );
