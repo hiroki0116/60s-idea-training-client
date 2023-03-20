@@ -41,13 +41,11 @@ const ThreeDotsMenu = ({ ideaRecordId, setDeleteLoading }: Props) => {
 
   const menu = (
     <Menu onClick={toggleMenu} style={{ borderRadius: "0.5rem" }}>
-      <Menu.Item
-        key="1"
-        className="flex items-center tracking-wide"
-        onClick={() => setShowModal(true)}
-      >
-        <DeleteOutlined className="text-lg" />
-        Delete
+      <Menu.Item key="1" onClick={() => setShowModal(true)}>
+        <div className="flex items-center gap-2">
+          <DeleteOutlined className="text-lg" />
+          <p className="font-bold">Delete</p>
+        </div>
       </Menu.Item>
     </Menu>
   );
@@ -63,7 +61,7 @@ const ThreeDotsMenu = ({ ideaRecordId, setDeleteLoading }: Props) => {
         <EllipsisOutlined className="text-xl transform rotate-90" />
       </Dropdown>
       <Modal
-        visible={showModal}
+        open={showModal}
         onOk={handleDelete}
         okText="Yes"
         cancelText="Cancel"

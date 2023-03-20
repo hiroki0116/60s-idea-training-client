@@ -1,9 +1,12 @@
+import dynamic from "next/dynamic";
 // third parties
 import Card from "antd/lib/card";
 import ReactApexChart from "react-apexcharts";
 import barChart from "../utils/barChartConfig";
 // components
-import CenterSpin from "components/elements/CenterSpin";
+const CenterSpin = dynamic(() => import("components/elements/CenterSpin"), {
+  ssr: false,
+});
 import useFetchWeekly from "../hooks/useFetchWeekly";
 
 const BarChart = () => {

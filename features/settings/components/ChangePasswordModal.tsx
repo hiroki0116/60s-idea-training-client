@@ -22,7 +22,7 @@ const ChangePasswordModal = ({
 }: modalProps) => {
   return (
     <Modal
-      visible={showChangePasswordModal}
+      open={showChangePasswordModal}
       onCancel={() => {
         setShowChangePasswordModal(false);
       }}

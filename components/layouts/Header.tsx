@@ -7,6 +7,7 @@ import Dropdown from "antd/lib/dropdown";
 import Menu from "antd/lib/menu";
 import Switch from "antd/lib/switch";
 import BellFilled from "@ant-design/icons/BellFilled";
+import type { MenuProps } from "antd";
 //Components
 import MobileMenu from "./MobileMenu";
 
@@ -24,13 +25,12 @@ const Header = ({ pathname }) => {
 
   useEffect(() => window.scrollTo(0, 0));
 
-  const menu = (
-    <Menu className="rounded-lg max-w-sm whitespace-normal">
-      <Menu.Item>
-        <div className="text-gray-600">No, notification yet</div>
-      </Menu.Item>
-    </Menu>
-  );
+  const items: MenuProps["items"] = [
+    {
+      label: "No notification yet",
+      key: "0",
+    },
+  ];
 
   return (
     <div
@@ -50,20 +50,20 @@ const Header = ({ pathname }) => {
           checked={currentTheme === "dark"}
           style={{ background: "#0f172a" }}
         />
-        <div className="sm:block hidden">
+        <div className="sm:flex sm:items-center hidden ">
           <Badge size="small">
             <Dropdown
-              overlay={menu}
+              menu={{ items }}
               trigger={["click"]}
               placement="bottomRight"
               className="text-lg"
             >
-              <BellFilled className="text-lg" />
+              <BellFilled className="text-lg text-white" />
             </Dropdown>
           </Badge>
         </div>
       </div>
-      <div className="sm:hidden block">
+      <div className="md:hidden block">
         <MobileMenu />
       </div>
     </div>

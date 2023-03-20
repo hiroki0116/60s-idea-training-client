@@ -36,6 +36,10 @@ module.exports = {
       danger: "#e3342f",
     }),
     extend: {
+      colors: {
+        primary: "#0a2339",
+        dark: "#4ade80",
+      },
       fontSize: {
         xs: "10px",
         sm: "14px",
@@ -56,7 +60,7 @@ module.exports = {
         normal: 400,
         medium: 500,
         semibold: 600,
-        bold: 700,
+        bold: 800,
         extrabold: 900,
       },
       backgroundColor: ["group-hover"],

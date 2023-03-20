@@ -25,7 +25,6 @@ export const useSubmit = ({
   loading: boolean;
   results: IIdeas[];
   dataInfo: { totalDocs: number };
-  handleSubmit: () => Promise<void>;
 } => {
   const [loading, setLoading] = useState<boolean>(false);
   const [results, setResults] = useState<IIdeas[]>();
@@ -73,5 +72,5 @@ export const useSubmit = ({
     isLiked,
   ]);
 
-  return { results, dataInfo, loading, handleSubmit };
+  return { results, dataInfo, loading };
 };

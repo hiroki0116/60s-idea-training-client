@@ -20,19 +20,19 @@ const SettingSection = () => {
         Account
       </div>
 
-      <div className="flex place-content-center dark:bg-slate-800">
+      <div className="flex dark:bg-slate-800">
         <Card
           hoverable
-          className="text-center w-full dark:bg-slate-900 dark:border-none hover:dark:bg-slate-800"
+          className="w-full dark:bg-slate-900 dark:border-none hover:dark:bg-slate-800"
           style={{ borderRadius: "0.5rem", margin: "1rem" }}
           onClick={() => setShowChangeEmailModal(!showChangeEmailModal)}
         >
           <Meta
             title={
-              <div style={{ textAlign: "center" }}>
+              <div className="flex justify-center mb-2">
                 <Avatar
                   size={60}
-                  className="bg-gray-800 mb-3"
+                  className="bg-gray-800"
                   gap={0}
                   icon={<MailOutlined className="w-full" />}
                 />
@@ -40,7 +40,7 @@ const SettingSection = () => {
             }
             description={
               <>
-                <div className="text-gray-700 font-bold dark:text-white">
+                <div className="text-center text-gray-700 font-bold dark:text-white">
                   Change Email
                 </div>
               </>
@@ -50,16 +50,16 @@ const SettingSection = () => {
 
         <Card
           hoverable
-          className="text-center w-full dark:bg-slate-900 dark:border-none hover:dark:bg-slate-800"
+          className="w-full dark:bg-slate-900 dark:border-none hover:dark:bg-slate-800"
           style={{ borderRadius: "0.5rem", margin: "1rem" }}
           onClick={() => setShowChangePasswordModal(!showChangePasswordModal)}
         >
           <Meta
             title={
-              <div style={{ textAlign: "center" }}>
+              <div className="flex justify-center mb-2">
                 <Avatar
                   size={60}
-                  className="bg-gray-800 mb-3"
+                  className="bg-gray-800"
                   gap={0}
                   icon={<KeyOutlined className="w-full" />}
                 />
@@ -67,7 +67,7 @@ const SettingSection = () => {
             }
             description={
               <>
-                <div className="text-gray-700 font-bold dark:text-white">
+                <div className="text-center text-gray-700 font-bold dark:text-white">
                   Change Password
                 </div>
               </>

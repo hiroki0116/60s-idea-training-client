@@ -30,7 +30,7 @@ const ChangeEmailModal = ({
 }: modalProps) => {
   return (
     <Modal
-      visible={showChangeEmailModal}
+      open={showChangeEmailModal}
       onCancel={() => {
         setShowChangeEmailModal(false);
       }}

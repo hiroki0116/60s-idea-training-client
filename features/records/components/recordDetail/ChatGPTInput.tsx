@@ -1,11 +1,13 @@
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import Button from "antd/lib/button";
 import Input from "antd/lib/input";
 import message from "antd/lib/message";
 import ExperimentOutlined from "@ant-design/icons/ExperimentOutlined";
 import { Configuration, OpenAIApi } from "openai";
-
-import CenterSpin from "components/elements/CenterSpin";
+const CenterSpin = dynamic(() => import("components/elements/CenterSpin"), {
+  ssr: false,
+});
 
 const ChatGPTInput = ({
   comment,
@@ -33,7 +35,7 @@ const ChatGPTInput = ({
   };
 
   return (
-    <div className="mb-2">
+    <div className="my-3">
       {show ? (
         loading ? (
           <CenterSpin />
@@ -55,10 +57,10 @@ const ChatGPTInput = ({
       ) : (
         <Button
           type="primary"
-          size="small"
           onClick={() => {
             setShow(true);
           }}
+          className="rounded"
           disabled={loading}
           icon={<ExperimentOutlined />}
         >

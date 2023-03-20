@@ -26,7 +26,7 @@ const RegisterModal = () => {
 
   return (
     <Modal
-      visible={showRegister}
+      open={showRegister}
       onCancel={() => {
         setShowRegister(false);
       }}
@@ -141,39 +141,6 @@ const Register = () => {
       e.preventDefault();
     }
   };
-
-  // const commonItem = () => {
-
-  //   return (
-  //     <>
-
-  //       <div className="flex items-start mb-8">
-  //         <div className="mr-2">
-  //           <Checkbox checked={terms} onChange={(e) => setTerms(e.target.checked)}></Checkbox>
-  //         </div>
-
-  //         <div className="font-dark-gray">
-  //           I agree to 60seconds Idea Training&nbsp;
-  //           <Link href="#">
-  //             <a target="_blank">
-  //               <Button type="link" className="whitespace-normal h-auto p-0">
-  //                 Terms of Service
-  //               </Button>
-  //             </a>
-  //           </Link>
-  //           &nbsp;and&nbsp;
-  //           <Link href="#">
-  //             <a target="_blank">
-  //               <Button type="link" className="whitespace-normal h-auto p-0">
-  //                   Privacy Policy
-  //               </Button>
-  //             </a>
-  //           </Link>
-  //         </div>
-  //       </div>
-  //     </>
-  //   );
-  // };
 
   const emailForm = () => (
     <Form form={form} onFinish={handleSubmit} onKeyPress={handleFormOnKeyPress}>
