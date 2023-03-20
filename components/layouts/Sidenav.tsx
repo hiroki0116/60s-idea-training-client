@@ -25,9 +25,7 @@ const Sidenav = () => {
     <>
       <div className="h-10 p-2">
         <Link href="/dashboard">
-          <a className="">
-            <Image src={LOGO_IMAGE} width={200} height={50} alt="CompanyLogo" />
-          </a>
+          <Image src={LOGO_IMAGE} width={200} height={50} alt="CompanyLogo" />
         </Link>
       </div>
       <Divider key={Math.random()} />
@@ -36,44 +34,36 @@ const Sidenav = () => {
           key="1"
           className={router.pathname === "/dashboard" && selectedStyle}
         >
-          <Link href={"/dashboard"}>
-            <a className="flex items-center">
-              <AppstoreFilled style={{ fontSize: "1.25rem" }} />
-              Dashboard
-            </a>
+          <Link href={"/dashboard"} className="flex items-center">
+            <AppstoreFilled style={{ fontSize: "1.25rem" }} />
+            Dashboard
           </Link>
         </Menu.Item>
         <Menu.Item
           key="2"
           className={router.pathname === "/exercise" && selectedStyle}
         >
-          <Link href={"/exercise"}>
-            <a className="flex items-center">
-              <FireFilled style={{ fontSize: "1.25rem" }} />
-              Exercise
-            </a>
+          <Link href={"/exercise"} className="flex items-center">
+            <FireFilled style={{ fontSize: "1.25rem" }} />
+            Exercise
           </Link>
         </Menu.Item>
         <Menu.Item
           key="3"
           className={router.pathname === "/records" && selectedStyle}
         >
-          <Link href={"/records"}>
-            <a className="flex items-center">
-              <SignalFilled style={{ fontSize: "1.25rem" }} />
-              Records
-            </a>
+          <Link href={"/records"} className="flex items-center">
+            <SignalFilled style={{ fontSize: "1.25rem" }} />
+            Records
           </Link>
         </Menu.Item>
         <Menu.Item
           key="4"
           className={router.pathname === "/settings" && selectedStyle}
         >
-          <Link href={"/settings"}>
-            <a className="flex items-center">
-              <SettingFilled style={{ fontSize: "1.25rem" }} />
-              Settings
-            </a>
+          <Link href={"/settings"} className="flex items-center">
+            <SettingFilled style={{ fontSize: "1.25rem" }} />
+            Settings
           </Link>
         </Menu.Item>
         <Menu.Divider key={Math.random()} />

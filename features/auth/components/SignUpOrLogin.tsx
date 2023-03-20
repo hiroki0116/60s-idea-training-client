@@ -24,7 +24,7 @@ const SignUpOrLoginModal = () => {
 
   return (
     <Modal
-      visible={showLoginOrRegister}
+      open={showLoginOrRegister}
       onCancel={toggleModal}
       footer={null}
       maskClosable={false}

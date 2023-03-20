@@ -68,7 +68,7 @@ const SubmitSection = () => {
           <Button
             className="uppercase tracking-wide w-20 shadow dark:text-green-400"
             shape="round"
-            type="primary"
+            // type="primary"
             disabled={isPlaying}
             onClick={handleEnter}
             onKeyPress={handleEnter}

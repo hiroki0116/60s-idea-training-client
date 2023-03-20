@@ -19,8 +19,8 @@ const ExerciseMain = () => {
     useContext(ExerciseContext);
 
   return (
-    <div className="flex flex-col sm:grid sm:grid-cols-5 gap-8 w-full">
-      <div className="sm:col-span-3 flex flex-col bg-white p-5 rounded-xl shadow-lg dark:bg-slate-800">
+    <div className="flex flex-col md:grid md:grid-cols-5 gap-8 w-full">
+      <div className="md:col-span-3 flex flex-col bg-white p-5 rounded-xl shadow-lg dark:bg-slate-800">
         <motion.div initial="initial" animate="animate" variants={fadeInRight}>
           <Steps
             current={
@@ -72,7 +72,7 @@ const ExerciseMain = () => {
           <SubmitSection />
         </motion.div>
       </div>
-      <div className="sm:col-span-2 flex flex-col overflow-auto">
+      <div className="md:col-span-2 flex flex-col overflow-auto">
         <PreviousIdeaRecords />
       </div>
     </div>

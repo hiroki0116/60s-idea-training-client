@@ -1,7 +1,8 @@
+import router from "next/router";
+import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "features/auth/stores/context/authContext";
-import Link from "next/link";
-import router from "next/router";
 //Third Party
 import Avatar from "antd/lib/avatar";
 import AppstoreFilled from "@ant-design/icons/AppstoreFilled";
@@ -18,7 +19,9 @@ import { IUser } from "api-client/models/User";
 import LoginRequired from "features/auth/components/LoginRequired";
 import Header from "components/layouts/Header";
 import Footer from "components/layouts/Footer";
-import CenterSpin from "../../../components/elements/CenterSpin";
+const CenterSpin = dynamic(() => import("components/elements/CenterSpin"), {
+  ssr: false,
+});
 
 const DashboardLayoutWrapper = ({ children }) => {
   const [user, setUserInfo] = useState<IUser | undefined>(undefined);
@@ -27,8 +30,6 @@ const DashboardLayoutWrapper = ({ children }) => {
   useEffect(() => {
     setUserInfo(currAuthUser());
   }, []);
-
-  if (!isAuth()) return <LoginRequired />;
 
   const customCss = "text-3xl mb-1";
   const options = [
@@ -55,12 +56,13 @@ const DashboardLayoutWrapper = ({ children }) => {
   ];
 
   if (!user) return <CenterSpin />;
+  if (!isAuth()) return <LoginRequired />;
   return (
-    <div className="grid sm:grid-cols-7 grid-cols-1 w-full gap-6 p-5 bg-slate-100 dark:bg-slate-900 dark:text-green-500 min-h-screen">
+    <div className="grid md:grid-cols-7 grid-cols-1 w-full gap-6 p-5 bg-slate-100 dark:bg-slate-900 dark:text-green-500 min-h-screen">
       <div>
-        <div className="place-items-stretch shadow-lg p-2 rounded-lg bg-white sm:block hidden  dark:bg-slate-800">
+        <div className="place-items-stretch shadow-lg p-2 rounded-lg bg-white md:block hidden  dark:bg-slate-800">
           <div className="text-center py-2">
-            <div>
+            <div className="flex justify-center">
               {user?.images?.length && user?.images[0]?.url ? (
                 <Avatar src={user?.images[0]?.url} size={60} />
               ) : (
@@ -75,7 +77,7 @@ const DashboardLayoutWrapper = ({ children }) => {
           </div>
         </div>
 
-        <div className="sm:grid grid-cols-1 place-items-stretch rounded-lg bg-white shadow-lg mt-6 p-3 text-gray-400 sticky top-10 hidden  dark:bg-slate-800">
+        <div className="md:grid grid-cols-1 place-items-stretch rounded-lg bg-white shadow-lg mt-6 p-3 text-gray-400 sticky top-10 dark:bg-slate-800 hidden  ">
           {options.map((option, i) => {
             const style = `w-full rounded-lg transition duration-500 ease-in-out text-gray-500 hover:text-gray-800 hover:bg-blue-50 transform hover:-translate-y-1 mx-auto my-2 p-2 hover:scale-110 ${
               router.pathname === option.href && "bg-blue-50 text-gray-800"
@@ -88,16 +90,15 @@ const DashboardLayoutWrapper = ({ children }) => {
                   </div>
                 )}
                 <div className={style}>
-                  <Link href={option.href}>
-                    <button
-                      className={`m-auto w-full ${
-                        router.pathname === option.href &&
-                        "font-bold text-lg text-gray-800 dark:text-green-600"
-                      }`}
-                    >
-                      {option.icon}
-                      <div className="text-sm">{option.label}</div>
-                    </button>
+                  <Link
+                    href={option.href}
+                    className={`m-auto w-full ${
+                      router.pathname === option.href &&
+                      "font-bold text-lg text-gray-800 dark:text-green-600"
+                    }`}
+                  >
+                    <div className="text-center">{option.icon}</div>
+                    <div className="text-sm text-center">{option.label}</div>
                   </Link>
                 </div>
               </div>

@@ -1,4 +1,7 @@
-import CustomNavBar from "components/layouts/NavBar";
+import dynamic from "next/dynamic";
+const NavBar = dynamic(() => import("components/layouts/NavBar"), {
+  ssr: false,
+});
 import HeroSection from "features/portfolio/components/HeroSection";
 import PortfolioSection from "features/portfolio/components/PortfolioSection";
 import HomePageFooter from "features/landing/components/HomePageFooter";
@@ -6,7 +9,7 @@ import HomePageFooter from "features/landing/components/HomePageFooter";
 const Portfolio = () => {
   return (
     <>
-      <CustomNavBar />
+      <NavBar />
       <HeroSection />
       <PortfolioSection />
       <HomePageFooter />

@@ -53,13 +53,12 @@ const PortfolioSection = () => {
           {contents.map((item, index) => (
             <div className="flex flex-col w-full" key={index}>
               <div className="text-left bg-blue-100 rounded-lg shadow-lg px-8 py-3">
-                <Link href={item.url}>
-                  <a
-                    target="_blank"
-                    className="text-orange-500 text-16 font-bold cursor-pointer transform transition duration-500 hover:scale-110 underline underline-offset-4"
-                  >
-                    {item.title}
-                  </a>
+                <Link
+                  href={item.url}
+                  target="_blank"
+                  className="text-orange-500 text-16 font-bold cursor-pointer transform transition duration-500 hover:scale-110 underline underline-offset-4"
+                >
+                  {item.title}
                 </Link>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 my-5">
                   <Image

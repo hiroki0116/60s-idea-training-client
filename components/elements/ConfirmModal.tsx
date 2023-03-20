@@ -1,5 +1,5 @@
-import Modal from 'antd/lib/modal';
-import Button from 'antd/lib/button';
+import Modal from "antd/lib/modal";
+import Button from "antd/lib/button";
 
 type props = {
   showConfirm: boolean;
@@ -17,12 +17,12 @@ const ConfirmModal = ({
   handleConfirm,
   handleCancel,
   title,
-  confirmButtonText = 'Confirm',
-  cancelButtonText = 'Cancel'
+  confirmButtonText = "Confirm",
+  cancelButtonText = "Cancel",
 }: props) => {
   return (
     <Modal
-      visible={showConfirm}
+      open={showConfirm}
       footer={null}
       onCancel={() => setShowConfirm(false)}
       centered

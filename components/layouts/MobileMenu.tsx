@@ -18,48 +18,41 @@ const MobileMenu = () => {
   return (
     <>
       <Drawer
-        width="50vw"
+        width="45vw"
+        bodyStyle={{ paddingRight: "0", paddingLeft: "0" }}
         title={
           <>
-            <Avatar
-              size="large"
-              src={
-                currAuthUser()?.images?.length && currAuthUser()?.images[0].url
-              }
-              alt="user image"
-              style={{ marginBottom: "10px" }}
-            />
-
-            <Typography.Text ellipsis className="capitalize">
-              Welcome {currAuthUser()?.firstName} !
-            </Typography.Text>
+            <div className="flex justify-center">
+              <Avatar
+                size="large"
+                src={
+                  currAuthUser()?.images?.length &&
+                  currAuthUser()?.images[0].url
+                }
+                alt="user image"
+                style={{ marginBottom: "10px" }}
+              />
+            </div>
+            <p className="capitalize">Welcome {currAuthUser()?.firstName} !</p>
           </>
         }
         placement="right"
         closable={false}
         onClose={() => setVisible(false)}
-        visible={visible}
+        open={visible}
       >
-        <Menu>
+        <Menu inlineIndent={15} mode="inline">
           <Menu.Item>
-            <Link href="/dashboard">
-              <a>Dashboard</a>
-            </Link>
+            <Link href="/dashboard">Dashboard</Link>
           </Menu.Item>
           <Menu.Item>
-            <Link href="/exercise">
-              <a>Exercise</a>
-            </Link>
+            <Link href="/exercise">Exercise</Link>
           </Menu.Item>
           <Menu.Item>
-            <Link href="/records">
-              <a>Records</a>
-            </Link>
+            <Link href="/records">Records</Link>
           </Menu.Item>
           <Menu.Item>
-            <Link href="/settings">
-              <a>Settings</a>
-            </Link>
+            <Link href="/settings">Settings</Link>
           </Menu.Item>
 
           <Menu.Divider />

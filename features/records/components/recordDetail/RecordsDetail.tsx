@@ -1,5 +1,6 @@
-import { useState } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+import { useState } from "react";
 import { useTheme } from "next-themes";
 // Third Party
 import Tag from "antd/lib/tag";
@@ -17,19 +18,23 @@ import FileTextTwoTone from "@ant-design/icons/FileTextTwoTone";
 import LeftOutlined from "@ant-design/icons/LeftOutlined";
 import StarOutlined from "@ant-design/icons/StarOutlined";
 import StarFilled from "@ant-design/icons/StarFilled";
-// App
+// components
+import { openNotification } from "features/records/utils/antdNotification";
 import MotionDiv from "components/layouts/MotionDiv";
 import ThreeDotsMenu from "./ThreeDotsMenu";
-import { capitalizeFirst } from "utils/formatter";
-import { CATEGORIES } from "utils/constants";
-import { IIdeas } from "api-client/models/Ideas";
-import CenterSpin from "components/elements/CenterSpin";
+import ChatGPTInput from "./ChatGPTInput";
 import { useUpdateComment } from "features/records/hooks/useUpdateComment";
 import { useViewStatus } from "features/records/hooks/useViewStatus";
+const CenterSpin = dynamic(() => import("components/elements/CenterSpin"), {
+  ssr: false,
+});
 // utils
-import { openNotification } from "features/records/utils/antdNotification";
+import { CATEGORIES } from "utils/constants";
+import { capitalizeFirst } from "utils/formatter";
+// api
 import { recordRepository } from "api-client/repositories/record_repository";
-import ChatGPTInput from "./ChatGPTInput";
+// types
+import { IIdeas } from "api-client/models/Ideas";
 
 const { Option } = Select;
 
@@ -86,11 +91,8 @@ const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
   if (deleteLoading) return <CenterSpin />;
   return (
     <MotionDiv>
-      <Link href={"/records"}>
-        <a className="text-blue-500 flex items-center gap-1">
-          <LeftOutlined />{" "}
-          <span className="font-extrabold">Back to Records</span>
-        </a>
+      <Link href={"/records"} className="text-blue-500 flex items-center gap-1">
+        <LeftOutlined /> <span className="font-extrabold">Back to Records</span>
       </Link>
       <div className="grid grid-cols-1 bg-white p-5 rounded-xl shadow-lg sm:w-2/3 w-full mx-auto gap-2 relative dark:bg-slate-800">
         <div
@@ -139,10 +141,10 @@ const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
             {dayjs(ideaRecord?.createdAt).format("MMMM D YYYY h:mm A")}
           </div>
         </div>
-        <div className="flex items-center gap-2 text-gray-500 dark:text-green-400">
+        <div className="flex items-center gap-2 text-gray-500 dark:text-green-400 h-auto">
           <TagOutlined className="text-base" />
           <span>Category</span>
-          <div className="">
+          <div className="flex items-center">
             <Select
               bordered={false}
               defaultValue={ideaRecord?.category || "Other"}
@@ -151,12 +153,14 @@ const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
             >
               {CATEGORIES.map((cate, key) => (
                 <Option value={cate.value} key={key}>
-                  <Tag
-                    color={currentTheme === "dark" ? "green" : "cyan"}
-                    style={{ borderRadius: "0.5rem" }}
-                  >
-                    {cate.value}
-                  </Tag>
+                  <div>
+                    <Tag
+                      color={currentTheme === "dark" ? "green" : "cyan"}
+                      style={{ borderRadius: "0.5rem" }}
+                    >
+                      {cate.value}
+                    </Tag>
+                  </div>
                 </Option>
               ))}
             </Select>
@@ -166,7 +170,7 @@ const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
         <hr className="text-gray-100 my-5 dark:text-gray-700" />
 
         <div className="rounded-lg shadow-lg p-5 bg-slate-50 dark:bg-slate-900">
-          <div className="flex gap-2">
+          <div className="flex items-center gap-2 mb-1">
             <BulbTwoTone className="text-base" />
             <h3 className="text-base font-bold tracking-widest dark:text-green-400">
               IDEAS
@@ -181,7 +185,7 @@ const RecordsDetail = ({ ideaRecord }: { ideaRecord: IIdeas }) => {
           </div>
         </div>
         <div className="rounded-lg shadow-lg p-5 bg-slate-50 mt-3 dark:bg-slate-900">
-          <div className="flex gap-2 relative">
+          <div className="flex items-center gap-2 relative">
             <FileTextTwoTone className="text-base" />
             <h3 className="text-base font-bold tracking-widest dark:text-green-400">
               NOTES

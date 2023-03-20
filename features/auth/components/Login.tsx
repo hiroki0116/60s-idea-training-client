@@ -27,7 +27,7 @@ const LoginModal = () => {
 
   return (
     <Modal
-      visible={showLogin}
+      open={showLogin}
       onCancel={() => {
         setShowLogin(false);
       }}
@@ -130,41 +130,11 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
         );
         return;
       }
-      //   if (error.code === 'auth/wrong-password') {
-      //     if (attemptCount > 2) {
-      //       await handlePasswordLessLogin(email);
-      //       window.localStorage.setItem('emailForSignIn', email);
-      //       setPasswordLessSentMessage(`Check your email! We sent a link to ${email} to help you log in instantly.`);
-      //       return;
-      //     }
-      //     setAttemptCount(attemptCount + 1);
-      //   }
       message.error("Incorrect email or password.");
     } finally {
       setLoading(false);
     }
   };
-
-  //   const handlePasswordLessLogin = async (email: string) => {
-  //     try {
-  //       setLoading(true);
-
-  //       let continueUrl = window.location.href;
-  //       if (afterPath) {
-  //         continueUrl = `${window.location.href}${window.location.href.includes('?') ? '&' : '?'}afterPath=${afterPath}`;
-  //       }
-
-  //       await handlePasswordLessEmail(email, continueUrl);
-  //       window.localStorage.setItem('emailForSignIn', email);
-
-  //     } catch (error: any) {
-  //       const errorCode = error.code;
-  //       const errorMessage = error.message;
-  //       message.error(errorCode + errorMessage);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
 
   return (
     <Spin spinning={loading}>
@@ -234,8 +204,8 @@ const Login = ({ isToggle }: { isToggle?: boolean }) => {
           </Button>
           <div className="text-center text-gray-600">or</div>
           <Button
+            className="w-full rounded-lg flex items-center"
             icon={<GoogleOutlined />}
-            className="w-full rounded-lg"
             onClick={handleGoogleSignIn}
           >
             Log in with Google

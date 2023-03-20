@@ -1,6 +1,7 @@
+import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useTheme } from "next-themes";
 import { useState } from "react";
-import Link from "next/link";
 //Utils
 import { CATEGORIES, DEFAULT_CREATED_AT } from "utils/constants";
 //Third Party
@@ -13,12 +14,14 @@ import Switch from "antd/lib/switch";
 import TagOutlined from "@ant-design/icons/TagOutlined";
 import StarOutlined from "@ant-design/icons/StarOutlined";
 import StarFilled from "@ant-design/icons/StarFilled";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 //Components
 import MotionDiv from "components/layouts/MotionDiv";
-import CenterSpin from "components/elements/CenterSpin";
 import DatePicker from "components/elements/DatePicker";
+const CenterSpin = dynamic(() => import("components/elements/CenterSpin"), {
+  ssr: false,
+});
 //Hooks
 import { useSubmit } from "features/records/hooks/useSubmit";
 dayjs.extend(relativeTime);
@@ -30,18 +33,16 @@ const RecordsMain = () => {
   const [pageSize, setPageSize] = useState(9);
   const [sortByRecent, setSortByRecent] = useState(true);
   const [isLiked, setIsLiked] = useState<boolean>(false);
-  const [createdAtTo, setCreatedAtTo] = useState(dayjs().toISOString());
-  const [createdAtFrom, setCreatedAtFrom] = useState<string>(
-    dayjs(DEFAULT_CREATED_AT).toISOString()
-  );
+  const [createdAtFrom, setCreatedAtFrom] = useState<Dayjs>();
+  const [createdAtTo, setCreatedAtTo] = useState<Dayjs>();
   // hooks
   const { theme, systemTheme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
-  const { results, dataInfo, loading, handleSubmit } = useSubmit({
+  const { results, dataInfo, loading } = useSubmit({
     searchInput,
     category,
-    createdAtFrom,
-    createdAtTo,
+    createdAtFrom: createdAtFrom?.toISOString(),
+    createdAtTo: createdAtTo?.toISOString(),
     current,
     pageSize,
     sortByRecent,
@@ -57,6 +58,7 @@ const RecordsMain = () => {
     window.scroll(0, 0);
   };
 
+  if (loading) return <CenterSpin />;
   return (
     <MotionDiv>
       {/* Filter section */}
@@ -90,31 +92,25 @@ const RecordsMain = () => {
             </Select>
           </div>
           <div className="sm:w-1/6 w-full">
-            <div>From (optional)</div>
+            <div>From</div>
             <div>
               <DatePicker
                 className="w-full"
-                onChange={(date: any) => {
-                  const formattedCreatedAtFrom =
-                    date === null
-                      ? dayjs(DEFAULT_CREATED_AT).toISOString()
-                      : dayjs(date).startOf("day").toISOString();
-                  setCreatedAtFrom(formattedCreatedAtFrom);
+                value={createdAtFrom}
+                onChange={(date) => {
+                  setCreatedAtFrom(date);
                 }}
               />
             </div>
           </div>
           <div className="sm:w-1/6 w-full">
-            <div>To (optional)</div>
+            <div>To</div>
             <div>
               <DatePicker
                 className="w-full"
-                onChange={(date: any) => {
-                  const formattedCreatedAtTo =
-                    date === null
-                      ? dayjs().toISOString()
-                      : dayjs(date).endOf("day").toISOString();
-                  setCreatedAtTo(formattedCreatedAtTo);
+                value={createdAtTo}
+                onChange={(date) => {
+                  setCreatedAtTo(date);
                 }}
               />
             </div>
@@ -130,11 +126,10 @@ const RecordsMain = () => {
             onChange={() => setSortByRecent(!sortByRecent)}
             checkedChildren="Recent"
             unCheckedChildren="Older"
-            className="shadow"
           />
         </div>
         <div
-          className="flex flex-col absolute sm:top-4 top-6  sm:left-28 left-24 sm:text-lg text-xl cursor-pointer transform transition duration-500 hover:scale-110"
+          className="flex flex-col place-items-center absolute sm:top-4 top-6 md:left-32 left-24 sm:text-lg text-xl cursor-pointer transform transition duration-500 hover:scale-110"
           onClick={() => {
             setIsLiked(!isLiked);
           }}
@@ -142,105 +137,100 @@ const RecordsMain = () => {
           {isLiked ? <StarFilled /> : <StarOutlined />}{" "}
           <div className="text-xs sm:block hidden">Favorites</div>
         </div>
-        {loading ? (
-          <CenterSpin />
-        ) : (
-          <>
-            {!loading && results?.length ? (
-              <>
-                <div className="sm:mb-3 mb-5 flex sm:justify-center justify-end w-full">
-                  <Pagination
-                    size="small"
-                    total={dataInfo.totalDocs}
-                    current={current}
-                    onChange={handlePageChange}
-                    pageSize={pageSize}
-                    responsive
-                    pageSizeOptions={["9", "18", "36", "50"]}
-                  />
-                </div>
-                <div className="grid sm:grid-cols-3 grid-cols-1 gap-5 w-full">
-                  {results.map((result) => (
-                    <Link key={result._id} href={`/records/${result._id}`}>
-                      <div
-                        className={`relative rounded-xl mb-2 p-5 shadow-lg border border-purple-100  hover:bg-purple-50 cursor-pointer dark:bg-slate-900 hover:dark:bg-slate-700 dark:border-none ${
-                          result.viewed ? "bg-white" : "bg-blue-50"
-                        }`}
-                      >
-                        <div className="absolute top-1 left-4 text-base cursor-pointer">
-                          {result?.isLiked ? <StarFilled /> : <StarOutlined />}
-                        </div>
-                        <div className="absolute top-1 right-0 text-gray-500 text-xs">
-                          {dayjs(result?.createdAt).fromNow()}
+        <>
+          {!loading && results?.length ? (
+            <>
+              <div className="sm:mb-3 mb-5 flex sm:justify-center justify-end w-full">
+                <Pagination
+                  size="small"
+                  total={dataInfo.totalDocs}
+                  current={current}
+                  onChange={handlePageChange}
+                  pageSize={pageSize}
+                  responsive
+                  pageSizeOptions={["9", "18", "36", "50"]}
+                />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-5 w-full">
+                {results.map((result) => (
+                  <Link key={result._id} href={`/records/${result._id}`}>
+                    <div
+                      className={`relative rounded-xl mb-2 p-5 shadow-lg border border-purple-100  hover:bg-purple-50 cursor-pointer dark:bg-slate-900 hover:dark:bg-slate-700 dark:border-none ${
+                        result.viewed ? "bg-white" : "bg-blue-50"
+                      }`}
+                      style={{ minHeight: "200px" }}
+                    >
+                      <div className="absolute top-1 left-4 text-base cursor-pointer">
+                        {result?.isLiked ? <StarFilled /> : <StarOutlined />}
+                      </div>
+                      <div className="absolute top-1 right-0 text-gray-500 text-xs">
+                        {dayjs(result?.createdAt).fromNow()}
+                        <Tag
+                          color="cyan"
+                          style={{
+                            borderRadius: "0.5rem",
+                            marginLeft: "5px",
+                          }}
+                          icon={<TagOutlined />}
+                        >
+                          {result?.category && result?.category.length
+                            ? result?.category
+                            : "Others"}
+                        </Tag>
+                      </div>
+                      <h3 className="border-l-4 pl-2 text-16 font-bold tracking-wide text-gray-700 my-4 dark:text-green-400">
+                        {result.topicTitle}
+                      </h3>
+                      {result.ideas.map((idea, index) => (
+                        <div
+                          key={index}
+                          className="mb-1 whitespace-pre-wrap break-normal"
+                        >
                           <Tag
-                            color="cyan"
+                            color={currentTheme === "dark" ? "green" : "purple"}
                             style={{
                               borderRadius: "0.5rem",
-                              marginLeft: "5px",
+                              overflowWrap: "normal",
+                              wordBreak: "normal",
+                              whiteSpace: "normal",
                             }}
-                            icon={<TagOutlined />}
                           >
-                            {result?.category && result?.category.length
-                              ? result?.category
-                              : "Others"}
+                            - {idea}
                           </Tag>
                         </div>
-                        <h3 className="border-l-4 pl-2 text-16 font-bold tracking-wide text-gray-700 my-4 dark:text-green-400">
-                          {result.topicTitle}
-                        </h3>
-                        {result.ideas.map((idea, index) => (
-                          <div
-                            key={index}
-                            className="mb-1 whitespace-pre-wrap break-normal"
-                          >
-                            <Tag
-                              color={
-                                currentTheme === "dark" ? "green" : "purple"
-                              }
-                              style={{
-                                borderRadius: "0.5rem",
-                                overflowWrap: "normal",
-                                wordBreak: "normal",
-                                whiteSpace: "normal",
-                              }}
-                            >
-                              - {idea}
-                            </Tag>
-                          </div>
-                        ))}
-                        {result.viewed ? (
-                          <div className="absolute bottom-1 right-2 text-xs text-red-400 uppercase">
-                            Viewed
-                          </div>
-                        ) : null}
-                      </div>
-                    </Link>
-                  ))}
+                      ))}
+                      {result.viewed ? (
+                        <div className="absolute bottom-1 right-2 text-xs text-red-400 uppercase">
+                          Viewed
+                        </div>
+                      ) : null}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <div className="mt-3 flex justify-center">
+                <Pagination
+                  size="small"
+                  total={dataInfo.totalDocs}
+                  current={current}
+                  onChange={handlePageChange}
+                  pageSize={pageSize}
+                  responsive
+                  pageSizeOptions={["9", "18", "36", "50"]}
+                />
+              </div>
+            </>
+          ) : (
+            <Empty
+              description={
+                <div className="font-bold">
+                  No data yet. <br />
+                  Start your first exercise!
                 </div>
-                <div className="mt-3 flex justify-center">
-                  <Pagination
-                    size="small"
-                    total={dataInfo.totalDocs}
-                    current={current}
-                    onChange={handlePageChange}
-                    pageSize={pageSize}
-                    responsive
-                    pageSizeOptions={["9", "18", "36", "50"]}
-                  />
-                </div>
-              </>
-            ) : (
-              <Empty
-                description={
-                  <div className="font-bold">
-                    No data yet. <br />
-                    Start your first exercise!
-                  </div>
-                }
-              />
-            )}
-          </>
-        )}
+              }
+            />
+          )}
+        </>
       </div>
     </MotionDiv>
   );
