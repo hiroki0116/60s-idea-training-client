@@ -11,14 +11,12 @@ import {
 import { IUser } from "api-client/models/User";
 // utils
 import isEmpty from "lodash/isEmpty";
-// types
-import { MessageApi } from "antd/lib/message";
 
 type GoogleLoginProps = {
   setLoading: (boolean) => void;
   setShowLogin: (boolean) => void;
   setUser: (IUser) => void;
-  message: MessageApi;
+  message: any;
   router: NextRouter;
 };
 
