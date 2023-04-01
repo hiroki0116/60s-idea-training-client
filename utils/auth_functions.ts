@@ -177,8 +177,7 @@ export const signInWithCustomTokens = async (token: string) => {
   }
 };
 
-export const handleLogout = (setUser) => {
+export const handleLogout = () => {
   auth.signOut();
-  setUser(null);
   logoutToHomePage();
 };

@@ -27,6 +27,8 @@ const DashboardLayoutWrapper = ({ children }) => {
   const [user, setUserInfo] = useState<IUser | undefined>(undefined);
   const { setUser } = useContext(AuthContext);
 
+  console.log("wrapper hitttt");
+
   useEffect(() => {
     setUserInfo(currAuthUser());
   }, []);
@@ -105,13 +107,16 @@ const DashboardLayoutWrapper = ({ children }) => {
             );
           })}
           <div className="w-full rounded-lg transition duration-500 ease-in-out text-gray-500 hover:text-gray-800 hover:bg-blue-50 transform hover:-translate-y-1 mx-auto my-2 p-2 hover:scale-110">
-            <button className="m-auto w-full">
+            <div className="grid grid-cols-1 justify-items-center">
               <LogoutOutlined
                 className={customCss}
-                onClick={() => handleLogout(setUser)}
+                onClick={() => {
+                  setUser(null);
+                  handleLogout();
+                }}
               />
               <div className="text-sm">Logout</div>
-            </button>
+            </div>
           </div>
         </div>
       </div>

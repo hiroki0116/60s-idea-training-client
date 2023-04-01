@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Link from "next/link";
 
 const Footer = () => {
@@ -22,4 +23,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default memo(Footer);
