@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 //Third Party
 import Card from "antd/lib/card";
 import Avatar from "antd/lib/avatar";
@@ -13,7 +13,6 @@ const { Meta } = Card;
 const SettingSection = () => {
   const [showChangeEmailModal, setShowChangeEmailModal] = useState(false);
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
-
   return (
     <div className="bg-white rounded-lg shadow-lg dark:bg-slate-900">
       <div className="font-bold py-3 px-5 bg-blue-50 overflow-hidden rounded-t-lg text-base dark:text-slate-900">
@@ -85,4 +84,4 @@ const SettingSection = () => {
   );
 };
 
-export default SettingSection;
+export default memo(SettingSection);

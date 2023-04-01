@@ -13,7 +13,6 @@ import SettingSection from "features/settings/components/SettingSection";
 
 const ProfileSection = () => {
   const { user } = useContext(AuthContext);
-
   const embedImage = (url: string) => {
     return {
       backgroundImage: `url(${url})`,

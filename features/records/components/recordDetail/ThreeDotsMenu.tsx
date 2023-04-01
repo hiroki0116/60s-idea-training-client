@@ -2,7 +2,8 @@ import { useRouter } from "next/router";
 import { useState, memo } from "react";
 // third parties
 import Dropdown from "antd/lib/dropdown";
-import Menu from "antd/lib/menu";
+import Button from "antd/lib/button";
+import type { MenuProps } from "antd";
 import Modal from "antd/lib/modal";
 import message from "antd/lib/message";
 import EllipsisOutlined from "@ant-design/icons/EllipsisOutlined";
@@ -39,21 +40,25 @@ const ThreeDotsMenu = ({ ideaRecordId, setDeleteLoading }: Props) => {
     }
   };
 
-  const menu = (
-    <Menu onClick={toggleMenu} style={{ borderRadius: "0.5rem" }}>
-      <Menu.Item key="1" onClick={() => setShowModal(true)}>
-        <div className="flex items-center gap-2">
+  const items: MenuProps["items"] = [
+    {
+      key: "1",
+      label: (
+        <div
+          className="flex items-center gap-2"
+          onClick={() => setShowModal(true)}
+        >
           <DeleteOutlined className="text-lg" />
           <p className="font-bold">Delete</p>
         </div>
-      </Menu.Item>
-    </Menu>
-  );
+      ),
+    },
+  ];
 
   return (
     <>
       <Dropdown
-        overlay={menu}
+        menu={{ items, onClick: toggleMenu }}
         trigger={["click"]}
         placement="bottomLeft"
         className="text-lg"
@@ -62,17 +67,18 @@ const ThreeDotsMenu = ({ ideaRecordId, setDeleteLoading }: Props) => {
       </Dropdown>
       <Modal
         open={showModal}
-        onOk={handleDelete}
-        okText="Yes"
-        cancelText="Cancel"
-        onCancel={() => {
-          setShowModal(false);
-        }}
         width={350}
+        title="Are you sure to delete?"
+        footer={null}
       >
-        <span className="text-gray-800 font-semibold text-lg text-center mt-5">
-          Are you sure to delete?
-        </span>
+        <div className="flex justify-end gap-5 pt-5">
+          <Button onClick={() => setShowModal(false)} type="default">
+            Cancel
+          </Button>
+          <Button onClick={handleDelete} type="primary">
+            Yes
+          </Button>
+        </div>
       </Modal>
     </>
   );
