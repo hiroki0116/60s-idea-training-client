@@ -50,8 +50,7 @@ const barChart = ({
 
     plotOptions: {
       bar: {
-        columnWidth: "55%",
-        borderRadius: 5,
+        columnWidth: "50%",
       },
     },
 
