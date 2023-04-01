@@ -41,7 +41,7 @@ module.exports = {
         dark: "#4ade80",
       },
       fontSize: {
-        xs: "10px",
+        xs: "12px",
         sm: "14px",
         base: "16px",
         lg: "18px",
