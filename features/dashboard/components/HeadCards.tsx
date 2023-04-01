@@ -58,7 +58,9 @@ const HeadCards = () => {
                         value={todaySessions || 0}
                         formatter={formatter}
                       />
-                      <span className="text-sm text-gray-400">Sessions</span>
+                      <span className="text-xs sm:text-sm text-gray-400">
+                        Sessions
+                      </span>
                     </div>
                     <div className="border-l-[1.5px] text-gray-400" />
                     <div className="flex flex-col text-center">
@@ -68,7 +70,9 @@ const HeadCards = () => {
                           formatter={formatter}
                         />
                       </div>
-                      <span className="text-sm text-gray-400">Ideas</span>
+                      <span className="text-xs sm:text-sm text-gray-400">
+                        Ideas
+                      </span>
                     </div>
                   </div>
                 </div>

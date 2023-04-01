@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, memo } from "react";
 //Components
 import { AuthContext } from "features/auth/stores/context/authContext";
 import ConfirmModal from "components/elements/ConfirmModal";
@@ -21,7 +21,6 @@ const ProfileImage = () => {
   const { setUser } = useContext(AuthContext);
   const { showConfirm, setShowConfirm, deleteLoading, handleDeleteAvatar } =
     useDeleteProfileImage();
-
   const onDragLeave = () => setDragOver(false);
   const onDragOver = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -163,4 +162,4 @@ const ProfileImage = () => {
   );
 };
 
-export default ProfileImage;
+export default memo(ProfileImage);

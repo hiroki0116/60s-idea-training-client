@@ -1,7 +1,7 @@
 import router from "next/router";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { useState, useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AuthContext } from "features/auth/stores/context/authContext";
 //Third Party
 import Avatar from "antd/lib/avatar";
@@ -11,10 +11,9 @@ import FireFilled from "@ant-design/icons/FireFilled";
 import SignalFilled from "@ant-design/icons/SignalFilled";
 import SettingFilled from "@ant-design/icons/SettingFilled";
 //Utils
-import { currAuthUser, isAuth } from "utils/auth_functions";
+import { isAuth } from "utils/auth_functions";
 import { capitalizeFirst } from "utils/formatter";
 import { handleLogout } from "utils/auth_functions";
-import { IUser } from "api-client/models/User";
 //Components
 import LoginRequired from "features/auth/components/LoginRequired";
 import Header from "components/layouts/Header";
@@ -24,13 +23,7 @@ const CenterSpin = dynamic(() => import("components/elements/CenterSpin"), {
 });
 
 const DashboardLayoutWrapper = ({ children }) => {
-  const [user, setUserInfo] = useState<IUser | undefined>(undefined);
-  const { setUser } = useContext(AuthContext);
-
-  useEffect(() => {
-    setUserInfo(currAuthUser());
-  }, []);
-
+  const { user, setUser } = useContext(AuthContext);
   const customCss = "text-3xl mb-1";
   const options = [
     {
@@ -105,13 +98,16 @@ const DashboardLayoutWrapper = ({ children }) => {
             );
           })}
           <div className="w-full rounded-lg transition duration-500 ease-in-out text-gray-500 hover:text-gray-800 hover:bg-blue-50 transform hover:-translate-y-1 mx-auto my-2 p-2 hover:scale-110">
-            <button className="m-auto w-full">
+            <div className="grid grid-cols-1 justify-items-center">
               <LogoutOutlined
                 className={customCss}
-                onClick={() => handleLogout(setUser)}
+                onClick={() => {
+                  setUser(null);
+                  handleLogout();
+                }}
               />
               <div className="text-sm">Logout</div>
-            </button>
+            </div>
           </div>
         </div>
       </div>

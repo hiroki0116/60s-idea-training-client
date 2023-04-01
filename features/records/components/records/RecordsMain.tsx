@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import { useTheme } from "next-themes";
 import { useState } from "react";
 //Utils
-import { CATEGORIES, DEFAULT_CREATED_AT } from "utils/constants";
+import { CATEGORIES } from "utils/constants";
 //Third Party
 import AutoComplete from "antd/lib/auto-complete";
 import Select from "antd/lib/select";

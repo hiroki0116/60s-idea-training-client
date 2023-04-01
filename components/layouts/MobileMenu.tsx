@@ -3,7 +3,6 @@ import Link from "next/link";
 import { AuthContext } from "features/auth/stores/context/authContext";
 import Menu from "antd/lib/menu";
 import Avatar from "antd/lib/avatar";
-import Typography from "antd/lib/typography";
 import Drawer from "antd/lib/drawer";
 import _ from "lodash";
 import MenuOutlined from "@ant-design/icons/MenuFoldOutlined";
@@ -57,7 +56,14 @@ const MobileMenu = () => {
 
           <Menu.Divider />
 
-          <Menu.Item onClick={() => handleLogout(setUser)}>Logout</Menu.Item>
+          <Menu.Item
+            onClick={() => {
+              handleLogout();
+              setUser(null);
+            }}
+          >
+            Logout
+          </Menu.Item>
         </Menu>
       </Drawer>
 

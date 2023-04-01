@@ -17,10 +17,8 @@ interface ExerciseContext {
   setIdeas: (ideas: string[]) => void;
   prevSessions: IIdeas[];
   loadingPrevSessions: boolean;
-  showFirstSection: boolean;
-  setShowFirstSection: (showFirstSection: boolean) => void;
-  showSubmitSection: boolean;
-  setShowSubmitSection: (showSubmitSection: boolean) => void;
+  currentStep: stepEnum;
+  setCurrentStep: (step: stepEnum) => void;
   handleNext: () => void;
   handleBack: () => void;
   isPlaying: boolean;
@@ -38,10 +36,8 @@ const initialValue = {
   setIdeas: () => {},
   prevSessions: [],
   loadingPrevSessions: false,
-  showFirstSection: true,
-  setShowFirstSection: () => {},
-  showSubmitSection: false,
-  setShowSubmitSection: () => {},
+  currentStep: stepEnum.firstSection,
+  setCurrentStep: () => {},
   handleNext: () => {},
   handleBack: () => {},
   isPlaying: false,
@@ -57,8 +53,9 @@ export const ExerciseProfileProvider = ({ children }) => {
   const [topicTitle, setTopicTitle] = useState<string | undefined>("");
   const [category, setCategory] = useState<string>("");
   const [ideas, setIdeas] = useState<string[]>([]);
-  const [showFirstSection, setShowFirstSection] = useState<boolean>(true);
-  const [showSubmitSection, setShowSubmitSection] = useState<boolean>(false);
+  const [currentStep, setCurrentStep] = useState<stepEnum>(
+    stepEnum.firstSection
+  );
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [createLoading, setCreateLoading] = useState<boolean>(false);
@@ -69,13 +66,11 @@ export const ExerciseProfileProvider = ({ children }) => {
   }, []);
 
   const handleNext = () => {
-    setShowFirstSection(false);
-    setShowSubmitSection(true);
+    setCurrentStep(stepEnum.submitSection);
   };
 
   const handleBack = () => {
-    setShowFirstSection(true);
-    setShowSubmitSection(false);
+    setCurrentStep(stepEnum.firstSection);
   };
 
   const handleSubmit = async () => {
@@ -121,12 +116,10 @@ export const ExerciseProfileProvider = ({ children }) => {
     ideas,
     setIdeas,
     prevSessions,
+    currentStep,
+    setCurrentStep,
     // loadingPrevSessions:getMostRecentIdeaRecordsRes?.loading,
     loadingPrevSessions: loading,
-    showFirstSection,
-    setShowFirstSection,
-    showSubmitSection,
-    setShowSubmitSection,
     handleNext,
     handleBack,
     isPlaying,

@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext } from "react";
 
-import { setCookie } from "utils/auth_functions";
+import { currAuthUser, setCookie } from "utils/auth_functions";
 import { auth } from "../../../../config/firebase";
 
 type AuthContent = {
@@ -57,6 +57,7 @@ export const AuthProvider = ({ children }) => {
     useState(false);
 
   useEffect(() => {
+    setUser(currAuthUser());
     const unsubscribe = auth.onIdTokenChanged(async (user) => {
       if (user) {
         const token = await user.getIdToken();

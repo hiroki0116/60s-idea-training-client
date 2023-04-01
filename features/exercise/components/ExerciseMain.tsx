@@ -12,64 +12,56 @@ import Steps from "antd/lib/steps";
 // utils
 import { fadeInRight } from "utils/animations";
 
-const { Step } = Steps;
-
 const ExerciseMain = () => {
-  const { showFirstSection, showSubmitSection, handleBack } =
-    useContext(ExerciseContext);
+  const { currentStep, setCurrentStep } = useContext(ExerciseContext);
+
+  const items = [
+    {
+      title: (
+        <div className="dark:text-green-400">
+          {currentStep === stepEnum.firstSection ? "Step 1" : "Completed"}
+        </div>
+      ),
+      description: "Choose your topic and category!",
+    },
+    {
+      title: (
+        <div className="dark:text-green-400">
+          {currentStep === stepEnum.submitSection ? "In Process" : "Step 2"}
+        </div>
+      ),
+      description: (
+        <div
+          className={`text-xs sm:text-center p-2 rounded-lg ${
+            currentStep === stepEnum.submitSection &&
+            "bg-yellow-50 font-bold dark:text-green-500 dark:bg-slate-900"
+          }`}
+        >
+          Elaborate <br />
+          your ideas!
+        </div>
+      ),
+      disabled: true,
+    },
+  ];
 
   return (
     <div className="flex flex-col md:grid md:grid-cols-5 gap-8 w-full">
       <div className="md:col-span-3 flex flex-col bg-white p-5 rounded-xl shadow-lg dark:bg-slate-800">
         <motion.div initial="initial" animate="animate" variants={fadeInRight}>
           <Steps
-            current={
-              showFirstSection ? stepEnum.firstSection : stepEnum.submitSection
-            }
-            style={{ flexDirection: "row" }}
-          >
-            <Step
-              title={
-                <div className="dark:text-green-400">
-                  {showFirstSection ? "Step 1" : "Completed"}
-                </div>
-              }
-              description={
-                <div
-                  className={`text-xs sm:text-center p-2 rounded-lg ${
-                    showFirstSection &&
-                    "bg-yellow-50 font-bold dark:text-green-500 dark:bg-slate-900"
-                  }`}
-                >
-                  Choose your topic and category!
-                </div>
-              }
-              status={showFirstSection ? "process" : "finish"}
-              onClick={handleBack}
-              className="cursor-pointer"
-            />
-            <Step
-              title={
-                <div className="dark:text-green-400">
-                  {showSubmitSection ? "In Process" : "Step 2"}
-                </div>
-              }
-              description={
-                <div
-                  className={`text-xs sm:text-center p-2 rounded-lg ${
-                    showSubmitSection &&
-                    "bg-yellow-50 font-bold dark:text-green-500 dark:bg-slate-900"
-                  }`}
-                >
-                  Elaborate <br />
-                  your ideas!
-                </div>
-              }
-              status={showSubmitSection ? "process" : "wait"}
-            />
-          </Steps>
-          <FirstSection />
-          <SubmitSection />
+            onChange={(value) => {
+              setCurrentStep(value);
+            }}
+            current={currentStep}
+            items={items}
+          />
+
+          {currentStep === stepEnum.firstSection ? (
+            <FirstSection />
+          ) : currentStep === stepEnum.submitSection ? (
+            <SubmitSection />
+          ) : null}
         </motion.div>
       </div>
       <div className="md:col-span-2 flex flex-col overflow-auto">

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import dynamic from "next/dynamic";
 // third parties
 import Card from "antd/lib/card";
@@ -41,4 +42,4 @@ const BarChart = () => {
   );
 };
 
-export default BarChart;
+export default memo(BarChart);

@@ -70,7 +70,10 @@ const Sidenav = () => {
         <Menu.Item
           key="5"
           className="font-bold"
-          onClick={() => handleLogout(setUser)}
+          onClick={() => {
+            handleLogout();
+            setUser(null);
+          }}
         >
           <div className="flex items-center">
             <LogoutOutlined style={{ fontSize: "1.25rem" }} />

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useContext } from "react";
+import { useContext, memo } from "react";
 import MotionDiv from "components/layouts/MotionDiv";
 import { ExerciseContext } from "features/exercise/stores/context/exerciseContext";
 // third parties
@@ -13,18 +13,13 @@ import Button from "antd/lib/button";
 import { IDEA_IMAGE, CATEGORIES } from "utils/constants";
 
 const FirstSection = () => {
-  const {
-    showFirstSection,
-    handleNext,
-    topicTitle,
-    setTopicTitle,
-    category,
-    setCategory,
-  } = useContext(ExerciseContext);
+  const { handleNext, topicTitle, setTopicTitle, category, setCategory } =
+    useContext(ExerciseContext);
+
   const handleChange = (value) => setCategory(value);
   const handleSelect = (value) => setCategory(value);
 
-  return showFirstSection ? (
+  return (
     <div className="flex flex-col mt-5">
       {topicTitle && topicTitle.length ? (
         <MotionDiv>
@@ -45,9 +40,16 @@ const FirstSection = () => {
         </MotionDiv>
       ) : null}
       <div className="flex justify-center dark:hidden">
-        <Image width={200} height={200} src={IDEA_IMAGE} alt="Idea image" />
+        <Image
+          width={150}
+          height={150}
+          src={IDEA_IMAGE}
+          alt="Idea image"
+          style={{ width: "auto", height: "auto" }}
+          priority
+        />
       </div>
-      <div className="mt-5 w-2/3 self-center">
+      <div className="mt-5 w-full sm:w-2/3 self-center">
         <Input
           allowClear
           size="large"
@@ -82,7 +84,7 @@ const FirstSection = () => {
         Next
       </Button>
     </div>
-  ) : null;
+  );
 };
 
-export default FirstSection;
+export default memo(FirstSection);
