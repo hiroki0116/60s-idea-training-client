@@ -13,7 +13,7 @@ const { TextArea } = Input;
 const SubmitSection = () => {
   const {
     topicTitle,
-    showSubmitSection,
+    currentStep,
     isPlaying,
     setIsPlaying,
     ideas,
@@ -49,9 +49,9 @@ const SubmitSection = () => {
 
   useEffect(() => {
     if (buttonRef?.current) buttonRef?.current.focus();
-  }, [showSubmitSection]);
+  }, [currentStep]);
 
-  return showSubmitSection ? (
+  return (
     <div className="flex flex-col mt-5">
       <Spin spinning={createLoading}>
         <div className="flex justify-center">
@@ -118,6 +118,6 @@ const SubmitSection = () => {
         ) : null}
       </Spin>
     </div>
-  ) : null;
+  );
 };
 export default SubmitSection;
